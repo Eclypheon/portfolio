@@ -11,6 +11,7 @@ import {
   Sparkles,
   ArrowUpRight,
   ShieldAlert,
+  Shield,
   Feather,
   ChevronRight
 } from 'lucide-react';
@@ -130,8 +131,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
               <span>Ex-ASEAN University Games Athlete (Canoeing)</span>
             </div>
             <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Ex-Military Regular</span>
+            </div>
+            <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-pink-400" />
-              <span>5 Orthopedic Surgeries Rebuilt</span>
+              <span>Chronic Pain Survivor</span>
             </div>
             <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
               <Server className="w-3.5 h-3.5 text-indigo-400" />
@@ -268,9 +273,8 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
             cannot simply &ldquo;take someone&apos;s word for it.&rdquo; I have to dismantle the clockwork, inspect every cog, and understand 
             why it moves the way it does.
           </p>
-          <p className="text-xs font-mono text-slate-400 pt-2 border-t border-white/5">
-            Survived early internet culture (from vintage 4chan lore to avoiding RuneScape and MapleStory trade scams in primary school), 
-            cultivating an early immunity to bad faith and social engineering.
+          <p className="text-xs font-mono text-slate-400 pt-2 border-t border-white/5 leading-relaxed">
+            Survived early internet culture (from vintage 4chan lore and perusing the Deep Web and Silk Road, to avoiding RuneScape and MapleStory trade scams in primary school), becoming largely desensitized to common decent human social niceties—hence, pardon my blunt demeanor. I am not upset, frustrated, nor agitated; I merely AM. <em>Cogito, ergo sum</em>.
           </p>
         </div>
       </section>
