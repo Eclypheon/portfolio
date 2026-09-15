@@ -103,16 +103,11 @@ export const App: React.FC = () => {
       <footer className="border-t border-white/10 bg-[#05060a] relative z-20 mt-20 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Identity & Dramaturgical Note */}
-            <div className="space-y-2 text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-2">
-                <div className="w-6 h-6 rounded bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold">
-                  K
-                </div>
-                <span className="font-bold text-white tracking-tight">Kester Neo (Eclypheon)</span>
-              </div>
-              <p className="text-xs text-slate-400 font-mono max-w-md">
-                Deep Generalist • Systems Architect • Ex-National Athlete • Low-Level Hacker
+            {/* Identity */}
+            <div className="space-y-1 text-center md:text-left">
+              <span className="font-bold text-lg text-white tracking-tight">Neo Kester</span>
+              <p className="text-xs text-slate-400 font-mono">
+                The Deep Generalist Matrix
               </p>
             </div>
 
@@ -146,13 +141,13 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Grave Peril / Basilisk Footer Warning */}
+          {/* Terra Incognita Footer Quote */}
           <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs font-mono text-slate-400">
-            <p className="italic">
-              &ldquo;Browse at your leisure and fancy, but tread carefully for grave peril may awaiteth thee on the path forward (don&apos;t worry about any basilisks though).&rdquo;
+            <p className="italic text-slate-300">
+              &ldquo;terra incognita, hic sunt dracones (Here be Dragons).&rdquo;
             </p>
-            <p className="shrink-0 text-slate-400">
-              © {new Date().getFullYear()} Kester Neo. Deployed on GitHub Pages.
+            <p className="shrink-0 text-slate-500">
+              © {new Date().getFullYear()} Neo Kester. Deployed on GitHub Pages.
             </p>
           </div>
         </div>

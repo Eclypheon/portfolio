@@ -1,6 +1,8 @@
-# Kester Neo (Eclypheon) — The Deep Generalist Matrix
+# Neo Kester — The Deep Generalist Matrix
 
-> *"Dramaturgically speaking, society demands that we wear a single tailored mask for a single stage. This site is the unmasking—a deliberate dumping ground of lived obsessions, where all masks coexist without pretense. Browse at your leisure and fancy, but tread carefully for grave peril may awaiteth thee on the path forward (don't worry about any basilisks though)."*
+> *"Dramaturgically speaking, society demands that we wear a single tailored mask for a single stage. In boardroom meetings, the executive suit; in engineering labs, the pragmatic terminal; in athletic arenas, the stoic competitor. This site is the unmasking—a deliberate dumping ground of lived obsession, where all masks coexist without pretense."*
+
+> *"terra incognita, hic sunt dracones (Here be Dragons)."*
 
 [![Deploy to GitHub Pages](https://github.com/Eclypheon/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/Eclypheon/portfolio/actions/workflows/deploy.yml)
 [![Live Site](https://img.shields.io/badge/Live-GitHub%20Pages-emerald?style=flat-square)](https://eclypheon.github.io/portfolio/)

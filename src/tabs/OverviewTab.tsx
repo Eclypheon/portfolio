@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
-  Compass, 
+  Volume2, 
+  ExternalLink, 
+  Play, 
   Terminal, 
-  Server, 
   BookOpen, 
-  Activity, 
-  ArrowUpRight, 
   Award, 
-  ShieldAlert, 
+  CheckCircle2, 
+  Activity, 
+  Zap, 
+  Server, 
   Sparkles,
-  Zap,
-  CheckCircle2,
-  ChevronRight
+  Maximize2,
+  ChevronRight,
+  ShieldAlert
 } from 'lucide-react';
 import { TabKey } from '../components/Navigation.tsx';
 import { sound } from '../components/AudioEngine.ts';
+import { GithubIcon } from '../components/GithubIcon.tsx';
 
 interface OverviewTabProps {
   onNavigate: (tab: TabKey) => void;
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
+  const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
+
+  const playPronunciation = () => {
+    sound.playClick(520, 0.08);
+  };
+
   return (
     <div className="space-y-16 py-8">
       {/* Hero Section */}
@@ -29,11 +38,11 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl space-y-6">
+        <div className="relative z-10 max-w-4xl space-y-8">
           {/* Status badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>OPERATIONAL // THE DEEP GENERALIST MATRIX</span>
+            <span>NEO KESTER // THE DEEP GENERALIST MATRIX</span>
           </div>
 
           {/* Headline */}
@@ -44,18 +53,57 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
             </span>
           </h1>
 
-          {/* Subtitle / Definition */}
-          <div className="p-6 rounded-2xl bg-[#0b0e17]/80 border border-white/10 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider">
-              <Compass className="w-4 h-4" />
-              <span>Taxonomy: The Deep Generalist</span>
+          {/* Dictionary Definition Card */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#0b0e17]/90 border border-white/15 shadow-2xl space-y-5 font-sans relative">
+            {/* Top lexical bar */}
+            <div className="flex flex-wrap items-baseline gap-3 border-b border-white/10 pb-4">
+              <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                deep gen·er·al·ist
+              </span>
+              <span className="text-sm sm:text-base font-mono text-emerald-400">
+                /diːp ˈdʒɛn.ər.ə.lɪst/
+              </span>
+              <button
+                onClick={playPronunciation}
+                title="Pronounce"
+                className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-emerald-300 transition-colors"
+              >
+                <Volume2 className="w-4 h-4" />
+              </button>
+              <span className="text-xs font-serif italic text-slate-400">
+                noun
+              </span>
+              <span className="text-xs font-mono text-slate-500 ml-auto">
+                plural: <strong>deep generalists</strong>
+              </span>
             </div>
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-              A <strong className="text-white font-semibold">Deep Generalist</strong> does not skim surfaces or accumulate party trivia. 
-              Instead, they possess the rare, obsessive cognitive appetite to descend to <span className="text-emerald-300">forensic architectural depths</span> across 
-              radically orthogonal disciplines—reconciling assembly opcodes with existential ontology, 
-              sprint canoe biomechanics with rootless container lifecycles, and quantitative options surfaces with corporate agile governance.
-            </p>
+
+            {/* Definitions */}
+            <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-2.5">
+                  <span className="font-mono text-xs font-bold text-emerald-400">1.</span>
+                  <p>
+                    An individual who cultivates <strong className="text-white font-semibold">forensic, architectural depth</strong> across multiple orthogonal disciplines—reconciling assembly opcodes with existential ontology, sprint canoe biomechanics with rootless container lifecycles, and quantitative finance with corporate agile governance.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-2.5">
+                  <span className="font-mono text-xs font-bold text-emerald-400">2.</span>
+                  <p>
+                    <span className="text-slate-400 italic text-xs uppercase tracking-wider block sm:inline mr-1">Cognitive:</span>
+                    One driven by intense, hyper-focused pattern-seeking who refuses the artificial division of reality into isolated corporate or academic silos; contrasted with <em>specialist</em> (siloed depth) and <em>dilettante</em> (superficial breadth).
+                  </p>
+                </div>
+              </div>
+
+              {/* Usage Example */}
+              <div className="pt-2 border-t border-white/5 text-xs text-slate-400 italic font-serif">
+                &ldquo;Rather than choosing between the silo and the surface, the deep generalist operates as an obsessive cartographer of intersecting realities.&rdquo;
+              </div>
+            </div>
           </div>
 
           {/* Goffman's Dramaturgical Statement */}
@@ -67,9 +115,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
             <blockquote className="text-sm sm:text-base text-slate-300 italic leading-relaxed">
               &ldquo;Dramaturgically speaking, society demands that we wear a single tailored mask for a single stage. 
               In boardroom meetings, the executive suit; in engineering labs, the pragmatic terminal; in athletic arenas, the stoic competitor. 
-              This site is the unmasking—a deliberate dumping ground of lived obsession, where all masks coexist without pretense. 
-              Browse at your leisure and fancy, but tread carefully for grave peril may awaiteth thee on the path forward 
-              <span className="text-emerald-400 not-italic font-mono text-xs ml-1">(don&apos;t worry about any basilisks though).</span>&rdquo;
+              This site is the unmasking—a deliberate dumping ground of lived obsession, where all masks coexist without pretense.&rdquo;
             </blockquote>
           </div>
 
@@ -99,203 +145,239 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* The 6 Matrix Domains */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              <span>The Interconnected Nodes</span>
-            </h2>
-            <p className="text-sm text-slate-400 font-mono mt-1">
-              Select a domain to inspect its technical architecture and artifacts
-            </p>
+      {/* Featured Exposed Creations (Only Bubble Tea, Finance Tracker & NoSleep Story) */}
+      <section className="space-y-8">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>SELECTED ARTIFACTS</span>
           </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
+            Featured Creations & Writing
+          </h2>
+          <p className="text-sm text-slate-400 max-w-2xl mt-1">
+            An interactive culinary simulation, a high-density asset dashboard, and a cosmic horror story.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1: Projects */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('projects');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:border-emerald-500/40 transition-colors">
-                  <Terminal className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-emerald-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <div className="space-y-8">
+          {/* 1. Bubble Tea Simulation Game */}
+          <div className="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/10 space-y-6 relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-md text-xs font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  Game Development // Unity WebGL
+                </span>
+                <span className="text-xs font-mono text-slate-400">
+                  ● Playable In-Browser
+                </span>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
-                  Interactive Projects & Code
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  Playable WebGL Bubble Tea simulation game, precision multi-asset dividend tracker, 3D Reality Cut Metroidvania engine, and CheerPlan Pro choreography suite.
-                </p>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://eclypheon.github.io/bubbletea/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => sound.playChirp()}
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(16,185,129,0.15)]"
+                >
+                  <span>Launch Game</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://github.com/Eclypheon/bubbletea"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => sound.playClick()}
+                  className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>Source</span>
+                </a>
               </div>
             </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-emerald-400">
-              <span>5 Active Systems</span>
-              <span className="flex items-center gap-1 group-hover:underline">Explore <ChevronRight className="w-3.5 h-3.5" /></span>
+
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Bubble Tea Sim & Economy Engine
+              </h3>
+              <p className="text-xs sm:text-sm text-emerald-300/90 font-mono">
+                Interactive culinary physics and customer queuing simulation built in Unity WebGL
+              </p>
+              <p className="text-sm text-slate-300 leading-relaxed pt-1">
+                A rich simulation game created from scratch featuring customer behavioral state machines, custom fluid pouring shaders, dynamic beverage validation pipelines, and Foley audio synthesized with FL Studio and Audacity.
+              </p>
+            </div>
+
+            {/* Embedded WebGL Player */}
+            <div className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                  <Play className="w-4 h-4 text-emerald-400" />
+                  <span>Interactive In-Browser Player</span>
+                </div>
+                <button
+                  onClick={() => setActiveEmbed(activeEmbed === 'bubbletea' ? null : 'bubbletea')}
+                  className="text-xs font-mono px-3 py-1 rounded bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition-all"
+                >
+                  {activeEmbed === 'bubbletea' ? 'Close Sandbox' : 'Play Inside Page'}
+                  <Maximize2 className="w-3 h-3" />
+                </button>
+              </div>
+
+              {activeEmbed === 'bubbletea' ? (
+                <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-xl overflow-hidden border border-emerald-500/30 bg-black">
+                  <iframe
+                    src="https://eclypheon.github.io/bubbletea/"
+                    title="Bubble Tea Simulation Game"
+                    className="w-full h-full border-0"
+                    allow="autoplay; fullscreen"
+                  />
+                </div>
+              ) : (
+                <div 
+                  onClick={() => setActiveEmbed('bubbletea')}
+                  className="w-full py-10 rounded-xl border border-dashed border-white/20 bg-white/[0.02] hover:bg-white/[0.04] flex flex-col items-center justify-center cursor-pointer transition-all group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                    <Play className="w-5 h-5 ml-0.5" />
+                  </div>
+                  <p className="mt-3 text-xs sm:text-sm font-semibold text-white group-hover:text-emerald-300">
+                    Click to run Unity WebGL game
+                  </p>
+                  <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+                    Runs 60FPS in-browser with dynamic customer queues & recipe audio
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+              {['Unity 2D/3D', 'C#', 'WebGL', 'FL Studio', 'Audacity', 'Adobe Illustrator'].map((t) => (
+                <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 text-xs font-mono">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* Card 2: Homelab */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('homelab');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:border-cyan-500/40 transition-colors">
-                  <Server className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-cyan-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          {/* 2. Finance Tracker */}
+          <div className="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/10 space-y-6 relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-md text-xs font-mono bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+                  Full Stack // Financial Dashboard
+                </span>
+                <span className="text-xs font-mono text-slate-400">
+                  ● Live App
+                </span>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
-                  Homelab & Quadlet Topology
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  Repurposed 2014 MacBook Pro running headless Linux with Podman + Quadlet systemd units, local LLMs (Qwen/Llama), Whisper STT, n8n, and Tailscale mesh streaming.
-                </p>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://eclypheon.github.io/financetracker/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => sound.playChirp()}
+                  className="px-3.5 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(6,182,212,0.15)]"
+                >
+                  <span>Launch Tracker</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://github.com/Eclypheon/financetracker"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => sound.playClick()}
+                  className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>Source</span>
+                </a>
               </div>
             </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-cyan-400">
-              <span>Rootless Architecture</span>
-              <span className="flex items-center gap-1 group-hover:underline">Inspect <ChevronRight className="w-3.5 h-3.5" /></span>
+
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Precision Asset & Dividend Engine
+              </h3>
+              <p className="text-xs sm:text-sm text-cyan-300/90 font-mono">
+                High-density multi-asset financial tracker with automated dividend scraping and net worth modeling
+              </p>
+              <p className="text-sm text-slate-300 leading-relaxed pt-1">
+                A modern financial operating dashboard built to model liquid vs. non-liquid asset trajectories, historical equity positions, and dividend projections. Integrates Supabase with Row-Level Security and a local Python daemon for corporate action extraction.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+              {['React 19', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Python 3', 'Vite PWA'].map((t) => (
+                <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 text-xs font-mono">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* Card 3: Philosophy */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('philosophy');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:border-indigo-500/40 transition-colors">
-                  <BookOpen className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-indigo-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          {/* 3. The NoSleep Story */}
+          <div className="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/10 space-y-6 relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-md text-xs font-mono bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                  Fiction // r/nosleep Horror
+                </span>
+                <span className="text-xs font-mono text-slate-400">
+                  ● Published Reddit Story
+                </span>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
-                  Philosophy & The Canon
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  Camus’ Absurdism, Sartre’s Bad Faith, Socratic Cave Epistemology, Wittgenstein’s Language-Games, Foucault’s Panopticon, and Weber’s Iron Cage.
-                </p>
-              </div>
-            </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-indigo-400">
-              <span>Curated Bookshelf</span>
-              <span className="flex items-center gap-1 group-hover:underline">Read <ChevronRight className="w-3.5 h-3.5" /></span>
-            </div>
-          </div>
 
-          {/* Card 4: Kinetic */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('kinetic');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 group-hover:border-pink-500/40 transition-colors">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-pink-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-pink-300 transition-colors">
-                  The Kinetic Discipline
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  Singapore National ASEAN athlete (Canoeing), International Dragonboat, medalled physique competitor, surviving 5 major surgeries, cheer stunting & aerial arts.
-                </p>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://www.reddit.com/r/nosleep/s/u6muBVtCon"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => sound.playChirp()}
+                  className="px-3.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+                >
+                  <span>Read on Reddit</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={() => {
+                    sound.playClick();
+                    onNavigate('writing');
+                  }}
+                  className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Story Reader</span>
+                </button>
               </div>
             </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-pink-400">
-              <span>Biomechanical Feats</span>
-              <span className="flex items-center gap-1 group-hover:underline">Witness <ChevronRight className="w-3.5 h-3.5" /></span>
-            </div>
-          </div>
 
-          {/* Card 5: Toolchain */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('toolkit');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover:border-amber-500/40 transition-colors">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-amber-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-                  The Complete Toolchain
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  3D (3ds Max, Blender, C4D), Video/Audio (DaVinci, FL Studio), Low-level reversing (Cheat Engine, OllyDbg, Ghidra), CCNA & GIS spatial analysis.
-                </p>
-              </div>
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                &ldquo;I went to a Flat-Earthers’ convention and now I’m a believer&rdquo;
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-300/90 font-mono">
+                A psychological cosmic horror recounting published on Reddit r/nosleep
+              </p>
+              <p className="text-sm text-slate-300 leading-relaxed pt-1">
+                Set in a small rural town in southern Russia, Alex is invited by his rational, science-club friend and crush Anastasia to a local flat-earther convention. Expecting an absurd superstition to mock, he instead stumbles into an unsettling, cult-like gathering with inexplicable proofs that steadily warp modern scientific reality.
+              </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-amber-400">
-              <span>Multi-Disciplinary Stack</span>
-              <span className="flex items-center gap-1 group-hover:underline">Review <ChevronRight className="w-3.5 h-3.5" /></span>
-            </div>
-          </div>
 
-          {/* Card 6: AI Daily Musings */}
-          <div 
-            onClick={() => {
-              sound.playSwitch();
-              onNavigate('musings');
-            }}
-            className="glass-panel-interactive p-6 rounded-2xl cursor-pointer group flex flex-col justify-between border-emerald-500/20"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:border-emerald-500/40 transition-colors">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-emerald-400 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
-                  Autonomous Daily Musings
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-3">
-                  Algorithmic cross-pollinations written nightly on rotation—connecting container runtimes with Sartre, joint rehabilitation with Sisyphus, and memory scans with language-games.
-                </p>
-              </div>
-            </div>
-            <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-emerald-400">
-              <span>Nightly AI Cron Pipeline</span>
-              <span className="flex items-center gap-1 group-hover:underline">Consult Oracle <ChevronRight className="w-3.5 h-3.5" /></span>
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+              {['Fiction', 'Cosmic Horror', 'r/nosleep', 'Reddit', 'Narrative Prose'].map((t) => (
+                <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 text-xs font-mono">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Cognitive Manifesto / Neurodivergent Authenticity */}
+      {/* Cognitive Wiring & Neurodivergent Authenticity */}
       <section className="p-8 sm:p-10 rounded-3xl border border-white/10 bg-[#0a0d16] relative overflow-hidden space-y-6">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
@@ -315,7 +397,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
             underlying systems, high-density pattern recognition, and an inability to be satisfied with superficial answers.
           </p>
           <p>
-            When I encounter a domain—whether it is the exact memory offset of an encrypted health variable in Cheat Engine, 
+            When I encounter a domain—whether it is reverse engineering an encrypted variable address, 
             the fluid dynamics of a sprint canoe blade slicing through river chop, or the sociological implications of Foucault’s Panopticon—I 
             cannot simply &ldquo;take someone&apos;s word for it.&rdquo; I have to dismantle the clockwork, inspect every cog, and understand 
             why it moves the way it does.
