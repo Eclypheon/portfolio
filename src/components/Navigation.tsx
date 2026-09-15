@@ -40,7 +40,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode; badge?: string }[] = [
     { key: 'overview', label: 'Matrix', icon: <Layers className="w-4 h-4" /> },
-    { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '3' },
+    { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '4' },
     { key: 'writing', label: 'Story', icon: <Feather className="w-4 h-4" /> },
     { key: 'homelab', label: 'Homelab', icon: <Server className="w-4 h-4" /> },
     { key: 'philosophy', label: 'Philosophy', icon: <BookOpen className="w-4 h-4" /> },

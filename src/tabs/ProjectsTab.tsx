@@ -93,7 +93,7 @@ export const ProjectsTab: React.FC = () => {
                     onClick={() => sound.playChirp()}
                     className="px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(16,185,129,0.15)]"
                   >
-                    <span>Launch Live</span>
+                    <span>{project.id === 'telegram-bot' ? 'Open in Telegram' : 'Launch Live'}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}

@@ -94,5 +94,31 @@ export const projects: Project[] = [
       { label: 'Deployment', value: 'Vercel Live' },
       { label: 'State', value: 'Beta Prototype' }
     ]
+  },
+  {
+    id: 'telegram-bot',
+    title: 'Telegram Audio Transcriber & Mediator Bot',
+    category: 'Systems',
+    tagline: 'Autonomous voice note transcriber & Qwen3.5 9B neural therapist/mediator (@kestertest_bot)',
+    description: 'A custom Telegram bot running 24/7 that automatically ingests and transcribes any inbound voice note. Functions as an empathetic therapist and neutral mediator powered by a custom Qwen3.5 9B model. Features dual operating modes: continuously mediates every message when /mediate is activated, or silently transcribes and only offers structured counsel when /opinion is triggered.',
+    architecture: [
+      'Automated Audio Decoupling: Ingests Telegram voice notes and routes them through a Whisper STT pipeline for instant transcription',
+      'Dual Dynamic Conversation States: Implements /mediate for real-time continuous mediation vs. /opinion for discrete therapeutic assessments',
+      'Local Edge Inference: Dispatches prompts to a locally hosted Qwen3.5 9B (custom) model preserving full conversational privacy'
+    ],
+    techStack: ['Python', 'Telegram Bot API', 'Whisper STT', 'Qwen3.5 9B', 'n8n / Local AI'],
+    liveUrl: 'https://t.me/kestertest_bot',
+    status: 'Live',
+    highlights: [
+      'Accessible on Telegram via handle @kestertest_bot',
+      'Continuous /mediate mode for active conflict resolution & conversational therapy',
+      'On-demand /opinion mode for passive listening with discrete advisory interventions',
+      'Zero cloud data leakage—processed through local inference pipeline'
+    ],
+    metrics: [
+      { label: 'Bot Handle', value: '@kestertest_bot' },
+      { label: 'Intelligence', value: 'Qwen3.5 9B' },
+      { label: 'Audio STT', value: 'Whisper Pipeline' }
+    ]
   }
 ];
