@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'Game Dev' | 'Full Stack' | 'Quantitative' | 'Systems';
+  category: 'Game Dev' | 'Full Stack' | 'Systems';
   tagline: string;
   description: string;
   architecture: string[];
@@ -10,7 +10,7 @@ export interface Project {
   githubUrl?: string;
   embedType?: 'webgl' | 'iframe';
   highlights: string[];
-  status: 'Live' | 'In Production' | 'Prototype';
+  status: 'Live' | 'Live (Beta / WIP)' | 'In Production';
   metrics?: { label: string; value: string }[];
 }
 
@@ -70,31 +70,6 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 'reality-cut',
-    title: 'Reality Cut (3D Metroidvania Engine)',
-    category: 'Game Dev',
-    tagline: 'High-speed action platformer exploring animation canceling mechanics in Unity',
-    description: 'A mechanically intensive 3D action Metroidvania prototype. The core mechanic revolves around "Reality Cut"—the player tears through spacetime to cancel active combat and movement animations, allowing high-skill combo chains, aerial dashes, wall-clings, and impossible kinetic repositioning.',
-    architecture: [
-      'Finite State Machine (FSM) movement engine with microsecond frame buffering',
-      'Custom hit-box / hurt-box spatial queries bypassing standard Unity physics jitter',
-      'Procedural camera framing and dynamic motion dampening during high-velocity chains'
-    ],
-    techStack: ['Unity 6', 'C#', 'Blender', 'Cinema 4D', 'Universal Render Pipeline (URP)'],
-    githubUrl: 'https://github.com/Eclypheon',
-    status: 'Prototype',
-    highlights: [
-      'Deep animation-canceling mechanics inspired by high-level fighting games',
-      'Custom low-poly environment assets and shader graphs created in Blender',
-      'GDD detailing progressive spatial unlocks and atmospheric lore'
-    ],
-    metrics: [
-      { label: 'Frame Buffer', value: '4-Frame Window' },
-      { label: 'Movement Verbs', value: '8 Core States' },
-      { label: 'Rendering', value: 'URP 60 FPS' }
-    ]
-  },
-  {
     id: 'cheerplan',
     title: 'CheerPlan Pro (Spatial Choreography Visualizer)',
     category: 'Systems',
@@ -106,42 +81,18 @@ export const projects: Project[] = [
       'Undo/Redo command stack implemented via immutable snapshot deltas'
     ],
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Lucide Icons'],
+    liveUrl: 'https://cheer-plan-pro.vercel.app/',
     githubUrl: 'https://github.com/Eclypheon/cheer-plan-pro',
-    status: 'In Production',
+    status: 'Live (Beta / WIP)',
     highlights: [
+      'Accessible online via Vercel staging deployment (active work-in-progress)',
       'Interactive crosshair arrow tool defining stunt trajectories across 8-counts',
-      'Multi-layer formation management with coach notes and audio cue synchronization',
-      'Built specifically for real-world cheer routines and safety regulations'
+      'Multi-layer formation management with coach notes and audio cue synchronization'
     ],
     metrics: [
       { label: 'Precision', value: '8-Count Grid' },
-      { label: 'Export Format', value: 'Vector SVG / PDF' },
-      { label: 'Undo Depth', value: 'Unlimited Snapshots' }
-    ]
-  },
-  {
-    id: 'options-engine',
-    title: 'Quantitative Options & Volatility Analytics',
-    category: 'Quantitative',
-    tagline: 'Black-Scholes-Merton pricing model, Greeks sensitivity surfaces, and probability density curves',
-    description: 'A quantitative financial analysis toolkit for calculating European and American option Greeks (Delta, Gamma, Vega, Theta, Rho), implied volatility skews, and expected value distributions for complex multi-leg option spreads.',
-    architecture: [
-      'Vectorized Black-Scholes formula calculation in Python / TypeScript',
-      'Monte Carlo path simulations for exotic early-exercise boundaries',
-      'Real-time Greeks delta hedging sensitivity graphs'
-    ],
-    techStack: ['Python', 'NumPy', 'TypeScript', 'Statistical Modeling'],
-    githubUrl: 'https://github.com/Eclypheon',
-    status: 'Prototype',
-    highlights: [
-      'Multi-leg spread simulator (Iron Condors, Straddles, Calendars, Ratio Spreads)',
-      'Calculates implied volatility smile and skew across expiration cycles',
-      'Probability of profit (PoP) calculation across simulated market drift'
-    ],
-    metrics: [
-      { label: 'Calculations', value: '5 Greeks Realtime' },
-      { label: 'Simulation', value: '10,000 Paths' },
-      { label: 'Pricing Model', value: 'Black-Scholes / Binomial' }
+      { label: 'Deployment', value: 'Vercel Live' },
+      { label: 'State', value: 'Beta Prototype' }
     ]
   }
 ];

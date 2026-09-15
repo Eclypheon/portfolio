@@ -35,19 +35,35 @@ export const FictionTab: React.FC = () => {
 
       {/* Featured Story Reader: The Flat Earth Society NoSleep Story */}
       <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 space-y-8 relative overflow-hidden">
-        <div className="space-y-2 border-b border-white/10 pb-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-amber-400 uppercase tracking-wider">
-            <Moon className="w-4 h-4" />
-            <span>Featured NoSleep Horror Novelette</span>
+        <div className="space-y-4 border-b border-white/10 pb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-xs font-mono text-amber-400 uppercase tracking-wider">
+              <Moon className="w-4 h-4" />
+              <span>Published NoSleep Story // r/nosleep</span>
+            </div>
+            <a
+              href="https://www.reddit.com/r/nosleep/s/u6muBVtCon"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => sound.playChirp()}
+              className="px-3.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+            >
+              <span>Read Original on Reddit</span>
+              <Compass className="w-3.5 h-3.5" />
+            </a>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            {flatEarthStory.title}
-          </h2>
-          <p className="text-xs sm:text-sm text-amber-300/80 font-mono">
-            {flatEarthStory.tagline}
-          </p>
-          <p className="text-xs text-slate-400 italic pt-1">
-            {flatEarthStory.authorNote}
+
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              &ldquo;I went to a Flat-Earthers’ convention and now I’m a believer&rdquo;
+            </h2>
+            <p className="text-xs sm:text-sm text-amber-300/80 font-mono mt-1">
+              A psychological cosmic horror story set in southern Russia
+            </p>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+            Set in a small rural town in southern Russia, Alex is invited by his rational, science-club friend and crush Anastasia to a local flat-earther convention. Expecting an absurd superstition to poke holes in, he instead stumbles into an unsettling, cult-like gathering with inexplicable proofs that steadily warp modern scientific reality.
           </p>
         </div>
 

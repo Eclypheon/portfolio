@@ -17,7 +17,7 @@ export const ProjectsTab: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
 
-  const categories = ['All', 'Game Dev', 'Full Stack', 'Quantitative', 'Systems'];
+  const categories = ['All', 'Game Dev', 'Full Stack', 'Systems'];
 
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
@@ -75,8 +75,8 @@ export const ProjectsTab: React.FC = () => {
                 <span className={`text-xs font-mono px-2.5 py-0.5 rounded-full ${
                   project.status === 'Live'
                     ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30'
-                    : project.status === 'In Production'
-                    ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
+                    : project.status.includes('Beta')
+                    ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
                     : 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30'
                 }`}>
                   ● {project.status}
