@@ -8,7 +8,8 @@ import {
   Compass, 
   Brain, 
   Eye, 
-  Layers 
+  Layers,
+  Shield
 } from 'lucide-react';
 import { readingList, ReadingItem } from '../data/readingListData.ts';
 import { sound } from '../components/AudioEngine.ts';
@@ -47,13 +48,39 @@ export const PhilosophyTab: React.FC = () => {
           Philosophy, Language & The Panopticon
         </h1>
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
-          Rejecting dogmatic certainty. A synthesis of existential absurdism, Socratic skepticism, 
-          linguistic relativity, and sociological critiques of bureaucratic surveillance.
+          Rejecting dogmatic certainty. A synthesis of mindful Stoic emotional governance, 
+          existential absurdism, Socratic skepticism, linguistic relativity, and sociological critiques of surveillance.
         </p>
       </div>
 
-      {/* Featured Philosophical Pillars (Camus, Sartre, Plato, Wittgenstein) */}
+      {/* Featured Philosophical Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Pillar 0: Stoicism & Emotional Governance */}
+        <div className="md:col-span-2 glass-panel p-6 sm:p-8 rounded-3xl border border-amber-500/30 space-y-4 relative overflow-hidden group shadow-[0_0_30px_-10px_rgba(245,158,11,0.1)]">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-amber-400" />
+              <span>Stoic Discipline // Marcus Aurelius & Epictetus</span>
+            </span>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/80 px-2 py-0.5 rounded bg-amber-500/5 border border-amber-500/20">
+              Cardinal Doctrine
+            </span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">
+            Mindful Emotional Governance Over Apathetic Suppression
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Uncontrolled emotion is the ultimate cognitive surrender and systemic vulnerability—the worst cardinal sin against clarity, agency, and reason. 
+            Yet authentic Stoicism is widely caricatured: it is emphatically <strong>not</strong> the discarding of all emotions to become numb, apathetic, or anhedonic. 
+            Rather, it is cultivating relentless, lucid mindfulness of the visceral emotions that arise, withholding automated assent from reactive impulses, 
+            and actively, deliberately choosing how to wield and channel them to your decisive tactical advantage in any situation.
+          </p>
+          <div className="p-3.5 rounded-xl bg-black/50 border border-amber-500/20 text-xs text-amber-200/95 italic font-mono flex items-start gap-2.5">
+            <Quote className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+            <span>&ldquo;You have power over your mind—not outside events. Realize this, and you will find strength. Between stimulus and response there is a space; in that space lies our power to choose our response.&rdquo;</span>
+          </div>
+        </div>
+
         {/* Pillar 1: Camus & The Absurd */}
         <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 relative overflow-hidden group">
           <div className="flex items-center justify-between">

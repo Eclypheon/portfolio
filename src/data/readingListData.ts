@@ -12,6 +12,21 @@ export interface ReadingItem {
 
 export const readingList: ReadingItem[] = [
   {
+    id: 'stoicism-aurelius-epictetus',
+    title: 'Meditations & The Enchiridion',
+    author: 'Marcus Aurelius & Epictetus',
+    category: 'Philosophy',
+    status: 'Essential Canon',
+    coreConcept: 'Mindful Emotional Governance & The Discipline of Assent (Not Apathy)',
+    reflection: 'Uncontrolled emotion is the gravest human failure and systemic vulnerability—the worst cardinal sin against reason and agency. Yet genuine Stoicism is widely caricatured and misunderstood: it is emphatically NOT the cold discarding of all feelings into a state of numb apathy or anhedonia. Rather, it is cultivating relentless, lucid mindfulness of the visceral emotions that arise, withholding automated assent from reactive impulses, and actively, deliberately choosing how to wield and channel those emotions to your decisive tactical advantage in any situation.',
+    quotes: [
+      'You have power over your mind—not outside events. Realize this, and you will find strength.',
+      'It is not what happens to you, but how you react to it that matters.',
+      'Between stimulus and response there is a space. In that space lies our power to choose our response.'
+    ],
+    tags: ['Stoicism', 'Emotional Discipline', 'Mindfulness', 'Strategic Agency', 'Dichotomy of Control']
+  },
+  {
     id: 'camus-sisyphus',
     title: 'The Myth of Sisyphus',
     author: 'Albert Camus',
