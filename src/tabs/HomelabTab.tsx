@@ -10,34 +10,42 @@ import {
   Radio, 
   Copy, 
   Check, 
-  Lock,
-  Boxes
+  BatteryCharging, 
+  Fan, 
+  Layers, 
+  Sparkles,
+  Maximize2,
+  X,
+  ExternalLink,
+  Bot
 } from 'lucide-react';
-import { homelabSpecs, homelabServices, quadletExplanation } from '../data/homelabData.ts';
+import { homelabSpecs, fullStackServices, alienlabDashboard, quadletExplanation } from '../data/homelabData.ts';
 import { sound } from '../components/AudioEngine.ts';
 
 export const HomelabTab: React.FC = () => {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [activeDashboardTab, setActiveDashboardTab] = useState<'overview' | 'media'>('overview');
+  const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null);
+  const [stackFilter, setStackFilter] = useState<string>('All');
 
   const sampleQuadletUnit = `[Unit]
-Description=n8n Automation Node (Quadlet Rootless)
+Description=Jellyfin Media Streaming Server (Quadlet Rootless)
 After=network-online.target
 Wants=network-online.target
 
 [Container]
-Image=docker.io/n8nio/n8n:latest
-ContainerName=n8n-automation
+Image=docker.io/jellyfin/jellyfin:latest
+ContainerName=jellyfin
 AutoUpdate=registry
-PublishPort=5678:5678
-Environment=GENERIC_TIMEZONE=Asia/Singapore
-Environment=N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-Volume=%h/.n8n:/home/node/.n8n:Z
-Network=quadlet-internal.network
+PublishPort=8096:8096
+Volume=%h/media/ext4:/media:ro
+Volume=%h/.config/jellyfin:/config:Z
+Network=host
 
 [Service]
 Restart=always
 TimeoutStartSec=300
-MemoryMax=1.5G
+MemoryMax=3.5G
 
 [Install]
 WantedBy=default.target`;
@@ -49,21 +57,28 @@ WantedBy=default.target`;
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
+  const categories = ['All', 'Media & Streaming', 'Photo Backup', 'Network & Security', 'AI & Automation', 'Monitoring'];
+
+  const filteredStack = stackFilter === 'All'
+    ? fullStackServices
+    : fullStackServices.filter(s => s.category === stackFilter);
+
   return (
     <div className="space-y-12 py-8">
       {/* Header */}
       <div className="space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
           <Server className="w-3.5 h-3.5" />
-          <span>INFRASTRUCTURE // EDGE SILICON & DAEMONS</span>
+          <span>INFRASTRUCTURE // UBUNTU SERVER & QUADLET STACK</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          The Repurposed MacBook Pro 2014 & Quadlet Stack
+          The 13&quot; MacBook Pro 2014 Homelab
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
-          Rejecting the bloat of standard cloud subscriptions and heavy virtualization. 
-          A retired 15-inch Retina MacBook Pro re-engineered into an austere, high-efficiency home server 
-          powered by rootless Podman containers, native systemd Quadlet unit generation, and private Tailscale mesh networking.
+        <p className="text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
+          Repurposing retired hardware into an austere, high-efficiency Ubuntu Server. 
+          Powered by rootless Podman containers generated natively via systemd Quadlet units, 
+          in-house audio transcription scripts with <code className="text-cyan-300">faster-whisper</code> tiny, 
+          and federated local LLM inference on a main Apple Silicon M4 MacBook Air (24GB).
         </p>
       </div>
 
@@ -71,117 +86,279 @@ WantedBy=default.target`;
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-2">
           <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 w-fit">
-            <Cpu className="w-5 h-5" />
+            <Server className="w-5 h-5" />
           </div>
-          <div className="text-xs font-mono text-slate-400">Processor & Silicon</div>
-          <div className="text-sm font-semibold text-white">{homelabSpecs.processor}</div>
-          <p className="text-[11px] text-slate-400">AVX2 enabled for quantized LLM inference</p>
+          <div className="text-xs font-mono text-slate-400">Server Node</div>
+          <div className="text-sm font-semibold text-white">{homelabSpecs.hardware}</div>
+          <p className="text-[11px] text-slate-400">{homelabSpecs.os}</p>
+        </div>
+
+        <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-2">
+          <div className="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 w-fit">
+            <Bot className="w-5 h-5" />
+          </div>
+          <div className="text-xs font-mono text-slate-400">Companion AI Silicon</div>
+          <div className="text-sm font-semibold text-white">MacBook Air 2025 (M4)</div>
+          <p className="text-[11px] text-slate-400">24GB Unified RAM • LM Studio (Qwen3.5 9B)</p>
         </div>
 
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-2">
           <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 w-fit">
             <HardDrive className="w-5 h-5" />
           </div>
-          <div className="text-xs font-mono text-slate-400">Memory & Storage</div>
-          <div className="text-sm font-semibold text-white">{homelabSpecs.memory}</div>
-          <p className="text-[11px] text-slate-400">cgroups v2 strictly limits container RAM bloat</p>
-        </div>
-
-        <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-2">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 w-fit">
-            <Boxes className="w-5 h-5" />
-          </div>
-          <div className="text-xs font-mono text-slate-400">Orchestrator</div>
-          <div className="text-sm font-semibold text-white">Podman + Quadlet</div>
-          <p className="text-[11px] text-slate-400">Native systemd generators replacing dockerd</p>
+          <div className="text-xs font-mono text-slate-400">Storage Array</div>
+          <div className="text-sm font-semibold text-white">3.6 TiB Used / 1.6 TiB Free</div>
+          <p className="text-[11px] text-slate-400">+ 4.5 TiB extra media expansion volume</p>
         </div>
 
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-2">
           <div className="p-2.5 rounded-lg bg-pink-500/10 border border-pink-500/20 text-pink-400 w-fit">
-            <Network className="w-5 h-5" />
+            <BatteryCharging className="w-5 h-5" />
           </div>
-          <div className="text-xs font-mono text-slate-400">Networking Topology</div>
-          <div className="text-sm font-semibold text-white">Tailscale Mesh VPN</div>
-          <p className="text-[11px] text-slate-400">Zero exposed router ports; end-to-end WireGuard</p>
+          <div className="text-xs font-mono text-slate-400">Thermals & Hardware UPS</div>
+          <div className="text-sm font-semibold text-white">55°C • 2,499 RPM Quiet</div>
+          <p className="text-[11px] text-slate-400">80% internal battery acts as brownout UPS</p>
         </div>
       </div>
 
-      {/* Visual Architecture Topology Diagram */}
+      {/* SNEAK PEEK: alienlab Live Dashboard Screenshots */}
       <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Network className="w-5 h-5 text-cyan-400" />
-            <span>Server Topology & Data Ingress</span>
-          </h2>
-          <span className="text-xs font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-emerald-400">
-            Mesh Active
-          </span>
-        </div>
-
-        {/* Conceptual Diagram */}
-        <div className="p-6 rounded-2xl bg-black/50 border border-white/10 font-mono text-xs text-slate-300 overflow-x-auto space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 min-w-[650px]">
-            {/* Layer 1: Hardware & OS */}
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-              <div className="text-emerald-400 font-bold flex items-center gap-1.5">
-                <Cpu className="w-4 h-4" /> [LAYER 0: HARDWARE]
-              </div>
-              <p className="text-slate-400 text-[11px]">
-                MacBook Pro 15&quot; Retina (2014)<br />
-                Haswell Core i7 • 16GB RAM<br />
-                Custom SMC Fan Curve Mod<br />
-                Clamshell Operation Mode
-              </p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>SNEAK PEEK // LIVE DASHBOARD TELEMETRY</span>
             </div>
-
-            {/* Layer 2: Podman & Systemd */}
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-              <div className="text-cyan-400 font-bold flex items-center gap-1.5">
-                <Boxes className="w-4 h-4" /> [LAYER 1: SYSTEMD QUADLET]
-              </div>
-              <p className="text-slate-400 text-[11px]">
-                Rootless User Namespaces<br />
-                ~/.config/containers/systemd/<br />
-                cgroups v2 Slices & Quotas<br />
-                Automatic Journald Logging
-              </p>
-            </div>
-
-            {/* Layer 3: Tailscale Mesh */}
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
-              <div className="text-indigo-400 font-bold flex items-center gap-1.5">
-                <Network className="w-4 h-4" /> [LAYER 2: TAILSCALE MESH]
-              </div>
-              <p className="text-slate-400 text-[11px]">
-                WireGuard P2P Encrypted Bus<br />
-                Peer Access Control Lists (ACL)<br />
-                Friends Media Gateway<br />
-                No Open Inbound NAT Ports
-              </p>
-            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              alienlab Dashboard (Ubuntu Server)
+            </h2>
           </div>
 
-          {/* Running Services Matrix */}
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-3 min-w-[650px]">
-            <div className="text-slate-200 font-bold">ACTIVE PODMAN & STANDALONE DAEMON PROCESSES:</div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px]">
-              <div className="p-2.5 rounded bg-black/40 border border-emerald-500/20">
-                <span className="text-emerald-300 font-semibold block">LM Studio / Qwen</span>
-                <span className="text-slate-500">Port :1234 • Local AI</span>
-              </div>
-              <div className="p-2.5 rounded bg-black/40 border border-cyan-500/20">
-                <span className="text-cyan-300 font-semibold block">n8n Automation</span>
-                <span className="text-slate-500">Port :5678 • Workflows</span>
-              </div>
-              <div className="p-2.5 rounded bg-black/40 border border-indigo-500/20">
-                <span className="text-indigo-300 font-semibold block">Whisper & Kokoro</span>
-                <span className="text-slate-500">audiowatch.py • Audio STT/TTS</span>
-              </div>
-              <div className="p-2.5 rounded bg-black/40 border border-pink-500/20">
-                <span className="text-pink-300 font-semibold block">Stremio & Debrid</span>
-                <span className="text-slate-500">Tailscale Node • Streaming</span>
-              </div>
+          {/* Tab buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                sound.playClick();
+                setActiveDashboardTab('overview');
+              }}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all ${
+                activeDashboardTab === 'overview'
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                  : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
+              }`}
+            >
+              Overview Telemetry
+            </button>
+            <button
+              onClick={() => {
+                sound.playClick();
+                setActiveDashboardTab('media');
+              }}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all ${
+                activeDashboardTab === 'media'
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                  : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
+              }`}
+            >
+              Media & Library
+            </button>
+          </div>
+        </div>
+
+        {/* Live Metrics Pills */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {alienlabDashboard.liveHighlights.map((stat, i) => (
+            <div key={i} className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+              <div className="text-[11px] font-mono text-slate-400">{stat.label}</div>
+              <div className="text-base font-bold text-white font-mono">{stat.value}</div>
+              <div className="text-[10px] font-mono text-cyan-400/80 truncate">{stat.detail}</div>
             </div>
+          ))}
+        </div>
+
+        {/* Screenshot Viewport */}
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/60 group">
+          <img
+            src={activeDashboardTab === 'overview' ? './alienlab-overview.png' : './alienlab-media.png'}
+            alt="alienlab Dashboard Sneak Peek"
+            className="w-full max-h-[520px] object-contain mx-auto transition-transform duration-300 group-hover:scale-[1.01]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          
+          <div className="absolute bottom-4 right-4 flex items-center gap-2">
+            <button
+              onClick={() => {
+                sound.playChirp();
+                setSelectedScreenshot(activeDashboardTab === 'overview' ? './alienlab-overview.png' : './alienlab-media.png');
+              }}
+              className="px-3 py-1.5 rounded-lg bg-black/80 hover:bg-black text-xs font-mono text-slate-200 hover:text-white border border-white/20 flex items-center gap-1.5 shadow-lg backdrop-blur-md transition-all"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span>Inspect Fullscreen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* FULL STACK RUNNING CATALOG */}
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <Layers className="w-5 h-5 text-emerald-400" />
+              <span>Full Operational Stack & Port Map</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              Live service matrix running across the 13&quot; MacBook Pro Ubuntu Server
+            </p>
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap gap-1.5">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  sound.playClick(600, 0.03);
+                  setStackFilter(cat);
+                }}
+                className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
+                  stackFilter === cat
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                    : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Stack Table */}
+        <div className="glass-panel rounded-2xl border border-white/10 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs font-mono">
+              <thead className="bg-white/[0.03] border-b border-white/10 text-slate-400">
+                <tr>
+                  <th className="py-3.5 px-4 font-semibold">Service</th>
+                  <th className="py-3.5 px-4 font-semibold">Purpose</th>
+                  <th className="py-3.5 px-4 font-semibold">Port / Access</th>
+                  <th className="py-3.5 px-4 font-semibold">Category</th>
+                  <th className="py-3.5 px-4 font-semibold text-right">Current Known State</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 text-slate-300">
+                {filteredStack.map((item, idx) => {
+                  const isRunning = item.state === 'Running';
+                  const isInstalled = item.state === 'Installed';
+                  const isStopped = item.state === 'Stopped intentionally';
+
+                  return (
+                    <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+                        <span>{item.name}</span>
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-300 max-w-xs sm:max-w-md">
+                        {item.purpose}
+                      </td>
+                      <td className="py-3.5 px-4 text-cyan-300">
+                        <code>{item.port}</code>
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-400">
+                        {item.category}
+                      </td>
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] ${
+                          isRunning
+                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                            : isInstalled
+                            ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
+                            : 'bg-slate-800 text-slate-400 border border-slate-700'
+                        }`}>
+                          <span>{isRunning || isInstalled ? '🟢' : '⚫'}</span>
+                          <span>{item.state}</span>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Decoupling Architecture: Server Scripts vs. M4 MacBook Air */}
+      <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
+        <div className="space-y-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-indigo-400" />
+            <span>Decoupled Audio & AI Pipeline Topology</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400">
+            Separation of audio transcription workloads and heavy neural model inference across physical nodes
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Node 1: Ubuntu Server */}
+          <div className="p-6 rounded-2xl bg-black/50 border border-cyan-500/20 space-y-4">
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs font-mono text-cyan-400 font-bold flex items-center gap-1.5">
+                <Server className="w-4 h-4" /> NODE 1: UBUNTU SERVER (13&quot; MACBOOK PRO 2014)
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                Continuous 24/7
+              </span>
+            </div>
+            <ul className="space-y-2.5 text-xs text-slate-300 font-mono">
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 font-bold">›</span>
+                <span><strong>Telegram Transcriber:</strong> Telegram bot daemon ingests inbound voice memos instantly</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 font-bold">›</span>
+                <span><strong>faster-whisper (tiny):</strong> Local lightweight STT scripts executing on Haswell CPU with low memory pressure</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 font-bold">›</span>
+                <span><strong>No n8n overhead:</strong> Clean native Python scripts running directly under systemd, eliminating container orchestration latency</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 font-bold">›</span>
+                <span><strong>State Router:</strong> Decides whether to dispatch context to LM Studio based on <code className="text-emerald-300">/mediate</code> or <code className="text-emerald-300">/opinion</code> triggers</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Node 2: MacBook Air M4 */}
+          <div className="p-6 rounded-2xl bg-black/50 border border-indigo-500/20 space-y-4">
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs font-mono text-indigo-400 font-bold flex items-center gap-1.5">
+                <Bot className="w-4 h-4" /> NODE 2: COMPANION SILICON (MACBOOK AIR 2025 M4)
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                24GB Unified RAM
+              </span>
+            </div>
+            <ul className="space-y-2.5 text-xs text-slate-300 font-mono">
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-400 font-bold">›</span>
+                <span><strong>LM Studio Server:</strong> Hosts OpenAI-compatible endpoint bound locally on high-bandwidth unified memory</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-400 font-bold">›</span>
+                <span><strong>Custom Qwen3.5 9B:</strong> Fine-tuned empathy, mediation, and psychiatric advisory personas running with zero token cost</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-400 font-bold">›</span>
+                <span><strong>Zero Cloud Leakage:</strong> Audio never touches external APIs; prompts evaluate 100% on personal hardware</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-400 font-bold">›</span>
+                <span><strong>Group Mediation Engine:</strong> Analyzes conflict threads and multi-speaker dialogues with comprehensive conversational history</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -213,7 +390,7 @@ WantedBy=default.target`;
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
             <Terminal className="w-4 h-4" />
-            <span>Example Declarative Quadlet Specification (.container)</span>
+            <span>Example Declarative Quadlet Specification: Jellyfin (.container)</span>
           </div>
           <button
             onClick={() => copyToClipboard(sampleQuadletUnit, 'quadlet')}
@@ -240,46 +417,37 @@ WantedBy=default.target`;
         </div>
       </div>
 
-      {/* Active Services Catalog */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Radio className="w-5 h-5 text-indigo-400" />
-          <span>Deployed Services & Pipelines</span>
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {homelabServices.map((svc, i) => (
-            <div key={i} className="glass-panel p-6 rounded-2xl border border-white/10 space-y-4 flex flex-col justify-between">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
-                    {svc.category}
-                  </span>
-                  <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    {svc.status}
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-white">
-                  {svc.name}
-                </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  {svc.description}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-white/5 space-y-1.5">
-                {svc.details.map((d, di) => (
-                  <div key={di} className="text-[11px] text-slate-400 flex items-start gap-1.5">
-                    <span className="text-cyan-400 font-bold shrink-0">›</span>
-                    <span>{d}</span>
-                  </div>
-                ))}
-              </div>
+      {/* Lightbox Screenshot Modal */}
+      {selectedScreenshot && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={() => setSelectedScreenshot(null)}
+        >
+          <div 
+            className="relative max-w-5xl w-full bg-slate-950 border border-white/20 rounded-3xl p-4 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <span className="text-xs font-mono text-slate-300">
+                alienlab Telemetry Inspector
+              </span>
+              <button
+                onClick={() => setSelectedScreenshot(null)}
+                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          ))}
+            <div className="py-4 flex items-center justify-center">
+              <img
+                src={selectedScreenshot}
+                alt="Enlarged screenshot"
+                className="max-h-[80vh] w-auto rounded-xl object-contain shadow-2xl"
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

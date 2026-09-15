@@ -85,7 +85,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       category: 'Homelab',
       tab: 'homelab' as TabKey,
       icon: <Server className="w-4 h-4 text-cyan-400" />,
-      subtitle: 'LM Studio, Qwen 4B, Llama 3.2, Kokoro TTS, Telegram bot',
+      subtitle: 'LM Studio (M4 24GB), Qwen3.5 9B, faster-whisper tiny, Telegram bot',
     },
     // Philosophy
     ...readingList.map((r) => ({

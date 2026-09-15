@@ -22,7 +22,7 @@ export const initialMusings: DailyMusing[] = [
 
 Podman, particularly when paired with Quadlet, inverts this theater entirely. There is no omnipotent master daemon watching over the system. Instead, each container operates in its own unprivileged user namespace, represented plainly as a native systemd unit file. It awakens when called, executes its purpose within the strict confines of cgroups v2, and retires into silence.
 
-This is Erving Goffman’s sociological dramaturgy brought into operating system design. When I instruct a Quadlet container to spin up my local LLM or Stremio caching layer, it does not pretend to be the entirety of the machine. It merely wears the costume required of its service contract. When society asks an individual to be a certified project manager, a software hacker, a competitive lifter, or an aerialist, the mistake is assuming one must construct a centralized, totalitarian persona that reconciles them all.
+This is Erving Goffman’s sociological dramaturgy brought into operating system design. When I instruct a Quadlet container to spin up Jellyfin or my local inference layer, it does not pretend to be the entirety of the machine. It merely wears the costume required of its service contract. When society asks an individual to be a certified project manager, a software hacker, a competitive lifter, or an aerialist, the mistake is assuming one must construct a centralized, totalitarian persona that reconciles them all.
 
 Better to be rootless. Better to let each facet run in its own namespace, isolated from privilege escalation, speaking cleanly over standard sockets when cooperation is required, and returning to the back-stage when the scene concludes.`
   },

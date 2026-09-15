@@ -20,10 +20,11 @@ export const projects: Project[] = [
     title: 'Bubble Tea Sim & Economy Engine',
     category: 'Game Dev',
     tagline: 'Interactive culinary physics and customer queuing simulation built in Unity WebGL',
-    description: 'A rich simulation game created from scratch featuring customer behavioral state machines, custom fluid pouring shaders, recipe verification pipelines, and dynamic audio synthesized with FL Studio and Audacity. Designed with pixel art and vector assets in Adobe Illustrator and Photoshop.',
+    description: 'A rich simulation game created from scratch featuring an evolving gameplay loop with customer behavioral state machines, custom fluid pouring shaders, recipe verification pipelines, and dynamic audio synthesized with FL Studio and Audacity. Designed with pixel art and vector assets in Adobe Illustrator and Photoshop. Continuously developed by gradually adding kitchen elements, toppings, and systems based on personal design ideas and player feedback.',
     architecture: [
-      'Custom State Machine handling 5 distinct customer persona behaviors (Connoisseur, Student, Mystic, Office Worker, Kid)',
+      'Custom State Machine orchestrating customer queuing behavior and ordering patterns',
       'Algorithmic beverage validation checking liquid mask, tea levels, ice volumes, and topping order',
+      'Iterative gameplay loop design: steadily integrating new mechanics, recipe permutations, and balance tuning shaped by design experiments and direct user feedback',
       'Audio feedback system with custom recorded & mastered Foley sounds'
     ],
     techStack: ['Unity 2D/3D', 'C#', 'WebGL', 'FL Studio', 'Audacity', 'Adobe Illustrator'],
@@ -33,11 +34,12 @@ export const projects: Project[] = [
     status: 'Live',
     highlights: [
       'Playable directly in-browser with responsive WebGL canvas scaling',
+      'Iterative gameplay loop with ongoing feature expansions guided by player testing',
       'Full inventory, economic upgrade tree, and recipe permutations',
       'Automated GitHub Pages deployment pipeline'
     ],
     metrics: [
-      { label: 'Customer States', value: '5 Classes' },
+      { label: 'Architecture', value: 'Custom State Machine' },
       { label: 'Audio Tracks', value: '18 Foley SFX' },
       { label: 'Platform', value: 'WebGL / PWA' }
     ]
@@ -47,11 +49,11 @@ export const projects: Project[] = [
     title: 'Precision Asset & Dividend Engine',
     category: 'Full Stack',
     tagline: 'High-density multi-asset financial tracker with automated dividend scraping and net worth modeling',
-    description: 'A modern financial operating dashboard built to model liquid vs. non-liquid asset trajectories, historical equity positions, and dividend projections. Integrates Supabase for encrypted cloud persistence and a local Python daemon for automated corporate action and dividend yield extraction.',
+    description: 'A modern financial operating dashboard built to model liquid vs. non-liquid asset trajectories, historical equity positions, and dividend projections. Built out of sheer necessity because I was tired of manually tracking monthly dividends—so now you just key in your tickers and quantity, and it automatically pulls payouts from SGX corporate actions.',
     architecture: [
-      'React 19 + Tailwind CSS frontend with sub-millisecond tab rendering',
-      'Python background scraping daemon using BeautifulSoup & JSON cache layers',
-      'Supabase Row-Level Security (RLS) ensuring strict isolation of financial records',
+      'React 19 + Tailwind CSS frontend with sub-millisecond tab rendering and card carousel',
+      'Automated SGX scraping pipeline: tired of manually tracking monthly dividends, so just key in tickers and quantity to pull payouts directly from SGX corporate actions',
+      'Supabase Row-Level Security (RLS) ensuring strict isolation and optional encrypted cloud sync',
       'PWA offline caching with service workers via VitePWA'
     ],
     techStack: ['React 19', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Python 3', 'Vite PWA'],
@@ -59,13 +61,14 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/Eclypheon/financetracker',
     status: 'Live',
     highlights: [
-      'Zero-latency financial data updates with optimistic UI updates',
+      'Dividends Automation: Key in your tickers and quantity and it pulls payouts from SGX corporate actions',
+      'Zero-latency financial data updates with optimistic UI and local persistence',
       'Interactive asset allocation breakdowns and historical runway modeling',
-      'Local standalone daemon with automatic fallback to child-process invocation'
+      'Three dedicated operational interfaces: Net Assets, Dividends Portfolio, and Recurring Expenses'
     ],
     metrics: [
       { label: 'UI Speed', value: '<16ms Render' },
-      { label: 'Data Sync', value: 'Realtime / Supabase' },
+      { label: 'SGX Engine', value: 'Automated Scraping' },
       { label: 'Storage', value: 'Offline PWA + Cloud' }
     ]
   },
@@ -100,25 +103,27 @@ export const projects: Project[] = [
     title: 'Telegram Audio Transcriber & Mediator Bot',
     category: 'Systems',
     tagline: 'Autonomous voice note transcriber & Qwen3.5 9B neural therapist/mediator (@kestertest_bot)',
-    description: 'A custom Telegram bot running 24/7 that automatically ingests and transcribes any inbound voice note. Functions as an empathetic therapist and neutral mediator powered by a custom Qwen3.5 9B model. Features dual operating modes: continuously mediates every message when /mediate is activated, or silently transcribes and only offers structured counsel when /opinion is triggered.',
+    description: 'A custom Telegram bot running 24/7—working seamlessly in both private 1-on-1 chats and group chats—that automatically ingests and transcribes inbound voice notes. Functions as an empathetic therapist and neutral mediator powered by a custom Qwen3.5 9B model hosted via LM Studio on a MacBook Air M4 (24GB). Features dual operating modes: continuously mediates every message when /mediate is activated, or silently transcribes and only offers structured counsel when /opinion is triggered.',
     architecture: [
-      'Automated Audio Decoupling: Ingests Telegram voice notes and routes them through a Whisper STT pipeline for instant transcription',
-      'Dual Dynamic Conversation States: Implements /mediate for real-time continuous mediation vs. /opinion for discrete therapeutic assessments',
-      'Local Edge Inference: Dispatches prompts to a locally hosted Qwen3.5 9B (custom) model preserving full conversational privacy'
+      'Automated Audio Pipeline: Ingests Telegram voice notes and routes them through a local faster-whisper (tiny) library running on Ubuntu Server for instant transcription',
+      'Group & Direct Chat Orchestration: Operates smoothly in multi-user group chats as well as private DMs with session-aware message filtering',
+      'Dual Dynamic Conversation Modes: /mediate for real-time continuous mediation vs. /opinion for discrete therapeutic assessments',
+      'Local Private Inference: Dispatches prompts to LM Studio hosting Qwen3.5 9B (custom) on Apple Silicon M4 with zero cloud telemetry'
     ],
-    techStack: ['Python', 'Telegram Bot API', 'Whisper STT', 'Qwen3.5 9B', 'n8n / Local AI'],
+    techStack: ['Python', 'Telegram Bot API', 'faster-whisper', 'Qwen3.5 9B', 'LM Studio', 'Ubuntu Server'],
     liveUrl: 'https://t.me/kestertest_bot',
     status: 'Live',
     highlights: [
-      'Accessible on Telegram via handle @kestertest_bot',
+      'Works in group chats as well as private direct messages',
+      'Instant voice note transcription using local faster-whisper (tiny)',
       'Continuous /mediate mode for active conflict resolution & conversational therapy',
       'On-demand /opinion mode for passive listening with discrete advisory interventions',
-      'Zero cloud data leakage—processed through local inference pipeline'
+      'Zero cloud data leakage—processed through private local inference pipelines'
     ],
     metrics: [
       { label: 'Bot Handle', value: '@kestertest_bot' },
-      { label: 'Intelligence', value: 'Qwen3.5 9B' },
-      { label: 'Audio STT', value: 'Whisper Pipeline' }
+      { label: 'Inference', value: 'LM Studio (M4 24GB)' },
+      { label: 'Audio STT', value: 'faster-whisper tiny' }
     ]
   }
 ];

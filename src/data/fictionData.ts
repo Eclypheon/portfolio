@@ -69,8 +69,8 @@ export const flatEarthStory = {
 export const darkProseCollection: DarkProseItem[] = [
   // Authored by Neo Kester
   {
-    id: 'poem-aunt-fee',
-    title: 'aunt fee',
+    id: 'jaunt-fee',
+    title: 'Jaunt fee',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
     text: [
