@@ -1,0 +1,27 @@
+name: Autonomous Nightly Musing Generation
+
+on:
+  schedule:
+    # Runs nightly at 19:30 UTC (03:30 SGT)
+    - cron: '30 19 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-musing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Musing Synthesis Script
+        run: python3 scripts/generate_musing.py
+
+      # Any automated commit would trigger deploy.yml to rebuild GitHub Pages
