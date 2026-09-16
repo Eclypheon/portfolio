@@ -1,10 +1,95 @@
-// Native Web Audio API Synthesizer for tactile cybernetic audio feedback
+// Native Web Audio API Synthesizer & BGM Manager for cybernetic tactile feedback & synthwave audio
 class SoundSynthesizer {
   private ctx: AudioContext | null = null;
-  public enabled: boolean = false;
+  private _enabled: boolean = false;
+  private bgmAudio: HTMLAudioElement | null = null;
+  private isGameActive: boolean = false;
+  private isPageVisible: boolean = true;
 
   constructor() {
-    // AudioContext will be initialized on first user interaction to comply with browser autoplay policies
+    if (typeof window !== 'undefined') {
+      document.addEventListener('visibilitychange', () => {
+        this.isPageVisible = !document.hidden;
+        if (this.isPageVisible) {
+          if (this._enabled && !this.isGameActive) {
+            this.playBgm();
+          }
+        } else {
+          this.pauseBgm();
+        }
+      });
+    }
+  }
+
+  get enabled(): boolean {
+    return this._enabled;
+  }
+
+  set enabled(val: boolean) {
+    this._enabled = val;
+    if (val) {
+      if (!this.isGameActive && this.isPageVisible) {
+        this.playBgm();
+      }
+    } else {
+      this.pauseBgm();
+    }
+  }
+
+  public setGameActive(active: boolean) {
+    this.isGameActive = active;
+    if (active) {
+      this.pauseBgm();
+    } else {
+      if (this._enabled && this.isPageVisible) {
+        this.playBgm();
+      }
+    }
+  }
+
+  private initBgm(): HTMLAudioElement | null {
+    if (typeof window === 'undefined') return null;
+    if (!this.bgmAudio) {
+      try {
+        const basePath = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || './';
+        const cleanBase = basePath.endsWith('/') ? basePath : basePath + '/';
+        const audio = new Audio(`${cleanBase}audio/synthwave.mp3`);
+        audio.loop = true;
+        audio.volume = 0.25;
+        audio.preload = 'auto';
+        this.bgmAudio = audio;
+      } catch {
+        // Fallback or ignore
+      }
+    }
+    return this.bgmAudio;
+  }
+
+  public playBgm() {
+    const audio = this.initBgm();
+    if (!audio) return;
+    if (!this._enabled || this.isGameActive || !this.isPageVisible) return;
+
+    try {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Playback blocked or user hasn't interacted with DOM yet
+        });
+      }
+    } catch {
+      // Ignore
+    }
+  }
+
+  public pauseBgm() {
+    if (this.bgmAudio) {
+      try {
+        this.bgmAudio.pause();
+      } catch {
+        // Ignore
+      }
+    }
   }
 
   private getContext(): AudioContext | null {
@@ -22,7 +107,10 @@ class SoundSynthesizer {
   }
 
   public playClick(freq = 600, duration = 0.04) {
-    if (!this.enabled) return;
+    if (!this._enabled) return;
+    if (this.bgmAudio && this.bgmAudio.paused && !this.isGameActive && this.isPageVisible) {
+      this.playBgm();
+    }
     try {
       const ctx = this.getContext();
       if (!ctx) return;
@@ -47,7 +135,10 @@ class SoundSynthesizer {
   }
 
   public playSwitch() {
-    if (!this.enabled) return;
+    if (!this._enabled) return;
+    if (this.bgmAudio && this.bgmAudio.paused && !this.isGameActive && this.isPageVisible) {
+      this.playBgm();
+    }
     try {
       const ctx = this.getContext();
       if (!ctx) return;
@@ -72,7 +163,10 @@ class SoundSynthesizer {
   }
 
   public playChirp() {
-    if (!this.enabled) return;
+    if (!this._enabled) return;
+    if (this.bgmAudio && this.bgmAudio.paused && !this.isGameActive && this.isPageVisible) {
+      this.playBgm();
+    }
     try {
       const ctx = this.getContext();
       if (!ctx) return;

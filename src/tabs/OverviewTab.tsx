@@ -174,7 +174,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
                 <div className="flex items-baseline gap-2.5">
                   <span className="font-mono text-xs font-bold text-emerald-400">1.</span>
                   <p>
-                    An individual who cultivates <strong className="text-white font-semibold">forensic, architectural depth</strong> across multiple orthogonal disciplines—reconciling assembly opcodes with existential ontology, sprint canoe biomechanics with rootless container lifecycles, and quantitative finance with corporate agile governance.
+                    An individual who cultivates <strong className="text-white font-semibold">forensic, architectural depth</strong> across multiple orthogonal disciplines—reconciling assembly opcodes with existential ontology, systems architecture with rootless container lifecycles, and quantitative finance with corporate agile governance.
                   </p>
                 </div>
               </div>

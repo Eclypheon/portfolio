@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Terminal, 
   ExternalLink, 
@@ -23,6 +23,18 @@ import { sound } from '../components/AudioEngine.ts';
 export const ProjectsTab: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
+
+  // Automatically pause portfolio synthwave music when Bubble Tea in-browser game is playing
+  useEffect(() => {
+    if (activeEmbed === 'bubbletea') {
+      sound.setGameActive(true);
+    } else {
+      sound.setGameActive(false);
+    }
+    return () => {
+      sound.setGameActive(false);
+    };
+  }, [activeEmbed]);
   
   // Finance Tracker Showcase State
   const [financeActiveIndex, setFinanceActiveIndex] = useState<number>(0);

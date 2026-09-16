@@ -22,8 +22,7 @@ export const PhilosophyTab: React.FC = () => {
     'All', 
     'Philosophy', 
     'Sociology & Power', 
-    'Language & Mind', 
-    'Systems & Cybernetics'
+    'Language & Mind'
   ];
 
   const filteredItems = readingList.filter((item) => {

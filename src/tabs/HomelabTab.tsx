@@ -439,7 +439,7 @@ WantedBy=default.target`;
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
               Decentralized, hardware-accelerated media streaming running rootless under systemd Quadlet. 
-              Indexes a personal library of 193 movies, 20 shows, 47 anime series, and lossless music with Shoko metadata synthesis.
+              Indexes a personal library of 193 movies, 20 shows, and 47 anime series with Shoko metadata synthesis.
             </p>
           </div>
 

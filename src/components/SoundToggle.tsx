@@ -17,7 +17,7 @@ export const SoundToggle: React.FC = () => {
   return (
     <button
       onClick={toggleSound}
-      title={enabled ? 'Mute Interface Audio' : 'Enable Tactile Audio Feedback'}
+      title={enabled ? 'Mute Interface Audio & Synthwave BGM' : 'Enable Synthwave BGM & Tactile Audio Feedback'}
       className={`p-2 rounded-lg border transition-all duration-200 flex items-center gap-1.5 text-xs font-mono ${
         enabled
           ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
@@ -27,12 +27,12 @@ export const SoundToggle: React.FC = () => {
       {enabled ? (
         <>
           <Volume2 className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-          <span className="hidden sm:inline">SFX ON</span>
+          <span className="hidden sm:inline">SOUND ON</span>
         </>
       ) : (
         <>
           <VolumeX className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">SFX OFF</span>
+          <span className="hidden sm:inline">SOUND OFF</span>
         </>
       )}
     </button>
