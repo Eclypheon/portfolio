@@ -276,38 +276,40 @@ export const ProjectsTab: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Active Screenshot Display */}
-                  <div 
-                    onClick={() => {
-                      sound.playClick();
-                      setModalImage({
-                        src: bubbleTeaScreenshots[bubbleTeaActiveIndex].image,
-                        title: bubbleTeaScreenshots[bubbleTeaActiveIndex].title,
-                        subtitle: bubbleTeaScreenshots[bubbleTeaActiveIndex].subtitle
-                      });
-                    }}
-                    className="relative rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
-                  >
-                    <img
-                      src={bubbleTeaScreenshots[bubbleTeaActiveIndex].image}
-                      alt={bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
-                      className="w-full max-h-[460px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 opacity-90 group-hover:opacity-100 transition-opacity">
-                      <div className="flex items-center justify-between w-full">
-                        <span className="text-xs font-mono text-emerald-300 bg-black/60 px-2.5 py-1 rounded border border-emerald-500/30">
-                          {bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
-                        </span>
-                        <span className="text-xs font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
-                          <Maximize2 className="w-3 h-3 text-emerald-400" />
-                          Click to inspect full resolution
-                        </span>
+                  {/* Active Screenshot Display (Constrained Container to eliminate cropping on wide viewports) */}
+                  <div className="flex justify-center">
+                    <div 
+                      onClick={() => {
+                        sound.playClick();
+                        setModalImage({
+                          src: bubbleTeaScreenshots[bubbleTeaActiveIndex].image,
+                          title: bubbleTeaScreenshots[bubbleTeaActiveIndex].title,
+                          subtitle: bubbleTeaScreenshots[bubbleTeaActiveIndex].subtitle
+                        });
+                      }}
+                      className="relative max-w-3xl w-full rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
+                    >
+                      <img
+                        src={bubbleTeaScreenshots[bubbleTeaActiveIndex].image}
+                        alt={bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
+                        className="w-full h-auto max-h-[460px] object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-mono text-emerald-300 bg-black/60 px-2.5 py-1 rounded border border-emerald-500/30">
+                            {bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
+                          </span>
+                          <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
+                            <Maximize2 className="w-3 h-3 text-emerald-400" />
+                            Click to inspect full resolution
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Thumbnail Row */}
-                  <div className="grid grid-cols-5 gap-2 pt-1">
+                  {/* Thumbnail Row (Constrained) */}
+                  <div className="max-w-3xl mx-auto grid grid-cols-5 gap-2 pt-1">
                     {bubbleTeaScreenshots.map((item, idx) => (
                       <button
                         key={item.id}
@@ -537,74 +539,43 @@ export const ProjectsTab: React.FC = () => {
               </div>
             )}
 
-            {/* INTERFACE SHOWCASE: CheerPlan Pro */}
+            {/* INTERFACE SHOWCASE: CheerPlan Pro (Constrained Container Demo) */}
             {project.id === 'cheerplan' && (
               <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-mono text-pink-400">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>FORMATION ENGINE // INTERACTIVE CHOREOGRAPHY INTERFACE</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white">
-                      8-Count Vector Formation Canvas & Routine Builder
-                    </h3>
-                    <p className="text-xs text-slate-400 font-mono">
-                      Real-time stunting visualizer: athlete coordinate mapping, dynamic vector arrow trajectories, and multi-line count propagation
-                    </p>
+                <div className="space-y-1 border-b border-white/5 pb-4">
+                  <div className="flex items-center gap-2 text-xs font-mono text-pink-400">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>FORMATION ENGINE // INTERACTIVE CHOREOGRAPHY INTERFACE</span>
                   </div>
-
-                  <button
-                    onClick={() => {
-                      sound.playChirp();
-                      setModalImage({
-                        src: cheerScreenshots[0].image,
-                        title: cheerScreenshots[0].title,
-                        subtitle: cheerScreenshots[0].subtitle
-                      });
-                    }}
-                    className="px-3 py-1.5 rounded-lg bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-xs font-mono text-pink-300 flex items-center gap-1.5 transition-all"
-                  >
-                    <Maximize2 className="w-3.5 h-3.5" />
-                    <span>Enlarge Interface</span>
-                  </button>
+                  <h3 className="text-lg font-bold text-white">
+                    8-Count Vector Formation Canvas & Routine Builder
+                  </h3>
+                  <p className="text-xs text-slate-400 font-mono">
+                    Real-time stunting visualizer: athlete coordinate mapping, dynamic vector arrow trajectories, and multi-line count propagation
+                  </p>
                 </div>
 
-                <div 
-                  onClick={() => {
-                    sound.playClick();
-                    setModalImage({
-                      src: cheerScreenshots[0].image,
-                      title: cheerScreenshots[0].title,
-                      subtitle: cheerScreenshots[0].subtitle
-                    });
-                  }}
-                  className="rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group relative shadow-2xl"
-                >
-                  <img
-                    src={cheerScreenshots[0].image}
-                    alt={cheerScreenshots[0].title}
-                    className="w-full max-h-[500px] object-cover object-top group-hover:scale-[1.01] transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 opacity-90 group-hover:opacity-100 transition-opacity">
-                    <div className="flex items-center justify-between w-full">
+                <div className="flex justify-center">
+                  <div className="relative max-w-3xl w-full rounded-2xl overflow-hidden border border-white/20 bg-black shadow-2xl">
+                    <img
+                      src={cheerScreenshots[0].image}
+                      alt={cheerScreenshots[0].title}
+                      className="w-full h-auto max-h-[460px] object-contain mx-auto"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 opacity-95">
                       <div className="space-y-0.5">
                         <span className="text-xs font-mono text-pink-300 bg-black/60 px-2.5 py-1 rounded border border-pink-500/30">
                           Live Routine Builder Canvas
                         </span>
-                        <p className="text-xs text-slate-300 font-mono mt-1">
+                        <p className="text-[11px] text-slate-300 font-mono mt-0.5">
                           Positionsheet vector arrows, crosshair start/end coordinates & draggable stunt pods
                         </p>
                       </div>
-                      <span className="text-xs font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
-                        <Maximize2 className="w-3 h-3 text-pink-400" />
-                        Click to inspect full resolution
-                      </span>
                     </div>
                   </div>
                 </div>
                 <p className="text-center text-xs font-mono text-slate-500">
-                  Click the formation canvas to inspect full-resolution vector arrows, stunt markers, and 8-count sequencing
+                  Formation canvas demo: 8-count sequencing, vector transitions, and stunt roster mapping
                 </p>
               </div>
             )}

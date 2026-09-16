@@ -84,7 +84,7 @@ export const careerTrajectory: CareerMilestone[] = [
       'Tactical Unit Command & Crisis Triage'
     ],
     image: './photos/military-instructor.jpg',
-    imageOffsetY: '-100px',
+    imageOffsetY: '-50px',
     highlights: [
       {
         title: 'Inaugural DIS & C4I Training Wing Formation',

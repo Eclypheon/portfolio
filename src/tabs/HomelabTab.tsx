@@ -424,22 +424,7 @@ WantedBy=default.target`;
                   return (
                     <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
                       <td className="py-3.5 px-4 font-bold text-white">
-                        <div className="flex items-center gap-2">
-                          <span>{item.name}</span>
-                          {item.name === 'Jellyfin' && (
-                            <button
-                              onClick={() => {
-                                sound.playClick();
-                                setJellyfinModalOpen(true);
-                              }}
-                              className="px-2 py-0.5 rounded bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 text-[10px] font-mono text-purple-300 inline-flex items-center gap-1 transition-all"
-                              title="Request to Join Jellyfin Server (Currently non-functional)"
-                            >
-                              <span>Request Access</span>
-                              <span className="text-[8px] opacity-70">(Offline)</span>
-                            </button>
-                          )}
-                        </div>
+                        <span>{item.name}</span>
                       </td>
                       <td className="py-3.5 px-4 text-slate-300 max-w-xs sm:max-w-md">
                         {item.purpose}

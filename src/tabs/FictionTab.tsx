@@ -220,6 +220,12 @@ export const FictionTab: React.FC = () => {
                       <img
                         src={item.image}
                         alt={item.title}
+                        style={item.imagePosition ? {
+                          objectPosition: item.imagePosition
+                        } : item.imageOffsetY ? {
+                          height: `calc(100% + ${item.imageOffsetY.replace('-', '')})`,
+                          marginTop: item.imageOffsetY
+                        } : undefined}
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0c1017] via-[#0c1017]/40 to-black/20" />

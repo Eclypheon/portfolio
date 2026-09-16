@@ -13,6 +13,8 @@ export interface DarkProseItem {
   date?: string;
   text: string[];
   image?: string;
+  imagePosition?: string;
+  imageOffsetY?: string;
 }
 
 export const flatEarthStory = {
@@ -75,6 +77,7 @@ export const darkProseCollection: DarkProseItem[] = [
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
     image: './photos/Travels1.png',
+    imagePosition: 'center bottom',
     text: [
       'Such is my abode, broken, shattered, blood-splattered',
       'Living apart, alone segregated',
@@ -108,6 +111,7 @@ export const darkProseCollection: DarkProseItem[] = [
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
     image: './photos/Travels2.png',
+    imagePosition: 'center bottom',
     text: [
       'Pulsating crimson erupts amidst darkness',
       'Scarlet leaves fly',
@@ -149,6 +153,7 @@ export const darkProseCollection: DarkProseItem[] = [
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
     image: './photos/Student Athlete.png',
+    imagePosition: 'center calc(50% + 20px)',
     text: [
       'Just as one takes a train to travel on earth...',
       '',

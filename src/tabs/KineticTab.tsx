@@ -115,7 +115,9 @@ export const KineticTab: React.FC = () => {
                     <img
                       src={item.image}
                       alt={item.title}
-                      style={item.imageOffsetY ? {
+                      style={item.imagePosition ? {
+                        objectPosition: item.imagePosition
+                      } : item.imageOffsetY ? {
                         height: `calc(100% + ${item.imageOffsetY.replace('-', '')})`,
                         marginTop: item.imageOffsetY
                       } : undefined}

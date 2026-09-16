@@ -10,6 +10,7 @@ export interface KineticEndeavor {
   accentColor: string;
   image?: string;
   imageOffsetY?: string;
+  imagePosition?: string;
 }
 
 export interface SurgicalProcedure {
@@ -170,7 +171,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
     ],
     accentColor: '#8b5cf6',
     image: './photos/acroyoga-1.png',
-    imageOffsetY: '-200px'
+    imagePosition: 'center bottom'
   },
   {
     id: 'snowboard-ski-wake',
@@ -250,6 +251,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
       { label: 'Load Bearing', value: 'Heavy Rucksack' }
     ],
     accentColor: '#10b981',
-    image: './photos/hiking1.jpg'
+    image: './photos/hiking1.jpg',
+    imageOffsetY: '-100px'
   }
 ];
