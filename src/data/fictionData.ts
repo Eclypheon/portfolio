@@ -12,6 +12,7 @@ export interface DarkProseItem {
   attribution: 'Authored by Neo Kester' | 'AI-Generated (Approved by Neo Kester)';
   date?: string;
   text: string[];
+  image?: string;
 }
 
 export const flatEarthStory = {
@@ -73,6 +74,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Jaunt fee',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Travels1.png',
     text: [
       'Such is my abode, broken, shattered, blood-splattered',
       'Living apart, alone segregated',
@@ -105,6 +107,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Food for the worms',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Travels2.png',
     text: [
       'Pulsating crimson erupts amidst darkness',
       'Scarlet leaves fly',
@@ -145,6 +148,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Elegy',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Student Athlete.png',
     text: [
       'Just as one takes a train to travel on earth...',
       '',
@@ -171,6 +175,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Cant sleep zz',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Skiing1.jpg',
     text: [
       'These infernal sleepless nights are',
       'Tearing my psyche apart and',
@@ -198,6 +203,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Fugacious escape',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Hiking2.png',
     text: [
       'A dark void tears a hole in your reality',
       'Peering inside you witness life\'s banality',
@@ -225,6 +231,7 @@ export const darkProseCollection: DarkProseItem[] = [
     title: 'Sheeple',
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
+    image: './photos/Diving.png',
     text: [
       'Lament with sorrow which would not surcease',
       'Beguiled into hedonism those who live',

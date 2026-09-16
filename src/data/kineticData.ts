@@ -9,6 +9,7 @@ export interface KineticEndeavor {
   metrics: { label: string; value: string }[];
   accentColor: string;
   image?: string;
+  imageOffsetY?: string;
 }
 
 export interface SurgicalProcedure {
@@ -69,7 +70,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
       { label: 'Training Load', value: '10-12 Sessions / Wk' }
     ],
     accentColor: '#10b981',
-    image: './photos/canoe-medalist-1.jpg'
+    image: './photos/Canoe1.jpg'
   },
   {
     id: 'dragonboat',
@@ -168,7 +169,8 @@ export const kineticEndeavors: KineticEndeavor[] = [
       { label: 'Flexibility', value: 'Active Mobility & Dynamic Stretch' }
     ],
     accentColor: '#8b5cf6',
-    image: './photos/acroyoga-1.png'
+    image: './photos/acroyoga-1.png',
+    imageOffsetY: '-200px'
   },
   {
     id: 'snowboard-ski-wake',
@@ -188,26 +190,66 @@ export const kineticEndeavors: KineticEndeavor[] = [
       { label: 'Focus', value: 'Recreation & Flow' }
     ],
     accentColor: '#38bdf8',
-    image: './photos/snowboarding.png'
+    image: './photos/Skiing2.png'
   },
   {
-    id: 'gravity-depth',
+    id: 'skydiving',
     category: 'Recreation',
-    title: 'PADI Advanced Diver & Skydiving AFF',
-    roleOrLevel: 'Sub-aquatic & Atmospheric Explorer',
-    period: 'Adventure Disciplines',
-    description: 'Pursuing extreme environments: certified PADI Advanced Open Water Diver exploring deep reef walls, drift currents, and night dives; alongside Accelerated Freefall (AFF) skydiving training, learning terminal-velocity body flight at 120 mph.',
+    title: 'Accelerated Freefall (AFF) & Skydiving',
+    roleOrLevel: 'Terminal Velocity Body Flight & Canopy Piloting',
+    period: 'Atmospheric Flight Progression',
+    description: 'Trained in Accelerated Freefall (AFF) skydiving, learning stable belly flight, heading control, and forward tracking in 120 mph terminal velocity wind flow before deploying and piloting ram-air canopies down to high-precision landings.',
     skillsAndDemands: [
-      'Atmospheric & hydrostatic pressure physics (Boyle\'s and Henry\'s Gas Laws)',
-      'Sensory deprivation and nitrogen narcosis management at 30m+ depth',
-      'High-altitude terminal velocity freefall stability and canopy piloting'
+      'High-altitude atmospheric airflow stabilization at 120 mph',
+      'Altitude awareness and rapid decision trees under terminal velocity',
+      'Ram-air square canopy piloting, pattern turns, and flare timing'
     ],
     metrics: [
-      { label: 'Diving Level', value: 'PADI Advanced Open Water' },
-      { label: 'Skydiving', value: 'AFF Freefall Progression' },
-      { label: 'Extreme Arts', value: 'Bouldering & Scuba' }
+      { label: 'Progression', value: 'AFF Freefall' },
+      { label: 'Airspeed', value: '120+ mph' },
+      { label: 'Category', value: 'Extreme Aerial' }
     ],
     accentColor: '#3b82f6',
-    image: './photos/diving.png'
+    image: './photos/Skydiving.png'
+  },
+  {
+    id: 'bouldering',
+    category: 'Recreation',
+    title: 'Bouldering & Kinetic Problem Solving',
+    roleOrLevel: 'V-Scale Climber & Movement Specialist',
+    period: 'Active Practice',
+    description: 'Approaching bouldering as dynamic spatial geometry and isometric power endurance. Translating finger pulley tension, heel-hooks, and high-tension core compression into solving complex multi-move movement sequences across steep overhangs and slabs.',
+    skillsAndDemands: [
+      'Finger crimp, pocket, and open-hand tendon conditioning',
+      'Dynamic dead-points, coordination dynos, and momentum redirection',
+      'High-tension core engagement, toe-hooks, and compression mantels'
+    ],
+    metrics: [
+      { label: 'Terrain', value: 'Overhangs & Slabs' },
+      { label: 'Grip Style', value: 'Crimp & Open-Hand' },
+      { label: 'Discipline', value: 'Kinetic Logic' }
+    ],
+    accentColor: '#f59e0b',
+    image: './photos/Bouldering.png'
+  },
+  {
+    id: 'hiking',
+    category: 'Recreation',
+    title: 'Wilderness Trekking & Alpine Expeditions',
+    roleOrLevel: 'Long-Distance & Rugged Elevation Hiker',
+    period: 'Expedition Pursuits',
+    description: 'Sustained multi-day wilderness backpacking, navigating elevation gains, rugged scree trails, and variable weather. Tests aerobic zone-2 thresholds, load-bearing spinal stamina, and mental perseverance across remote natural landscapes.',
+    skillsAndDemands: [
+      'Sustained cardiopulmonary zone-2 endurance with heavy expedition rucksack',
+      'Trekking pole biomechanics offloading joint impacts on steep descents',
+      'Topographical route assessment, elevation pace budgeting, and environmental navigation'
+    ],
+    metrics: [
+      { label: 'Environment', value: 'Alpine & Scree' },
+      { label: 'Pacing', value: 'Multi-Hour Trekking' },
+      { label: 'Load Bearing', value: 'Heavy Rucksack' }
+    ],
+    accentColor: '#10b981',
+    image: './photos/hiking1.jpg'
   }
 ];

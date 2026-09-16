@@ -207,13 +207,25 @@ export const FictionTab: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`glass-panel p-6 sm:p-7 rounded-3xl border transition-all flex flex-col justify-between ${
+                className={`glass-panel p-6 sm:p-7 rounded-3xl border transition-all flex flex-col justify-between group overflow-hidden ${
                   isAuthored
                     ? 'border-emerald-500/20 hover:border-emerald-500/40 shadow-[0_0_20px_-5px_rgba(16,185,129,0.08)]'
                     : 'border-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="space-y-4">
+                  {/* Photo Banner with Dark Overlay */}
+                  {item.image && (
+                    <div className="relative h-44 -mx-6 -mt-6 sm:-mx-7 sm:-mt-7 mb-3 overflow-hidden rounded-t-3xl bg-black">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0c1017] via-[#0c1017]/40 to-black/20" />
+                    </div>
+                  )}
+
                   {/* Top metadata badge */}
                   <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-3">
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full flex items-center gap-1 ${

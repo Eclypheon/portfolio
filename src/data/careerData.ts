@@ -6,6 +6,7 @@ export interface CareerMilestone {
   summary: string;
   skills: string[];
   image?: string;
+  imageOffsetY?: string;
   highlights: { title: string; detail: string }[];
 }
 
@@ -16,6 +17,7 @@ export const careerTrajectory: CareerMilestone[] = [
     badge: 'Public Safety & Homeland Security',
     period: 'Present Occupation',
     summary: 'Driving next-generation spatial intelligence and command platforms across Singapore’s national public safety infrastructure.',
+    image: './photos/htx.jpg',
     skills: [
       'Esri ArcGIS Suite (Pro / Enterprise / Portal)',
       'MSSQL & Spatial SQL',
@@ -43,6 +45,7 @@ export const careerTrajectory: CareerMilestone[] = [
     badge: 'Mission-Critical C3 & Field Operations',
     period: 'Post-Military Transition',
     summary: 'Leveraged deep military command and operational experience to deliver complex emergency response and wilderness monitoring systems.',
+    image: './photos/stengineering.jpg',
     skills: [
       'JIRA & Confluence',
       'Microsoft Project',
@@ -81,6 +84,7 @@ export const careerTrajectory: CareerMilestone[] = [
       'Tactical Unit Command & Crisis Triage'
     ],
     image: './photos/military-instructor.jpg',
+    imageOffsetY: '-100px',
     highlights: [
       {
         title: 'Inaugural DIS & C4I Training Wing Formation',

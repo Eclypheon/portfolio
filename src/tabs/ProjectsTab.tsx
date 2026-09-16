@@ -12,7 +12,9 @@ import {
   TrendingUp,
   Landmark,
   CalendarSync,
-  Quote
+  Quote,
+  Gamepad2,
+  Eye
 } from 'lucide-react';
 import { GithubIcon } from '../components/GithubIcon.tsx';
 import { projects } from '../data/projectsData.ts';
@@ -26,11 +28,63 @@ export const ProjectsTab: React.FC = () => {
   const [financeActiveCard, setFinanceActiveCard] = useState<number | null>(null);
   const [financeViewMode, setFinanceViewMode] = useState<'fan' | 'assets' | 'dividends' | 'expenses'>('fan');
 
+  // Bubble Tea Showcase State
+  const [bubbleTeaActiveIndex, setBubbleTeaActiveIndex] = useState<number>(0);
+
+  // General Image Lightbox State
+  const [modalImage, setModalImage] = useState<{
+    src: string;
+    title: string;
+    subtitle?: string;
+  } | null>(null);
+
   const categories = ['All', 'Game Dev', 'Full Stack', 'Systems'];
 
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
     : projects.filter(p => p.category === selectedCategory);
+
+  const bubbleTeaScreenshots = [
+    {
+      id: 'bt-1',
+      title: 'Kitchen Gameplay & Customer Queue',
+      subtitle: 'Order queuing system, customer waiting timers, tea dispensers, flavor syrups, and topping bins',
+      image: './photos/bubble-tea-1.jpg'
+    },
+    {
+      id: 'bt-2',
+      title: 'Beverage Crafting & Custom Fluid Shaders',
+      subtitle: 'Fluid pouring verification, milk-to-tea ratio balancing, ice volume tuning, and topping layering',
+      image: './photos/bubble-tea-2.png'
+    },
+    {
+      id: 'bt-3',
+      title: 'Shop Upgrades & Equipment Inventory',
+      subtitle: 'Economic progression: unlocking new tea bases, specialty pearls, fast blenders, and expanded customer counters',
+      image: './photos/bubble-tea-3.png'
+    },
+    {
+      id: 'bt-4',
+      title: 'Customer Satisfaction & Scoring Evaluation',
+      subtitle: 'State machine evaluation of customer patience, recipe compliance verification, and tipping multipliers',
+      image: './photos/bubble-tea-4.png'
+    },
+    {
+      id: 'bt-5',
+      title: 'Rush Hour Crowd Flow Dynamics',
+      subtitle: 'High-density multi-customer queuing, rapid order fulfillment, and Foley audio triggers synthesized in FL Studio',
+      image: './photos/bubble-tea-5.png'
+    }
+  ];
+
+  const cheerScreenshots = [
+    {
+      id: 'cp-1',
+      title: 'Interactive Formation Grid & 8-Count Choreography Suite',
+      subtitle: 'Real-time stunting formation visualizer: base, flyer, and spotter coordinate mapping, dynamic vector arrow trajectories, and multi-line count propagation',
+      image: './photos/cheer-routine-builder.png'
+    }
+  ];
 
   const financeScreenshots = [
     {
@@ -161,48 +215,168 @@ export const ProjectsTab: React.FC = () => {
               </p>
             </div>
 
-            {/* Interactive Embedded Launcher for Bubble Tea */}
+            {/* GAMEPLAY SCREENSHOT SHOWCASE & WEBGL LAUNCHER: Bubble Tea */}
             {project.id === 'bubbletea' && (
-              <div className="p-4 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-                    <Play className="w-4 h-4 text-emerald-400" />
-                    <span>In-Browser WebGL Simulation Sandbox</span>
+              <div className="space-y-6">
+                {/* Screenshot Gallery Viewer */}
+                <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-5">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                        <Gamepad2 className="w-3.5 h-3.5" />
+                        <span>GAMEPLAY SIMULATION // IN-GAME SCREENSHOT GALLERY</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-white">
+                        {bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
+                      </h3>
+                      <p className="text-xs text-slate-400 font-mono">
+                        {bubbleTeaScreenshots[bubbleTeaActiveIndex].subtitle}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          sound.playClick();
+                          setBubbleTeaActiveIndex((bubbleTeaActiveIndex + bubbleTeaScreenshots.length - 1) % bubbleTeaScreenshots.length);
+                        }}
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                        title="Previous Screenshot"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <span className="text-xs font-mono text-slate-400 px-1">
+                        {bubbleTeaActiveIndex + 1} / {bubbleTeaScreenshots.length}
+                      </span>
+                      <button
+                        onClick={() => {
+                          sound.playClick();
+                          setBubbleTeaActiveIndex((bubbleTeaActiveIndex + 1) % bubbleTeaScreenshots.length);
+                        }}
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                        title="Next Screenshot"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          sound.playChirp();
+                          setModalImage({
+                            src: bubbleTeaScreenshots[bubbleTeaActiveIndex].image,
+                            title: bubbleTeaScreenshots[bubbleTeaActiveIndex].title,
+                            subtitle: bubbleTeaScreenshots[bubbleTeaActiveIndex].subtitle
+                          });
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs font-mono text-emerald-300 flex items-center gap-1.5 transition-all ml-1"
+                        title="Enlarge Current Screenshot"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Enlarge</span>
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    onClick={() => setActiveEmbed(activeEmbed === 'bubbletea' ? null : 'bubbletea')}
-                    className="text-xs font-mono px-3 py-1 rounded bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition-all"
+
+                  {/* Active Screenshot Display */}
+                  <div 
+                    onClick={() => {
+                      sound.playClick();
+                      setModalImage({
+                        src: bubbleTeaScreenshots[bubbleTeaActiveIndex].image,
+                        title: bubbleTeaScreenshots[bubbleTeaActiveIndex].title,
+                        subtitle: bubbleTeaScreenshots[bubbleTeaActiveIndex].subtitle
+                      });
+                    }}
+                    className="relative rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
                   >
-                    {activeEmbed === 'bubbletea' ? 'Minimize Player' : 'Play Inside Page'}
-                    <Maximize2 className="w-3 h-3" />
-                  </button>
+                    <img
+                      src={bubbleTeaScreenshots[bubbleTeaActiveIndex].image}
+                      alt={bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
+                      className="w-full max-h-[460px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 opacity-90 group-hover:opacity-100 transition-opacity">
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-xs font-mono text-emerald-300 bg-black/60 px-2.5 py-1 rounded border border-emerald-500/30">
+                          {bubbleTeaScreenshots[bubbleTeaActiveIndex].title}
+                        </span>
+                        <span className="text-xs font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
+                          <Maximize2 className="w-3 h-3 text-emerald-400" />
+                          Click to inspect full resolution
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Thumbnail Row */}
+                  <div className="grid grid-cols-5 gap-2 pt-1">
+                    {bubbleTeaScreenshots.map((item, idx) => (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          sound.playClick();
+                          setBubbleTeaActiveIndex(idx);
+                        }}
+                        className={`rounded-xl overflow-hidden border transition-all text-left group relative aspect-[16/10] ${
+                          bubbleTeaActiveIndex === idx
+                            ? 'border-emerald-500 ring-2 ring-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                            : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
+                        }`}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors" />
+                        <span className="absolute bottom-1 left-1.5 text-[9px] font-mono font-bold text-white bg-black/70 px-1 rounded truncate max-w-[90%]">
+                          {idx + 1}. {item.title.split(' ')[0]}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {activeEmbed === 'bubbletea' ? (
-                  <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-xl overflow-hidden border border-emerald-500/30 bg-black">
-                    <iframe
-                      src="https://eclypheon.github.io/bubbletea/"
-                      title="Bubble Tea Simulation Game"
-                      className="w-full h-full border-0"
-                      allow="autoplay; fullscreen"
-                    />
-                  </div>
-                ) : (
-                  <div 
-                    onClick={() => setActiveEmbed('bubbletea')}
-                    className="w-full py-12 rounded-xl border border-dashed border-white/20 bg-white/[0.02] hover:bg-white/[0.04] flex flex-col items-center justify-center cursor-pointer transition-all group"
-                  >
-                    <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-                      <Play className="w-6 h-6 ml-0.5" />
+                {/* In-Browser WebGL Launcher */}
+                <div className="p-4 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                      <Play className="w-4 h-4 text-emerald-400" />
+                      <span>In-Browser WebGL Simulation Sandbox</span>
                     </div>
-                    <p className="mt-3 text-sm font-semibold text-white group-hover:text-emerald-300">
-                      Click to initialize Unity WebGL sandbox
-                    </p>
-                    <p className="text-xs text-slate-500 font-mono mt-1">
-                      Runs 60FPS in-browser with iterative customer queues & FL Studio audio
-                    </p>
+                    <button
+                      onClick={() => setActiveEmbed(activeEmbed === 'bubbletea' ? null : 'bubbletea')}
+                      className="text-xs font-mono px-3 py-1 rounded bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition-all"
+                    >
+                      {activeEmbed === 'bubbletea' ? 'Minimize Player' : 'Play Inside Page'}
+                      <Maximize2 className="w-3 h-3" />
+                    </button>
                   </div>
-                )}
+
+                  {activeEmbed === 'bubbletea' ? (
+                    <div className="w-full aspect-[4/3] sm:aspect-[16/9] rounded-xl overflow-hidden border border-emerald-500/30 bg-black">
+                      <iframe
+                        src="https://eclypheon.github.io/bubbletea/"
+                        title="Bubble Tea Simulation Game"
+                        className="w-full h-full border-0"
+                        allow="autoplay; fullscreen"
+                      />
+                    </div>
+                  ) : (
+                    <div 
+                      onClick={() => setActiveEmbed('bubbletea')}
+                      className="w-full py-10 rounded-xl border border-dashed border-white/20 bg-white/[0.02] hover:bg-white/[0.04] flex flex-col items-center justify-center cursor-pointer transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                        <Play className="w-5 h-5 ml-0.5" />
+                      </div>
+                      <p className="mt-2.5 text-sm font-semibold text-white group-hover:text-emerald-300">
+                        Click to initialize Unity WebGL sandbox
+                      </p>
+                      <p className="text-xs text-slate-500 font-mono mt-0.5">
+                        Runs 60FPS in-browser with iterative customer queues & FL Studio audio
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 
@@ -363,6 +537,78 @@ export const ProjectsTab: React.FC = () => {
               </div>
             )}
 
+            {/* INTERFACE SHOWCASE: CheerPlan Pro */}
+            {project.id === 'cheerplan' && (
+              <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs font-mono text-pink-400">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>FORMATION ENGINE // INTERACTIVE CHOREOGRAPHY INTERFACE</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white">
+                      8-Count Vector Formation Canvas & Routine Builder
+                    </h3>
+                    <p className="text-xs text-slate-400 font-mono">
+                      Real-time stunting visualizer: athlete coordinate mapping, dynamic vector arrow trajectories, and multi-line count propagation
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      sound.playChirp();
+                      setModalImage({
+                        src: cheerScreenshots[0].image,
+                        title: cheerScreenshots[0].title,
+                        subtitle: cheerScreenshots[0].subtitle
+                      });
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/30 text-xs font-mono text-pink-300 flex items-center gap-1.5 transition-all"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>Enlarge Interface</span>
+                  </button>
+                </div>
+
+                <div 
+                  onClick={() => {
+                    sound.playClick();
+                    setModalImage({
+                      src: cheerScreenshots[0].image,
+                      title: cheerScreenshots[0].title,
+                      subtitle: cheerScreenshots[0].subtitle
+                    });
+                  }}
+                  className="rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group relative shadow-2xl"
+                >
+                  <img
+                    src={cheerScreenshots[0].image}
+                    alt={cheerScreenshots[0].title}
+                    className="w-full max-h-[500px] object-cover object-top group-hover:scale-[1.01] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 opacity-90 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="space-y-0.5">
+                        <span className="text-xs font-mono text-pink-300 bg-black/60 px-2.5 py-1 rounded border border-pink-500/30">
+                          Live Routine Builder Canvas
+                        </span>
+                        <p className="text-xs text-slate-300 font-mono mt-1">
+                          Positionsheet vector arrows, crosshair start/end coordinates & draggable stunt pods
+                        </p>
+                      </div>
+                      <span className="text-xs font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
+                        <Maximize2 className="w-3 h-3 text-pink-400" />
+                        Click to inspect full resolution
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-center text-xs font-mono text-slate-500">
+                  Click the formation canvas to inspect full-resolution vector arrows, stunt markers, and 8-count sequencing
+                </p>
+              </div>
+            )}
+
             {/* Architecture Highlights & Metrics */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Architecture breakdown */}
@@ -473,6 +719,56 @@ export const ProjectsTab: React.FC = () => {
               >
                 <span>Next</span>
                 <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Universal Screenshot Modal for Bubble Tea & CheerPlan Pro */}
+      {modalImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setModalImage(null)}
+        >
+          <div 
+            className="relative max-w-4xl w-full bg-slate-950 border border-white/20 rounded-3xl p-6 overflow-hidden space-y-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="space-y-0.5">
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-emerald-400" />
+                  <span>{modalImage.title}</span>
+                </h3>
+                {modalImage.subtitle && (
+                  <p className="text-xs text-slate-400 font-mono">
+                    {modalImage.subtitle}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => setModalImage(null)}
+                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all ml-4 shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="max-h-[72vh] overflow-y-auto rounded-xl border border-white/10 bg-black flex justify-center">
+              <img
+                src={modalImage.src}
+                alt={modalImage.title}
+                className="w-full h-auto object-contain rounded-lg"
+              />
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setModalImage(null)}
+                className="px-4 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono text-white transition-colors"
+              >
+                Close Fullscreen
               </button>
             </div>
           </div>

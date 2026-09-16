@@ -265,7 +265,11 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
                     <img
                       src={milestone.image}
                       alt={milestone.role}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      style={milestone.imageOffsetY ? {
+                        height: `calc(100% + ${milestone.imageOffsetY.replace('-', '')})`,
+                        marginTop: milestone.imageOffsetY
+                      } : undefined}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e14] via-[#0b0e14]/40 to-transparent" />
                   </div>
