@@ -173,8 +173,15 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-emerald-400">
                     {milestone.badge}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-500">
-                    {milestone.period}
+                  <span className={`text-[10px] font-mono ${
+                    milestone.period === 'Present Occupation'
+                      ? 'text-emerald-400 font-semibold flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20'
+                      : 'text-slate-500'
+                  }`}>
+                    {milestone.period === 'Present Occupation' && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    )}
+                    <span>{milestone.period}</span>
                   </span>
                 </div>
                 <div>

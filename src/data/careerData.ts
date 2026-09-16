@@ -12,7 +12,7 @@ export const careerTrajectory: CareerMilestone[] = [
     organization: 'HTX (Home Team Science and Technology Agency)',
     role: 'Enterprise Geospatial Systems Lead',
     badge: 'Public Safety & Homeland Security',
-    period: 'Post-Military / ST Engineering',
+    period: 'Present Occupation',
     summary: 'Driving next-generation spatial intelligence and command platforms across Singapore’s national public safety infrastructure.',
     highlights: [
       {
