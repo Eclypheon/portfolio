@@ -21,7 +21,8 @@ import {
   Bot,
   Gauge,
   Activity,
-  Film
+  Film,
+  ExternalLink
 } from 'lucide-react';
 import { 
   homelabSpecs, 
@@ -31,6 +32,7 @@ import {
   quadletExplanation 
 } from '../data/homelabData.ts';
 import { sound } from '../components/AudioEngine.ts';
+import { openJellyfinAccessPortal } from '../utils/portalAccess.ts';
 
 export const HomelabTab: React.FC = () => {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -39,7 +41,6 @@ export const HomelabTab: React.FC = () => {
   const [activeDashboardIndex, setActiveDashboardIndex] = useState<number>(0);
   const [modalDashboardIndex, setModalDashboardIndex] = useState<number | null>(null);
   const [stackFilter, setStackFilter] = useState<string>('All');
-  const [jellyfinModalOpen, setJellyfinModalOpen] = useState(false);
 
   const sampleQuadletUnit = `[Unit]
 Description=Jellyfin Media Streaming Server (Quadlet Rootless)
@@ -444,17 +445,13 @@ WantedBy=default.target`;
 
           <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <button
-              onClick={() => {
-                sound.playClick();
-                setJellyfinModalOpen(true);
-              }}
-              className="px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-200 text-xs font-mono font-semibold flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)] group"
+              onClick={openJellyfinAccessPortal}
+              className="px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-200 text-xs font-mono font-semibold flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)] group cursor-pointer"
+              title="Request to Join Jellyfin Server"
             >
               <Film className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
               <span>Request to Join Jellyfin Server</span>
-              <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-200 border border-purple-400/30">
-                Offline
-              </span>
+              <ExternalLink className="w-3.5 h-3.5 text-purple-300/70 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
@@ -678,66 +675,6 @@ WantedBy=default.target`;
         </div>
       )}
 
-      {/* Jellyfin Access Request Notice Modal */}
-      {jellyfinModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
-          onClick={() => setJellyfinModalOpen(false)}
-        >
-          <div 
-            className="relative max-w-md w-full glass-panel bg-[#0b0e14] border border-purple-500/30 rounded-2xl p-6 shadow-2xl space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                  <Film className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">Jellyfin Media Server Access</h3>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                    Registration Status: Offline
-                  </span>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  setJellyfinModalOpen(false);
-                }}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="space-y-2.5 text-xs font-mono text-slate-300 leading-relaxed pt-2 border-t border-white/10">
-              <p className="text-purple-300 font-semibold flex items-center gap-1.5">
-                <span>⚠️</span>
-                <span>Notice: The request to join the Jellyfin server is currently non-functional.</span>
-              </p>
-              <p className="text-slate-400">
-                I will work on those backends later. Automated invite dispatch, Tailscale/WireGuard subnet routing, and user streaming quota provisioning will be implemented in a subsequent update.
-              </p>
-              <p className="text-slate-500 italic pt-1 border-t border-white/5">
-                The Jellyfin instance is actively streaming to local clients on port 8096, but external automated account creation is held offline for security isolation.
-              </p>
-            </div>
-
-            <div className="pt-2 flex justify-end">
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  setJellyfinModalOpen(false);
-                }}
-                className="px-4 py-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-xs font-mono text-purple-200 transition-all shadow-[0_0_10px_rgba(168,85,247,0.2)]"
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

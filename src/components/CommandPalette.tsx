@@ -93,7 +93,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       category: 'Homelab',
       tab: 'homelab' as TabKey,
       icon: <Server className="w-4 h-4 text-purple-400" />,
-      subtitle: '1080p/4K library, 193 movies, 67 series (Registration offline)',
+      subtitle: '1080p/4K library, 193 movies, 67 series (Request Guest Access)',
     },
     // Philosophy
     ...readingList.map((r) => ({
