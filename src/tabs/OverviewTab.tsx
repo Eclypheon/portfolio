@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { TabKey } from '../components/Navigation.tsx';
 import { sound } from '../components/AudioEngine.ts';
+import { careerTrajectory } from '../data/careerData.ts';
 
 interface OverviewTabProps {
   onNavigate: (tab: TabKey) => void;
@@ -132,7 +133,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
             </div>
             <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Ex-Military Regular</span>
+              <span>Ex-Infantry Captain (7 Yrs)</span>
             </div>
             <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-pink-400" />
@@ -143,6 +144,66 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
               <span>Quadlet + Podman Homelab</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Command & Enterprise Systems Trajectory */}
+      <section className="space-y-6">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+            <Shield className="w-3.5 h-3.5" />
+            <span>COMMAND & ENTERPRISE SYSTEMS TRAJECTORY</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+            Operational Command & Homeland Security Systems
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
+            7-year infantry command tenure, OCS & DIS curriculum architecture, SCDF mission-critical C3 dispatch, and national geospatial infrastructure
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {careerTrajectory.map((milestone, idx) => (
+            <div
+              key={idx}
+              className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/10 space-y-4 flex flex-col justify-between hover:border-emerald-500/30 transition-all group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-3">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-emerald-400">
+                    {milestone.badge}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-500">
+                    {milestone.period}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+                    {milestone.role}
+                  </h3>
+                  <div className="text-xs font-mono text-slate-400 mt-0.5">
+                    {milestone.organization}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {milestone.summary}
+                </p>
+
+                <div className="space-y-2.5 pt-2">
+                  {milestone.highlights.map((h, hi) => (
+                    <div key={hi} className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+                      <div className="text-xs font-bold text-slate-200">
+                        {h.title}
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-mono">
+                        {h.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

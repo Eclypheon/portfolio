@@ -41,25 +41,28 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    title: 'Enterprise Architecture & Governance',
-    badge: 'Management & Strategy',
+    title: 'Operational Command & Enterprise Governance',
+    badge: 'Command & Leadership',
     iconName: 'Award',
-    description: 'Bridging technical deep-dives with rigorous business administration, strategic decision matrices, and certified project delivery.',
+    description: '7 years of military leadership as an Infantry Captain combined with certified agile delivery and top-tier business administration.',
     skills: [
-      { name: 'First Class Honours (BBA)', level: 'Top Tier', note: 'National University of Singapore (NUS) Business Administration, multiple Dean\'s Lists' },
-      { name: 'PMP® Certification', level: 'Certified', note: 'Project Management Institute (PMI) standard for risk, scope, and governance lifecycle' },
-      { name: 'Certified Scrum Master (CSM)', level: 'Certified', note: 'Agile servant leadership, sprint velocity optimization, cross-functional coaching' }
+      { name: 'SAF C4I Wing & DIS Curriculum', level: 'Stand-in Wing Cmdr', note: 'Forged inaugural officer curriculum for Digital and Intelligence Service (DIS) & C4I Wing' },
+      { name: 'Regional Force Commander (Sembawang)', level: 'Regional Command', note: 'Commanded security networks & guardrooms across Khatib Camp, Dieppe Barracks, and Sembawang Camp' },
+      { name: 'Cadet Shadow Initiative (OCS)', level: 'Initiative Founder', note: 'Instituted school-wide OCS framework training cadets in administrative orders and operational governance' },
+      { name: 'PMP® & Certified Scrum Master (CSM)', level: 'Dual Certified', note: 'PMI governance lifecycles, risk management, and agile velocity optimization' },
+      { name: 'First Class Honours (BBA) — NUS', level: 'Top Tier', note: 'National University of Singapore Business Administration, multiple Dean\'s Lists' }
     ]
   },
   {
-    title: 'Geospatial & Urban Telemetry (GIS)',
-    badge: 'Spatial Intelligence',
+    title: 'Enterprise Geospatial & Defense C3 (E-GIS)',
+    badge: 'Mission-Critical Systems',
     iconName: 'MapPin',
-    description: 'Analyzing large-scale spatial patterns, municipal transportation APIs, and public infrastructure datasets.',
+    description: 'Spearheading large-scale homeland security, emergency response, and operational tracking platforms.',
     skills: [
-      { name: 'GIS & Spatial Data', level: 'Practitioner', note: 'Coordinate reference systems, shapefile transformations, spatial clustering queries' },
-      { name: 'LTA DataMall & Urban APIs', level: 'Proficient', note: 'Real-time transit telemetry ingestion, taxi stand availability, carpark capacity models' },
-      { name: 'Python Data Pipeline', level: 'Advanced', note: 'GeoPandas, Shapely, asynchronous HTTP batch extractors, and automated JSON sanitizers' }
+      { name: 'HTX SPF & MHA E-GIS', level: 'Initiative Lead', note: 'Enterprise Geospatial Information Systems for Singapore Police Force & Ministry of Home Affairs' },
+      { name: 'ST Engineering ACES — SCDF', level: 'Deputy PM', note: 'Mission-critical C3 emergency dispatch combining GIS, Video Management (VMS), and CAD telemetry' },
+      { name: 'OBS IOMS Operations System', level: 'Development Lead', note: 'Integrated operations monitoring for Outward Bound Singapore participant tracking & field resources' },
+      { name: 'Spatial Telemetry & Urban Data', level: 'Advanced', note: 'Coordinate systems, real-time spatial clustering, shapefile pipelines, and GeoPandas workflows' }
     ]
   },
   {
