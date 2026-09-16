@@ -13,12 +13,21 @@ import { MusingsTab } from './tabs/MusingsTab.tsx';
 import { Mail, ShieldAlert, Terminal, Compass, ArrowUp, Heart, X } from 'lucide-react';
 import { GithubIcon } from './components/GithubIcon.tsx';
 import { sound } from './components/AudioEngine.ts';
+import { JellyfinModal } from './components/JellyfinModal.tsx';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('overview');
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
+  const [jellyfinModalOpen, setJellyfinModalOpen] = useState(false);
+
+  // Monitor custom event to open Jellyfin Access Request iframe modal
+  useEffect(() => {
+    const handleOpenJellyfin = () => setJellyfinModalOpen(true);
+    window.addEventListener('open-jellyfin-modal', handleOpenJellyfin);
+    return () => window.removeEventListener('open-jellyfin-modal', handleOpenJellyfin);
+  }, []);
 
   // Monitor scroll for scroll-to-top button
   useEffect(() => {
@@ -70,6 +79,12 @@ export const App: React.FC = () => {
           setActiveTab(tab);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+      />
+
+      {/* Embedded Jellyfin Access Request Modal (Iframe without address bar exposure) */}
+      <JellyfinModal
+        isOpen={jellyfinModalOpen}
+        onClose={() => setJellyfinModalOpen(false)}
       />
 
       {/* Main Sticky Navigation */}
