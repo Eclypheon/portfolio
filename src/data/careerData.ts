@@ -4,6 +4,7 @@ export interface CareerMilestone {
   badge: string;
   period: string;
   summary: string;
+  skills: string[];
   highlights: { title: string; detail: string }[];
 }
 
@@ -14,6 +15,16 @@ export const careerTrajectory: CareerMilestone[] = [
     badge: 'Public Safety & Homeland Security',
     period: 'Present Occupation',
     summary: 'Driving next-generation spatial intelligence and command platforms across Singapore’s national public safety infrastructure.',
+    skills: [
+      'Esri ArcGIS Suite (Pro / Enterprise / Portal)',
+      'MSSQL & Spatial SQL',
+      'Python (ArcPy / GeoPandas)',
+      'C# (.NET)',
+      'React & Angular Frameworks',
+      'MS 365 Suite & Power Automate',
+      'Enterprise GIS (E-GIS)',
+      'Spatial Telemetry & Geo-Analytics'
+    ],
     highlights: [
       {
         title: 'SPF Enterprise Geospatial Information System (E-GIS)',
@@ -31,6 +42,16 @@ export const careerTrajectory: CareerMilestone[] = [
     badge: 'Mission-Critical C3 & Field Operations',
     period: 'Post-Military Transition',
     summary: 'Leveraged deep military command and operational experience to deliver complex emergency response and wilderness monitoring systems.',
+    skills: [
+      'JIRA & Confluence',
+      'Microsoft Project',
+      'Agile (Scrum) & Waterfall Frameworks',
+      'C3 Dispatch & CAD Systems',
+      'Video Management Systems (VMS)',
+      'PMP® Governance & Risk Management',
+      'Vendor & Stakeholder Management',
+      'System Integration & Acceptance Testing (UAT)'
+    ],
     highlights: [
       {
         title: 'ACES (Advanced C3 Emergency System) — SCDF',
@@ -48,6 +69,16 @@ export const careerTrajectory: CareerMilestone[] = [
     badge: '7 Years Active Service',
     period: '4-Year Post-Graduation Bond',
     summary: '7-year career leading combat units, commanding regional camp security, and pioneering curriculum for Singapore’s new military branch.',
+    skills: [
+      'C4I Systems & Tactical Comms',
+      'CCNA & Network Routing Fundamentals',
+      'Basic Pentesting & Threat Modeling',
+      'Military Intelligence (MI) Doctrine',
+      'DIS & OCS Curriculum Design',
+      'Operational Staff Planning & Admin Orders',
+      'Regional Base Defense Protocols',
+      'Tactical Unit Command & Crisis Triage'
+    ],
     highlights: [
       {
         title: 'Inaugural DIS & C4I Training Wing Formation',

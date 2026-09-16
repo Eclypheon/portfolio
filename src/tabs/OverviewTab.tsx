@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Volume2, 
   Terminal, 
@@ -8,12 +8,13 @@ import {
   Activity, 
   Zap, 
   Server, 
-  Sparkles,
-  ArrowUpRight,
-  ShieldAlert,
-  Shield,
-  Feather,
-  ChevronRight
+  Sparkles, 
+  ArrowUpRight, 
+  ShieldAlert, 
+  Shield, 
+  Feather, 
+  ChevronRight,
+  Code2
 } from 'lucide-react';
 import { TabKey } from '../components/Navigation.tsx';
 import { sound } from '../components/AudioEngine.ts';
@@ -24,8 +25,56 @@ interface OverviewTabProps {
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Pre-fetch voices for Web Speech API
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+      const handleVoicesChanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+      return () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
+      };
+    }
+  }, []);
+
   const playPronunciation = () => {
     sound.playClick(520, 0.08);
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Stop any pending speech
+
+      const utterance = new SpeechSynthesisUtterance('deep generalist');
+      utterance.rate = 0.85; // Deliberate dictionary cadence
+      utterance.pitch = 1.0;
+      utterance.lang = 'en-US';
+
+      // Pick the best natural English voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(
+        (v) =>
+          v.lang.startsWith('en') &&
+          (v.name.includes('Natural') ||
+            v.name.includes('Google') ||
+            v.name.includes('Samantha') ||
+            v.name.includes('Daniel') ||
+            v.name.includes('Karen') ||
+            v.name.includes('Aaron'))
+      ) || voices.find((v) => v.lang.startsWith('en'));
+
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+      }
+
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   return (
@@ -63,10 +112,16 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
               </span>
               <button
                 onClick={playPronunciation}
-                title="Pronounce"
-                className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-emerald-300 transition-colors"
+                title="Pronounce 'deep generalist'"
+                aria-label="Pronounce 'deep generalist'"
+                className={`p-1.5 rounded-md transition-all flex items-center gap-1.5 text-xs font-mono ${
+                  isSpeaking
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.25)]'
+                    : 'hover:bg-white/10 text-slate-400 hover:text-emerald-300'
+                }`}
               >
-                <Volume2 className="w-4 h-4" />
+                <Volume2 className={`w-4 h-4 ${isSpeaking ? 'animate-pulse text-emerald-400' : ''}`} />
+                {isSpeaking && <span className="text-[10px] text-emerald-400 font-bold">Speaking...</span>}
               </button>
               <span className="text-xs font-serif italic text-slate-400">
                 noun
@@ -139,10 +194,6 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
               <Zap className="w-3.5 h-3.5 text-pink-400" />
               <span>Chronic Pain Survivor</span>
             </div>
-            <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center gap-1.5">
-              <Server className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Quadlet + Podman Homelab</span>
-            </div>
           </div>
         </div>
       </section>
@@ -208,6 +259,26 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
                     </div>
                   ))}
                 </div>
+
+                  {/* Vocational Skill Pills */}
+                  {milestone.skills && milestone.skills.length > 0 && (
+                    <div className="pt-3 border-t border-white/5 space-y-2">
+                      <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                        <Code2 className="w-3 h-3 text-emerald-400" />
+                        <span>Vocational Skills & Toolchain</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {milestone.skills.map((skill, si) => (
+                          <span
+                            key={si}
+                            className="px-2 py-0.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-[11px] font-mono text-slate-300 hover:text-emerald-300 hover:border-emerald-500/30 transition-colors"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
               </div>
             </div>
           ))}

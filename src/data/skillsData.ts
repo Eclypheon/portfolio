@@ -37,7 +37,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Cheat Engine & Pointer Maps', level: 'Proficient', note: 'Multi-level pointer scanning, memory struct dissection, runtime code injection' },
       { name: 'OllyDbg & Ghidra', level: 'Exploratory', note: 'Disassembly inspection, breakpoint stepping, binary opcode analysis and decompilation' },
-      { name: 'Cybersecurity & CCNA', level: 'Instructor Level', note: 'Subnetting, packet flow, OSI model, routing protocols (instructed CCNA cohorts)' }
+      { name: 'Cybersecurity & CCNA', level: 'Instructor Level', note: 'Subnetting, packet flow, OSI model, routing protocols (instructed CCNA cohorts)' },
+      { name: 'Basic Pentesting & Threat Modeling', level: 'Practitioner', note: 'Port reconnaissance, network enumeration, attack surface analysis, and defensive hardening' }
     ]
   },
   {
@@ -46,6 +47,9 @@ export const skillCategories: SkillCategory[] = [
     iconName: 'Award',
     description: '7 years of military leadership as an Infantry Captain combined with certified agile delivery and top-tier business administration.',
     skills: [
+      { name: 'JIRA & Microsoft Project', level: 'Advanced', note: 'Sprint backlogs, Work Breakdown Structures (WBS), critical path analysis, and resource leveling' },
+      { name: 'Agile (Scrum) & Waterfall Frameworks', level: 'PMP / CSM', note: 'Hybrid project management, sprint cadence, milestone gates, and risk mitigation' },
+      { name: 'MS 365 Suite & Power Automate', level: 'Advanced', note: 'Enterprise workflow automation, cross-department collaborative pipelines, and administrative scripting' },
       { name: 'SAF C4I Wing & DIS Curriculum', level: 'Stand-in Wing Cmdr', note: 'Forged inaugural officer curriculum for Digital and Intelligence Service (DIS) & C4I Wing' },
       { name: 'Regional Force Commander (Sembawang)', level: 'Regional Command', note: 'Commanded security networks & guardrooms across Khatib Camp, Dieppe Barracks, and Sembawang Camp' },
       { name: 'Cadet Shadow Initiative (OCS)', level: 'Initiative Founder', note: 'Instituted school-wide OCS framework training cadets in administrative orders and operational governance' },
@@ -59,6 +63,9 @@ export const skillCategories: SkillCategory[] = [
     iconName: 'MapPin',
     description: 'Spearheading large-scale homeland security, emergency response, and operational tracking platforms.',
     skills: [
+      { name: 'Esri ArcGIS Products & Portal', level: 'Enterprise Lead', note: 'ArcGIS Pro, Enterprise Server, Portal web maps, spatial clustering, and spatial analysis' },
+      { name: 'MSSQL & Spatial Querying', level: 'Advanced', note: 'Relational data schemas, spatial indexing, ST_Geometry queries, and high-throughput query optimization' },
+      { name: 'Python, C# & Web Frameworks', level: 'Full-Stack', note: 'ArcPy/GeoPandas automation, C# backend services, and React / Angular web application frontends' },
       { name: 'HTX SPF & MHA E-GIS', level: 'Initiative Lead', note: 'Enterprise Geospatial Information Systems for Singapore Police Force & Ministry of Home Affairs' },
       { name: 'ST Engineering ACES — SCDF', level: 'Deputy PM', note: 'Mission-critical C3 emergency dispatch combining GIS, Video Management (VMS), and CAD telemetry' },
       { name: 'OBS IOMS Operations System', level: 'Development Lead', note: 'Integrated operations monitoring for Outward Bound Singapore participant tracking & field resources' },
