@@ -6,6 +6,14 @@ export interface StackService {
   category: 'Media & Streaming' | 'Photo Backup' | 'Network & Security' | 'AI & Automation' | 'Monitoring';
 }
 
+export interface DashboardCard {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  badge: string;
+}
+
 export const homelabSpecs = {
   hardware: 'Repurposed Apple MacBook Pro (Retina, 13-inch, Mid 2014)',
   os: 'Ubuntu Server (Minimal headless kernel, cgroups v2 enabled)',
@@ -13,10 +21,56 @@ export const homelabSpecs = {
   companionRole: 'Local LM Studio inference host running custom Qwen3.5 9B with unified RAM',
   audioPipeline: 'Local Python scripts running faster-whisper (tiny model) on Ubuntu Server',
   storage: 'Internal SSD + Media EXT4 (3.6 TiB used) + Media Extra (4.5 TiB free)',
-  fanMetrics: '2,499 RPM quiet acoustic profile @ 55°C package temp',
-  batteryUps: '80% internal battery serving as zero-cost hardware UPS against power dropouts',
+  fanMetrics: '55°C • 2,499 RPM Quiet',
+  batteryUps: '80% internal battery acts as brownout UPS (longevity tuned)',
   orchestration: 'Podman + Quadlet (.container declarative systemd service generator)'
 };
+
+export const thermalAndUpsDetails = {
+  fanAndSmc: {
+    title: 'Apple SMC & Dynamic Fan Profiling',
+    badge: 'Thermals & Fan Curve',
+    metrics: '55°C • 2,499 RPM Quiet',
+    description: 'Custom fan curves programmed via Apple SMC (System Management Controller) CLI utilities. In low-load daemon states, the right-side blower rests at a whisper-silent ~2,499 RPM while maintaining an average 55°C CPU package temperature in closed clamshell mode. Under heavier transcoding passes, the SMC dynamically scales acoustic velocity to prevent Haswell thermal throttling.'
+  },
+  batteryUps: {
+    title: '80% Battery Charge Ceiling as a Hardware UPS',
+    badge: 'Longevity & Brownout Protection',
+    metrics: '80% Internal Battery • Hardware Brownout UPS',
+    description: 'Running a laptop 24/7 on continuous AC power at 100% state-of-charge causes severe lithium-ion cathode oxidation, electrolyte breakdown, and cell swelling. The battery charge state is pegged to an 80% plateau to preserve electrochemical cell longevity over years of continuous operation. This provides a zero-cost, instantaneous hardware UPS that seamlessly absorbs mains fluctuations, grid brownouts, or accidental cable disconnects with zero downtime or filesystem corruption on the 3.6 TiB EXT4 array.'
+  }
+};
+
+export const alienlabDashboardCards: DashboardCard[] = [
+  {
+    id: 'overview',
+    title: 'Host Telemetry & Resource Utilization',
+    subtitle: 'Real-time host metrics: MacBook SSD, Media EXT4 arrays, SMC thermals, and battery charge state',
+    image: './alienlab-overview.png',
+    badge: 'Overview'
+  },
+  {
+    id: 'services',
+    title: 'Service Health & Uptime Matrix',
+    subtitle: '8/13 services active: AdGuard DNS (100%), Jellyfin (100%), Shoko (100%), and latency pings',
+    image: './alienlab-services.png',
+    badge: 'Services (8/13 Up)'
+  },
+  {
+    id: 'media',
+    title: 'Media Hub & Asset Library',
+    subtitle: 'Jellyfin, Shoko & Immich library indexing: 193 movies, 20 shows, 47 anime, 23,202 photos/videos',
+    image: './alienlab-media.png',
+    badge: 'Media & Library'
+  },
+  {
+    id: 'telebot',
+    title: 'Telebot Daemon & Local AI Health',
+    subtitle: '318 memories stored, 5 known users, real-time connectivity to Supabase and LM Studio',
+    image: './alienlab-telebot.png',
+    badge: 'Telebot Daemon'
+  }
+];
 
 export const fullStackServices: StackService[] = [
   {
@@ -119,25 +173,6 @@ export const fullStackServices: StackService[] = [
   }
 ];
 
-export const alienlabDashboard = {
-  title: 'alienlab // Live Ubuntu Server Telemetry',
-  subtitle: 'Real screenshots captured directly from the homelab web interface',
-  overviewImage: 'alienlab-overview.png',
-  mediaImage: 'alienlab-media.png',
-  liveHighlights: [
-    { label: 'MacBook Disk', value: '44%', detail: '100 GiB used · 116 GiB free' },
-    { label: 'Media EXT4', value: '66%', detail: '3.6 TiB used · 1.6 TiB free' },
-    { label: 'Media Extra', value: '11%', detail: '627 GiB used · 4.5 TiB free' },
-    { label: 'Fan Speed', value: '2,499 RPM', detail: 'Right-side fan · Quiet' },
-    { label: 'CPU Temperature', value: '55°C', detail: 'Package · Normal' },
-    { label: 'Internal Battery', value: '80%', detail: 'Built-in hardware UPS' },
-    { label: 'Movies on Drive', value: '193', detail: 'Jellyfin indexed' },
-    { label: 'TV Shows', value: '20', detail: 'Tracearr tracked' },
-    { label: 'Anime Library', value: '47', detail: 'Shoko managed' },
-    { label: 'Immich Assets', value: '22,618', detail: '12,343 photos · 10,275 videos' }
-  ]
-};
-
 export const quadletExplanation = {
   whyQuadlet: [
     {
@@ -154,7 +189,7 @@ export const quadletExplanation = {
     },
     {
       title: 'Built-in Hardware UPS via MacBook Battery',
-      text: 'Because the server is a laptop with an intact internal battery (holding 80% charge), unexpected power blips or wall disconnects never corrupt the EXT4 storage arrays or interrupt active downloads.'
+      text: 'Because the server is a laptop with an intact internal battery held at 80% charge ceiling, unexpected power blips or wall disconnects never corrupt the EXT4 storage arrays or interrupt active downloads.'
     }
   ]
 };
