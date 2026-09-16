@@ -55,29 +55,29 @@ export const PhilosophyTab: React.FC = () => {
 
       {/* Featured Philosophical Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Pillar 0: Stoicism & Emotional Governance */}
+        {/* Pillar 0: Cardinal Doctrine */}
         <div className="md:col-span-2 glass-panel p-6 sm:p-8 rounded-3xl border border-amber-500/30 space-y-4 relative overflow-hidden group shadow-[0_0_30px_-10px_rgba(245,158,11,0.1)]">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-amber-400" />
-              <span>Stoic Discipline // Marcus Aurelius & Epictetus</span>
+              <span>Axiomatic Doctrine // Epistemic & Existential Canon</span>
             </span>
             <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/80 px-2 py-0.5 rounded bg-amber-500/5 border border-amber-500/20">
               Cardinal Doctrine
             </span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">
-            Mindful Emotional Governance Over Apathetic Suppression
+            Mindful Emotional Governance, Authentic Principles & Absurdist Striving
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Uncontrolled emotion is the ultimate cognitive surrender and systemic vulnerability—the worst cardinal sin against clarity, agency, and reason. 
-            Yet authentic Stoicism is widely caricatured: it is emphatically <strong>not</strong> the discarding of all emotions to become numb, apathetic, or anhedonic. 
-            Rather, it is cultivating relentless, lucid mindfulness of the visceral emotions that arise, withholding automated assent from reactive impulses, 
-            and actively, deliberately choosing how to wield and channel them to your decisive tactical advantage in any situation.
+            Two cardinal sins corrupt human agency: <strong>uncontrolled emotion</strong> and <strong>living inauthentically in bad faith</strong> (Sartre&apos;s <em>mauvaise foi</em>). Authentic Stoicism is never cold apathy or anhedonic numbness—it is radical mindfulness of visceral emotions as raw biological telemetry, withholding automated assent to deliberately channel them to your tactical advantage. We must be principled agents whose actions are anchored in deeply introspected, underlying principles rather than whimsical emotions, fleeting desires, or unexamined social dogmas.
+          </p>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+            Genuine inquiry demands honoring the irreducible subjective texture of <em>qualia</em>, dismantling cultural <strong>ethnocentrism</strong>, and perceiving the polymathic <strong>intersectionality of all domains</strong>—from systems architecture to ontology. And when confronted by Camus&apos; Absurd—where the cold, unreasonable silence of the cosmos renders suicide the easiest logical answer—the only authentic path is lucid revolt: to reject comforting theological illusions, forge our own principles, and strive relentlessly onward.
           </p>
           <div className="p-3.5 rounded-xl bg-black/50 border border-amber-500/20 text-xs text-amber-200/95 italic font-mono flex items-start gap-2.5">
             <Quote className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
-            <span>&ldquo;You have power over your mind—not outside events. Realize this, and you will find strength. Between stimulus and response there is a space; in that space lies our power to choose our response.&rdquo;</span>
+            <span>&ldquo;Reject bad faith; master the visceral qualia; synthesize across every domain. Though the void offers no meaning and suicide is the logical conclusion, we anchor ourselves in introspected principles and strive forward anyway.&rdquo;</span>
           </div>
         </div>
 

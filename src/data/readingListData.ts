@@ -137,16 +137,45 @@ export const readingList: ReadingItem[] = [
     tags: ['Dramaturgy', 'Masks', 'Social Theory', 'Identity']
   },
   {
-    id: 'wiener-cybernetics',
-    title: 'Cybernetics: Or Control and Communication in the Animal and the Machine',
-    author: 'Norbert Wiener',
-    category: 'Systems & Cybernetics',
-    status: 'Foundational',
-    coreConcept: 'Feedback Loops, Entropy, and Self-Regulating Systems',
-    reflection: 'The foundational text uniting biological nervous systems, telecommunications, and automated machinery under the common mathematics of feedback loops and entropy reduction. Wiener foresaw the convergence of computation and living systems half a century before it arrived.',
+    id: 'kundera-lightness',
+    title: 'The Unbearable Lightness of Being',
+    author: 'Milan Kundera',
+    category: 'Philosophy',
+    status: 'Essential Canon',
+    coreConcept: 'Nietzschean Eternal Return, Heavy Responsibility vs. Absolute Lightness & Kitsch',
+    reflection: 'If life occurs only once (Einmal ist keinmal), our actions evaporate into unbearable lightness—devoid of consequence, permanence, or redemption. Yet the opposite pole, the heavy burden of eternal return, pins existence to the earth in agonizing gravity. Kundera brilliantly dissects totalitarian kitsch—the aesthetic brotherhood that systematically banishes everything ugly, dissonant, or unacceptable to the collective ego.',
     quotes: [
-      'We are but whirlpools in a river of ever-flowing water. We are not stuff that abides, but patterns that perpetuate themselves.'
+      'The heavier the burden, the closer our lives come to the earth, the more real and truthful they become.',
+      'Kitsch is the absolute denial of shit, in both the literal and the figurative sense of the word.'
     ],
-    tags: ['Cybernetics', 'Feedback Loops', 'Systems Thinking', 'Information Theory']
+    tags: ['Existentialism', 'Eternal Return', 'Authenticity', 'Kitsch', 'Phenomenology']
+  },
+  {
+    id: 'kafka-metamorphosis',
+    title: 'The Metamorphosis (Die Verwandlung)',
+    author: 'Franz Kafka',
+    category: 'Philosophy',
+    status: 'Essential Canon',
+    coreConcept: 'Existential Alienation & Utilitarian Reduction of Human Worth',
+    reflection: 'Gregor Samsa waking up transformed into a monstrous vermin (ungeheuren Ungeziefer) is the quintessential diagnostic of systemic alienation. His immediate terror is not physical mutation, but the fear of missing the morning train and facing his employer. The moment his economic utility to his family ceases, affection collapses into disgust and eventual neglect. Kafka demonstrates that modern social apparatuses value human beings only as interchangeable, functional labor units.',
+    quotes: [
+      'I cannot make you understand. I cannot make anyone understand what is happening inside me. I cannot even explain it to myself.',
+      'He thought back on his family with deep emotion and love. His conviction that he would have to disappear was, if possible, even firmer than his sister\'s.'
+    ],
+    tags: ['Alienation', 'Absurdity', 'Labor Theory', 'Existentialism', 'Dehumanization']
+  },
+  {
+    id: 'camus-stranger',
+    title: 'The Stranger (L\'Étranger)',
+    author: 'Albert Camus',
+    category: 'Philosophy',
+    status: 'Essential Canon',
+    coreConcept: 'Absurdist Radical Authenticity & Refusal of Theatrical Grief',
+    reflection: 'Meursault refuses to participate in society’s demanded dramaturgical masks. He does not weep at his mother\'s funeral because he refuses to feign grief he does not authentically feel in that moment. The institutional judicial apparatus condemns him to death not for shooting a man under the blinding Algerian sun, but because he refuses to perform remorse. Meursault is the naked absurd man who lays his soul bare to the benign indifference of the cosmos.',
+    quotes: [
+      'I opened myself to the gentle indifference of the world.',
+      'Since we\'re all going to die, it\'s obvious that when and how don\'t matter.'
+    ],
+    tags: ['Absurdism', 'Radical Authenticity', 'Bad Faith', 'Social Hypocrisy', 'Revolt']
   }
 ];

@@ -54,7 +54,7 @@ export const alienlabDashboardCards: DashboardCard[] = [
     title: 'Service Health & Uptime Matrix',
     subtitle: '8/13 services active: AdGuard DNS (100%), Jellyfin (100%), Shoko (100%), and latency pings',
     image: './alienlab-services.png',
-    badge: 'Services (8/13 Up)'
+    badge: 'Services'
   },
   {
     id: 'media',

@@ -270,13 +270,17 @@ WantedBy=default.target`;
 
                 let transformClass = '';
                 if (isFirst) {
-                  transformClass = '-rotate-6 -translate-x-24 sm:-translate-x-48 hover:rotate-0 hover:-translate-y-4 hover:z-30';
+                  // Overview: Front-most card commanding center foreground
+                  transformClass = 'rotate-0 z-30 scale-105 shadow-[0_20px_50px_rgba(0,0,0,0.85)] border-cyan-500/40 hover:-translate-y-4 hover:scale-110 hover:z-40';
                 } else if (isSecond) {
-                  transformClass = '-rotate-2 -translate-x-8 sm:-translate-x-16 z-10 hover:rotate-0 hover:-translate-y-4 hover:z-30 hover:scale-105';
+                  // Services: Fanned to the left
+                  transformClass = '-rotate-6 -translate-x-24 sm:-translate-x-48 z-20 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
                 } else if (isThird) {
-                  transformClass = 'rotate-2 translate-x-8 sm:translate-x-16 z-20 hover:rotate-0 hover:-translate-y-4 hover:z-30 hover:scale-105';
+                  // Media: Fanned to the right
+                  transformClass = 'rotate-3 translate-x-16 sm:translate-x-32 z-20 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
                 } else {
-                  transformClass = 'rotate-6 translate-x-24 sm:translate-x-48 z-10 hover:rotate-0 hover:-translate-y-4 hover:z-30';
+                  // Telebot: Fanned far right
+                  transformClass = 'rotate-8 translate-x-32 sm:translate-x-64 z-10 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
                 }
 
                 return (
@@ -360,7 +364,7 @@ WantedBy=default.target`;
           </div>
         )}
         <p className="text-center text-xs font-mono text-slate-500">
-          Click any card to inspect full-resolution live alienlab telemetry
+          Click any card to inspect full-resolution alienlab telemetry
         </p>
       </div>
 
