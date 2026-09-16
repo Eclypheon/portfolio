@@ -10,7 +10,7 @@ import { KineticTab } from './tabs/KineticTab.tsx';
 import { FictionTab } from './tabs/FictionTab.tsx';
 import { ToolkitTab } from './tabs/ToolkitTab.tsx';
 import { MusingsTab } from './tabs/MusingsTab.tsx';
-import { Mail, ShieldAlert, Terminal, Compass, ArrowUp } from 'lucide-react';
+import { Mail, ShieldAlert, Terminal, Compass, ArrowUp, Heart, X } from 'lucide-react';
 import { GithubIcon } from './components/GithubIcon.tsx';
 import { sound } from './components/AudioEngine.ts';
 
@@ -18,6 +18,7 @@ export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('overview');
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [donateModalOpen, setDonateModalOpen] = useState(false);
 
   // Monitor scroll for scroll-to-top button
   useEffect(() => {
@@ -138,6 +139,20 @@ export const App: React.FC = () => {
                 <Terminal className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Repo Source</span>
               </a>
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setDonateModalOpen(true);
+                }}
+                className="px-3 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/25 text-xs font-mono text-pink-300 hover:text-pink-200 flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(236,72,153,0.1)] group"
+                title="Donate / Support (Currently non-functional)"
+              >
+                <Heart className="w-3.5 h-3.5 text-pink-400 group-hover:scale-110 transition-transform" />
+                <span>Donate</span>
+                <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300/80 border border-pink-500/30">
+                  Offline
+                </span>
+              </button>
             </div>
           </div>
 
@@ -152,6 +167,67 @@ export const App: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Donate Non-Functional Notice Modal */}
+      {donateModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setDonateModalOpen(false)}
+        >
+          <div 
+            className="relative max-w-md w-full glass-panel bg-[#0b0e14] border border-pink-500/30 rounded-2xl p-6 shadow-2xl space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400">
+                  <Heart className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white">Support & Sponsorship</h3>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">
+                    Gateway Status: Offline
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setDonateModalOpen(false);
+                }}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-2.5 text-xs font-mono text-slate-300 leading-relaxed pt-2 border-t border-white/10">
+              <p className="text-pink-300 font-semibold flex items-center gap-1.5">
+                <span>⚠️</span>
+                <span>Notice: The link to donate is currently non-functional.</span>
+              </p>
+              <p className="text-slate-400">
+                I will work on these backends later. Payment integrations (Stripe, GitHub Sponsors, crypto rails) will be hooked up in a future iteration.
+              </p>
+              <p className="text-slate-500 italic pt-1 border-t border-white/5">
+                Thank you for the intention to support independent open-source engineering, homelab telemetry, and speculative fiction.
+              </p>
+            </div>
+
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setDonateModalOpen(false);
+                }}
+                className="px-4 py-2 rounded-lg bg-pink-500/20 hover:bg-pink-500/30 border border-pink-500/40 text-xs font-mono text-pink-200 transition-all shadow-[0_0_10px_rgba(236,72,153,0.2)]"
+              >
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

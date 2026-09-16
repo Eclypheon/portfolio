@@ -87,6 +87,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       icon: <Server className="w-4 h-4 text-cyan-400" />,
       subtitle: 'LM Studio (M4 24GB), Qwen3.5 9B, faster-whisper tiny, Telegram bot',
     },
+    {
+      id: 'jellyfin-access',
+      title: 'Jellyfin Media Streaming Hub',
+      category: 'Homelab',
+      tab: 'homelab' as TabKey,
+      icon: <Server className="w-4 h-4 text-purple-400" />,
+      subtitle: '1080p/4K library, 193 movies, 67 series (Registration offline)',
+    },
     // Philosophy
     ...readingList.map((r) => ({
       id: r.id,
