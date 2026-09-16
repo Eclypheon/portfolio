@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   ChevronRight
 } from 'lucide-react';
-import { kineticEndeavors } from '../data/kineticData.ts';
+import { kineticEndeavors, surgicalProcedures } from '../data/kineticData.ts';
 
 export const KineticTab: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ export const KineticTab: React.FC = () => {
         </h1>
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
           The intellect cannot be divorced from the flesh. From national representation at the ASEAN University Games 
-          and competitive bodybuilding podiums, to enduring 5 major orthopedic surgeries and performing overhead cheerleading stunts.
+          and competitive bodybuilding podiums, to navigating chronic pain through multiple orthopedic reconstructions and acrobatic cheerleading.
         </p>
       </div>
 
@@ -33,42 +33,66 @@ export const KineticTab: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1">
           <div className="text-pink-400 font-mono text-xs">National Level</div>
-          <div className="text-xl sm:text-2xl font-black text-white">ASEAN Games</div>
+          <div className="text-xl sm:text-2xl font-black text-white">ASEAN University Games</div>
           <p className="text-[11px] text-slate-400">Team Singapore (Canoeing)</p>
         </div>
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1">
           <div className="text-yellow-400 font-mono text-xs">Bodybuilding</div>
-          <div className="text-xl sm:text-2xl font-black text-white">Physique Medal</div>
-          <p className="text-[11px] text-slate-400">Competitive Stage Podium</p>
+          <div className="text-xl sm:text-2xl font-black text-white">Physique Competitor</div>
+          <p className="text-[11px] text-slate-400">Fitness Ironman 2017</p>
         </div>
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1">
-          <div className="text-red-400 font-mono text-xs">Reconstruction</div>
-          <div className="text-xl sm:text-2xl font-black text-white">5 Surgeries</div>
+          <div className="text-red-400 font-mono text-xs">Chronic Pain</div>
+          <div className="text-xl sm:text-2xl font-black text-white">Multiple Surgeries</div>
           <p className="text-[11px] text-slate-400">Major Orthopedic Rebuilds</p>
         </div>
         <div className="glass-panel p-5 rounded-2xl border border-white/10 space-y-1">
-          <div className="text-cyan-400 font-mono text-xs">Adventures</div>
-          <div className="text-xl sm:text-2xl font-black text-white">Air & Sea</div>
-          <p className="text-[11px] text-slate-400">PADI Advanced & Skydiving AFF</p>
+          <div className="text-cyan-400 font-mono text-xs">Recreation</div>
+          <div className="text-xl sm:text-2xl font-black text-white">Cheerleading/Acroyoga</div>
+          <p className="text-[11px] text-slate-400">Occasional Snowboarder</p>
         </div>
       </div>
 
-      {/* Featured Highlight: The 5 Surgeries & Resilience */}
-      <div className="p-8 sm:p-10 rounded-3xl border border-red-500/20 bg-gradient-to-br from-red-950/20 via-black to-black relative overflow-hidden space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono text-red-400 uppercase tracking-wider">
-          <HeartPulse className="w-4 h-4 text-red-400 animate-pulse" />
-          <span>The Crucible // Empirical Re-Education of the Nervous System</span>
+      {/* Featured Highlight: The Crucible & Surgical Registry */}
+      <div className="p-8 sm:p-10 rounded-3xl border border-red-500/20 bg-gradient-to-br from-red-950/20 via-black to-black relative overflow-hidden space-y-6">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-xs font-mono text-red-400 uppercase tracking-wider">
+            <HeartPulse className="w-4 h-4 text-red-400 animate-pulse" />
+            <span>The Crucible // Empirical Re-Education of the Nervous System</span>
+          </div>
+          <h2 className="text-2xl font-bold text-white tracking-tight">
+            Chronic Pain Resilience & Multiple Orthopedic Reconstructions
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-4xl">
+            A sustained physical trial of navigating chronic pain and undergoing multiple complex joint reconstructions. 
+            When biomechanical structures suffer catastrophic failure, standard medical prognosis defaults to sedentary caution. 
+            I treated rehabilitation as an aggressive engineering problem: reconstructing motor recruitment patterns, 
+            optimizing eccentric tendon loading, and adapting around permanent structural compromises across cervical spine, 
+            shoulders, and knees to return not just to pain-free daily function, but to overhead acrobatic basing, dynamic partner tumbling, and alpine snow sports.
+          </p>
         </div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">
-          5 Major Orthopedic Surgeries: Defying Sedentary Atrophy
-        </h2>
-        <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-4xl">
-          Five separate operations, countless months of zero-weightbearing immobility, titanium anchors, and sliced soft tissue. 
-          When joint mechanics fail catastrophically, standard medical prognosis pushes you into sedentary caution. 
-          I treated rehabilitation as an aggressive engineering problem: reconstructing motor recruitment patterns, 
-          optimizing eccentric tendon loading, and adapting around permanent structural compromises to return not just to walking, 
-          but to overhead acrobatic basing, dynamic partner tumbling, and high-altitude flight.
-        </p>
+
+        {/* Surgical Reconstructions Breakdown */}
+        <div className="pt-4 border-t border-red-500/20 space-y-3">
+          <div className="text-xs font-mono text-red-400 uppercase tracking-wider font-semibold">
+            Documented Surgical Reconstructions & Interventions:
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {surgicalProcedures.map((proc, pidx) => (
+              <div key={pidx} className="p-4 rounded-xl bg-black/60 border border-red-500/20 space-y-1 hover:border-red-500/40 transition-colors">
+                <div className="text-[10px] font-mono text-red-400 font-bold uppercase tracking-wider">
+                  {proc.joint}
+                </div>
+                <div className="text-xs font-bold text-white">
+                  {proc.procedure}
+                </div>
+                <p className="text-[11px] text-slate-400 leading-snug">
+                  {proc.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Kinetic Endeavors Grid */}
@@ -82,9 +106,21 @@ export const KineticTab: React.FC = () => {
           {kineticEndeavors.map((item) => (
             <div
               key={item.id}
-              className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6 flex flex-col justify-between"
+              className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6 flex flex-col justify-between overflow-hidden group hover:border-white/20 transition-all"
             >
               <div className="space-y-4">
+                {/* Photo Banner with Dark Overlay */}
+                {item.image && (
+                  <div className="relative h-48 sm:h-56 -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 mb-4 overflow-hidden rounded-t-3xl bg-black">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c1017] via-[#0c1017]/40 to-black/20" />
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300">
                     {item.category}
@@ -95,7 +131,7 @@ export const KineticTab: React.FC = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-xs font-mono text-pink-400 mt-0.5">

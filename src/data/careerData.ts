@@ -5,6 +5,7 @@ export interface CareerMilestone {
   period: string;
   summary: string;
   skills: string[];
+  image?: string;
   highlights: { title: string; detail: string }[];
 }
 
@@ -79,6 +80,7 @@ export const careerTrajectory: CareerMilestone[] = [
       'Regional Base Defense Protocols',
       'Tactical Unit Command & Crisis Triage'
     ],
+    image: './photos/military-instructor.jpg',
     highlights: [
       {
         title: 'Inaugural DIS & C4I Training Wing Formation',
