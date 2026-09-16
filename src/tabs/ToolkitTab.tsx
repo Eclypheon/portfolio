@@ -10,7 +10,8 @@ import {
   Check, 
   Terminal,
   Zap,
-  Sparkles
+  Sparkles,
+  Bot
 } from 'lucide-react';
 import { skillCategories } from '../data/skillsData.ts';
 
@@ -22,6 +23,7 @@ export const ToolkitTab: React.FC = () => {
       case 'Cpu': return <Cpu className="w-5 h-5 text-indigo-400" />;
       case 'Award': return <Award className="w-5 h-5 text-yellow-400" />;
       case 'MapPin': return <MapPin className="w-5 h-5 text-pink-400" />;
+      case 'Bot': return <Bot className="w-5 h-5 text-purple-400" />;
       case 'Globe': return <Globe className="w-5 h-5 text-amber-400" />;
       default: return <Wrench className="w-5 h-5 text-emerald-400" />;
     }
@@ -40,7 +42,7 @@ export const ToolkitTab: React.FC = () => {
         </h1>
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
           An unvarnished catalog of technical toolchains across divergent domains: 
-          from 3D hard-surface geometry and memory disassemblers to GIS telemetry and certified agile management.
+          from 3D hard-surface geometry and memory disassemblers to GIS spatial engines, local AI inference, and certified agile governance.
         </p>
       </div>
 

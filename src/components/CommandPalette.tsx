@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, ArrowRight, BookOpen, Terminal, Server, Activity, Feather, Sparkles } from 'lucide-react';
+import { Search, X, ArrowRight, BookOpen, Terminal, Server, Activity, Feather, Sparkles, Wrench } from 'lucide-react';
 import { TabKey } from './Navigation.tsx';
 import { projects } from '../data/projectsData.ts';
 import { readingList } from '../data/readingListData.ts';
@@ -131,6 +131,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       icon: <Sparkles className="w-4 h-4 text-emerald-400" />,
       subtitle: m.excerpt,
     })),
+    // Toolchain
+    {
+      id: 'toolchain-arsenal',
+      title: 'Technical Arsenal & Multi-Disciplinary Toolchain',
+      category: 'Toolchain',
+      tab: 'toolkit' as TabKey,
+      icon: <Wrench className="w-4 h-4 text-emerald-400" />,
+      subtitle: 'ArcGIS, MSSQL, Python NLTK, R/Julia, LM Studio, Ollama, PMP, JIRA',
+    },
   ];
 
   const filtered = query.trim()
