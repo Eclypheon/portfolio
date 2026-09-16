@@ -66,9 +66,9 @@ export const kineticEndeavors: KineticEndeavor[] = [
       'Micro-balance adjustments preserving hull waterline stability under cross-winds'
     ],
     metrics: [
-      { label: 'Event Class', value: 'Sprint Kayak / Canoe' },
-      { label: 'Level', value: 'ASEAN Games Team SG' },
-      { label: 'Training Load', value: '10-12 Sessions / Wk' }
+      { label: 'Event Class', value: 'Sprint Canoe C1' },
+      { label: 'Level', value: 'Regional' },
+      { label: 'Training Load', value: '15-18 Sessions / Wk' }
     ],
     accentColor: '#10b981',
     image: './photos/Canoe1.jpg'
@@ -86,7 +86,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
       'Psychological resilience in high-intensity photo-finish heats'
     ],
     metrics: [
-      { label: 'Regattas', value: 'Regional & International' },
+      { label: 'Regattas', value: 'CCWC 2014 & DBS Marina Regattas' },
       { label: 'Boat Speed', value: '18-22 km/h Peak' },
       { label: 'Stroke Rate', value: '100-115 SPM' }
     ],
@@ -96,7 +96,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
   {
     id: 'physique',
     category: 'National / Elite Competition',
-    title: 'Fitness Ironman 2017 & Physique Championship',
+    title: 'Physique Championship',
     roleOrLevel: 'Physique Competitor',
     period: 'Competitive Era',
     description: 'Stepped onto the competitive stage as a physique athlete at Fitness Ironman 2017. Achieved sub-6% essential body fat through disciplined macro-partitioning, sodium/water manipulation, and grueling progressive overload programming (Candito 6-week, TSA Intermediate, PH3).',
@@ -128,26 +128,27 @@ export const kineticEndeavors: KineticEndeavor[] = [
     metrics: [
       { label: 'Procedures', value: 'Multiple Rebuilds' },
       { label: 'Condition', value: 'Chronic Pain' },
-      { label: 'Current State', value: 'Active Movement Athlete' }
+      { label: 'Current State', value: 'In Recovery' }
     ],
-    accentColor: '#ef4444'
+    accentColor: '#ef4444',
+    image: './photos/chronicpain.jpg'
   },
   {
     id: 'cheerleading',
     category: 'Acrobatic & Movement',
     title: 'Cheerleading & Partner Stunting',
-    roleOrLevel: 'Recreational Stunt Base & Acrobatic Athlete',
+    roleOrLevel: 'Stumbler',
     period: 'Current Discipline',
-    description: 'Engaging in recreational cheerleading despite surgical history. Involves catching and tossing human flyers overhead in extended liberties, cups, rewinds, and basket tosses with zero margin for error.',
+    description: 'Engaging in recreational cheerleading despite surgical history. Involves catching and tossing human flyers overhead in extended liberties, cupies, rewinds, and basket tosses with zero margin for error.',
     skillsAndDemands: [
       'Overhead lockout mechanics under dynamic moving live human loads',
       'Base-to-flyer tactile communication and trajectory prediction',
       'Emergency catch protocols ensuring absolute safety of the top person'
     ],
     metrics: [
-      { label: 'Role', value: 'Base / Stunt Specialist' },
-      { label: 'Stunts', value: 'Extended Libs, Tosses, Pyramids' },
-      { label: 'Focus', value: 'Biomechanical Safety & Power' }
+      { label: 'Role', value: 'Stumbler' },
+      { label: 'Team', value: '16-men Coed' },
+      { label: 'Focus', value: 'Stunts & Tumbling' }
     ],
     accentColor: '#ec4899',
     image: './photos/cheerleading-1.png'
@@ -165,13 +166,13 @@ export const kineticEndeavors: KineticEndeavor[] = [
       'Spatial proprioception while inverted in 360-degree rotational axes'
     ],
     metrics: [
-      { label: 'Apparatuses', value: 'Straps, Hoop, Pole, Acro' },
+      { label: 'Apparatus', value: 'Straps, Hoop, Pole, Canes' },
       { label: 'Grip Strength', value: 'Unilateral Static Holds' },
-      { label: 'Flexibility', value: 'Active Mobility & Dynamic Stretch' }
+      { label: 'Flexibility', value: 'Active Mobility' }
     ],
     accentColor: '#8b5cf6',
     image: './photos/acroyoga-1.png',
-    imagePosition: 'center bottom'
+    imagePosition: 'center 80%'
   },
   {
     id: 'snowboard-ski-wake',
@@ -217,7 +218,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
     id: 'bouldering',
     category: 'Recreation',
     title: 'Bouldering & Kinetic Problem Solving',
-    roleOrLevel: 'V-Scale Climber & Movement Specialist',
+    roleOrLevel: 'V5 Climber',
     period: 'Active Practice',
     description: 'Approaching bouldering as dynamic spatial geometry and isometric power endurance. Translating finger pulley tension, heel-hooks, and high-tension core compression into solving complex multi-move movement sequences across steep overhangs and slabs.',
     skillsAndDemands: [
@@ -236,10 +237,10 @@ export const kineticEndeavors: KineticEndeavor[] = [
   {
     id: 'hiking',
     category: 'Recreation',
-    title: 'Wilderness Trekking & Alpine Expeditions',
+    title: 'Wilderness Trekking & Hiking',
     roleOrLevel: 'Long-Distance & Rugged Elevation Hiker',
     period: 'Expedition Pursuits',
-    description: 'Sustained multi-day wilderness backpacking, navigating elevation gains, rugged scree trails, and variable weather. Tests aerobic zone-2 thresholds, load-bearing spinal stamina, and mental perseverance across remote natural landscapes.',
+    description: 'Sustained full-day wilderness backpacking, navigating elevation gains, rugged scree trails, and variable weather. Tests aerobic zone-2 thresholds, load-bearing spinal stamina, and mental perseverance across remote natural landscapes.',
     skillsAndDemands: [
       'Sustained cardiopulmonary zone-2 endurance with heavy expedition rucksack',
       'Trekking pole biomechanics offloading joint impacts on steep descents',

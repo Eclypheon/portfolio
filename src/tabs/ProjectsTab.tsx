@@ -25,8 +25,7 @@ export const ProjectsTab: React.FC = () => {
   const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
   
   // Finance Tracker Showcase State
-  const [financeActiveCard, setFinanceActiveCard] = useState<number | null>(null);
-  const [financeViewMode, setFinanceViewMode] = useState<'fan' | 'assets' | 'dividends' | 'expenses'>('fan');
+  const [financeActiveIndex, setFinanceActiveIndex] = useState<number>(0);
 
   // Bubble Tea Showcase State
   const [bubbleTeaActiveIndex, setBubbleTeaActiveIndex] = useState<number>(0);
@@ -382,56 +381,10 @@ export const ProjectsTab: React.FC = () => {
               </div>
             )}
 
-            {/* SPLAYED CARDS SHOWCASE: Finance Tracker */}
+            {/* GALLERY SHOWCASE: Asset & Dividend Tracker */}
             {project.id === 'financetracker' && (
               <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-6">
-                {/* Header & SGX Quote */}
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>INTERFACE SHOWCASE // MULTI-PAGE SPLAYED VIEW</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white">
-                      Operational Dashboard Views
-                    </h3>
-                  </div>
-
-                  {/* Mode switcher pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    <button
-                      onClick={() => {
-                        sound.playClick();
-                        setFinanceViewMode('fan');
-                      }}
-                      className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
-                        financeViewMode === 'fan'
-                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
-                      }`}
-                    >
-                      Fanned Cards Deck
-                    </button>
-                    {financeScreenshots.map((card, idx) => (
-                      <button
-                        key={card.id}
-                        onClick={() => {
-                          sound.playClick();
-                          setFinanceViewMode(card.id as any);
-                        }}
-                        className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
-                          financeViewMode === card.id
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
-                            : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
-                        }`}
-                      >
-                        {card.badge}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* The SGX Quote Banner */}
+                {/* SGX Quote Banner */}
                 <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/30 flex items-start gap-3">
                   <Quote className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                   <p className="text-xs sm:text-sm font-mono text-cyan-200 leading-relaxed italic">
@@ -439,103 +392,122 @@ export const ProjectsTab: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Fanned / Splayed Cards Presentation */}
-                {financeViewMode === 'fan' ? (
-                  <div className="py-6 sm:py-10 px-2 flex justify-center items-center overflow-hidden">
-                    <div className="relative w-full max-w-2xl h-[420px] sm:h-[480px] flex justify-center items-center">
-                      {financeScreenshots.map((item, index) => {
-                        const isLeft = index === 0;
-                        const isCenter = index === 1;
-                        const isRight = index === 2;
+                {/* Gallery Showcase */}
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-3">
+                    <div>
+                      <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                        {React.createElement(financeScreenshots[financeActiveIndex].icon, { className: "w-4 h-4 text-cyan-400" })}
+                        <span>{financeScreenshots[financeActiveIndex].title}</span>
+                      </h4>
+                      <p className="text-xs text-slate-400 font-mono mt-0.5">
+                        {financeScreenshots[financeActiveIndex].subtitle}
+                      </p>
+                    </div>
 
-                        const transformClass = isLeft
-                          ? '-rotate-6 -translate-x-16 sm:-translate-x-32 hover:rotate-0 hover:-translate-y-4 hover:z-30'
-                          : isCenter
-                          ? 'rotate-0 z-20 hover:-translate-y-4 hover:scale-105'
-                          : 'rotate-6 translate-x-16 sm:translate-x-32 hover:rotate-0 hover:-translate-y-4 hover:z-30';
-
-                        return (
-                          <div
-                            key={item.id}
-                            onClick={() => {
-                              sound.playChirp();
-                              setFinanceActiveCard(index);
-                            }}
-                            className={`absolute top-4 w-[240px] sm:w-[280px] rounded-2xl overflow-hidden border border-white/20 bg-slate-950 shadow-2xl transition-all duration-300 cursor-pointer group select-none ${transformClass}`}
-                          >
-                            {/* Card top banner */}
-                            <div className="p-2.5 bg-slate-900/95 border-b border-white/10 flex items-center justify-between">
-                              <span className="text-[10px] font-mono font-bold text-emerald-400 flex items-center gap-1">
-                                <item.icon className="w-3 h-3" />
-                                <span>{item.badge}</span>
-                              </span>
-                              <Maximize2 className="w-3 h-3 text-slate-400 group-hover:text-white transition-colors" />
-                            </div>
-
-                            {/* Image clipping */}
-                            <div className="h-[360px] sm:h-[400px] overflow-hidden bg-black">
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                              />
-                            </div>
-
-                            {/* Bottom tag */}
-                            <div className="p-2 bg-black/90 text-center text-[11px] font-mono text-slate-300 border-t border-white/5 truncate">
-                              {item.title}
-                            </div>
-                          </div>
-                        );
-                      })}
+                    {/* Screenshot Controls */}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          sound.playClick();
+                          setFinanceActiveIndex((financeActiveIndex + financeScreenshots.length - 1) % financeScreenshots.length);
+                        }}
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                        title="Previous Screenshot"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <span className="text-xs font-mono text-slate-400 px-1">
+                        {financeActiveIndex + 1} / {financeScreenshots.length}
+                      </span>
+                      <button
+                        onClick={() => {
+                          sound.playClick();
+                          setFinanceActiveIndex((financeActiveIndex + 1) % financeScreenshots.length);
+                        }}
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                        title="Next Screenshot"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          sound.playChirp();
+                          setModalImage({
+                            src: financeScreenshots[financeActiveIndex].image,
+                            title: financeScreenshots[financeActiveIndex].title,
+                            subtitle: financeScreenshots[financeActiveIndex].subtitle
+                          });
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-xs font-mono text-cyan-300 flex items-center gap-1.5 transition-all ml-1"
+                        title="Enlarge Current Screenshot"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Enlarge</span>
+                      </button>
                     </div>
                   </div>
-                ) : (
-                  /* Focused Single Card View */
-                  <div className="space-y-4">
-                    {(() => {
-                      const current = financeScreenshots.find(s => s.id === financeViewMode);
-                      if (!current) return null;
-                      return (
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                                <current.icon className="w-4 h-4 text-emerald-400" />
-                                <span>{current.title}</span>
-                              </h4>
-                              <p className="text-xs text-slate-400 font-mono mt-0.5">
-                                {current.subtitle}
-                              </p>
-                            </div>
-                            <button
-                              onClick={() => {
-                                sound.playChirp();
-                                const idx = financeScreenshots.findIndex(s => s.id === current.id);
-                                setFinanceActiveCard(idx);
-                              }}
-                              className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono text-white flex items-center gap-1.5 transition-all"
-                            >
-                              <Maximize2 className="w-3.5 h-3.5" />
-                              <span>Enlarge View</span>
-                            </button>
-                          </div>
 
-                          <div className="max-w-md mx-auto rounded-2xl overflow-hidden border border-white/20 bg-black shadow-2xl">
-                            <img
-                              src={current.image}
-                              alt={current.title}
-                              className="w-full max-h-[550px] object-cover object-top"
-                            />
-                          </div>
+                  {/* Active Screenshot Display (Constrained Container) */}
+                  <div className="flex justify-center">
+                    <div
+                      onClick={() => {
+                        sound.playClick();
+                        setModalImage({
+                          src: financeScreenshots[financeActiveIndex].image,
+                          title: financeScreenshots[financeActiveIndex].title,
+                          subtitle: financeScreenshots[financeActiveIndex].subtitle
+                        });
+                      }}
+                      className="relative max-w-3xl w-full rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
+                    >
+                      <img
+                        src={financeScreenshots[financeActiveIndex].image}
+                        alt={financeScreenshots[financeActiveIndex].title}
+                        className="w-full h-auto max-h-[460px] object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-mono text-cyan-300 bg-black/60 px-2.5 py-1 rounded border border-cyan-500/30">
+                            {financeScreenshots[financeActiveIndex].title}
+                          </span>
+                          <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
+                            <Maximize2 className="w-3 h-3 text-cyan-400" />
+                            Click to inspect full resolution
+                          </span>
                         </div>
-                      );
-                    })()}
+                      </div>
+                    </div>
                   </div>
-                )}
-                <p className="text-center text-xs font-mono text-slate-500">
-                  Click any card to inspect high-resolution UI and dividend allocations
-                </p>
+
+                  {/* Thumbnail Row (3 cards) */}
+                  <div className="max-w-3xl mx-auto grid grid-cols-3 gap-2 pt-1">
+                    {financeScreenshots.map((item, idx) => (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          sound.playClick();
+                          setFinanceActiveIndex(idx);
+                        }}
+                        className={`rounded-xl overflow-hidden border transition-all text-left group relative aspect-[16/10] ${
+                          financeActiveIndex === idx
+                            ? 'border-cyan-500 ring-2 ring-cyan-500/40 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
+                            : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
+                        }`}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover object-top"
+                        />
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors" />
+                        <span className="absolute bottom-1 left-1.5 text-[10px] font-mono font-bold text-white bg-black/70 px-1.5 py-0.5 rounded truncate max-w-[90%]">
+                          {idx + 1}. {item.badge}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
@@ -631,72 +603,7 @@ export const ProjectsTab: React.FC = () => {
         ))}
       </div>
 
-      {/* Lightbox Modal for Finance Cards */}
-      {financeActiveCard !== null && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setFinanceActiveCard(null)}
-        >
-          <div 
-            className="relative max-w-lg w-full bg-slate-950 border border-white/20 rounded-3xl p-5 overflow-hidden space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-emerald-400 font-bold">
-                  {financeScreenshots[financeActiveCard].badge}
-                </span>
-                <span className="text-xs text-slate-400">
-                  — {financeScreenshots[financeActiveCard].title}
-                </span>
-              </div>
-              <button
-                onClick={() => setFinanceActiveCard(null)}
-                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="max-h-[70vh] overflow-y-auto rounded-xl border border-white/10 bg-black flex justify-center">
-              <img
-                src={financeScreenshots[financeActiveCard].image}
-                alt={financeScreenshots[financeActiveCard].title}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-
-            {/* Navigation footer */}
-            <div className="flex items-center justify-between pt-2">
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  setFinanceActiveCard((financeActiveCard + 2) % 3);
-                }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                <span>Prev</span>
-              </button>
-              <span className="text-xs font-mono text-slate-500">
-                {financeActiveCard + 1} of 3
-              </span>
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  setFinanceActiveCard((financeActiveCard + 1) % 3);
-                }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1"
-              >
-                <span>Next</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Universal Screenshot Modal for Bubble Tea & CheerPlan Pro */}
+      {/* Universal Screenshot Modal for Bubble Tea, Finance Tracker & CheerPlan Pro */}
       {modalImage && (
         <div 
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"

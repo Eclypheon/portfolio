@@ -77,7 +77,7 @@ export const darkProseCollection: DarkProseItem[] = [
     type: 'Poem',
     attribution: 'Authored by Neo Kester',
     image: './photos/Travels1.png',
-    imagePosition: 'center bottom',
+    imagePosition: 'center 80%',
     text: [
       'Such is my abode, broken, shattered, blood-splattered',
       'Living apart, alone segregated',

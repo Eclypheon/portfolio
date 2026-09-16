@@ -46,9 +46,9 @@ export const projects: Project[] = [
   },
   {
     id: 'financetracker',
-    title: 'Precision Asset & Dividend Engine',
+    title: 'Asset & Dividend Tracker',
     category: 'Full Stack',
-    tagline: 'High-density multi-asset financial tracker with automated dividend scraping and net worth modeling',
+    tagline: 'Multi-asset financial tracker with automated dividend scraping and net worth modeling',
     description: 'A modern financial operating dashboard built to model liquid vs. non-liquid asset trajectories, historical equity positions, and dividend projections. Built out of sheer necessity because I was tired of manually tracking monthly dividends—so now you just key in your tickers and quantity, and it automatically pulls payouts from SGX corporate actions.',
     architecture: [
       'React 19 + Tailwind CSS frontend with sub-millisecond tab rendering and card carousel',
