@@ -97,7 +97,7 @@ export const ProjectsTab: React.FC = () => {
     {
       id: 'dividends',
       title: 'Dividends & SGX Scraping',
-      subtitle: 'Tired of manually tracking monthly dividends so just key in your tickers and quantity and it would pull the payouts from SGX corporate actions',
+      subtitle: 'Key in your Tickers & Qty to calculate payouts automatically',
       image: './finance-dividends.png',
       badge: 'Dividends (SGX)',
       icon: TrendingUp
@@ -448,7 +448,7 @@ export const ProjectsTab: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Active Screenshot Display (Constrained Container) */}
+                  {/* Active Screenshot Display (Aspect-Ratio Fitted Container) */}
                   <div className="flex justify-center">
                     <div
                       onClick={() => {
@@ -459,29 +459,29 @@ export const ProjectsTab: React.FC = () => {
                           subtitle: financeScreenshots[financeActiveIndex].subtitle
                         });
                       }}
-                      className="relative max-w-3xl w-full rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
+                      className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[440/920] rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
                     >
                       <img
                         src={financeScreenshots[financeActiveIndex].image}
                         alt={financeScreenshots[financeActiveIndex].title}
-                        className="w-full h-auto max-h-[460px] object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-3 opacity-90 group-hover:opacity-100 transition-opacity">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-xs font-mono text-cyan-300 bg-black/60 px-2.5 py-1 rounded border border-cyan-500/30">
+                          <span className="text-xs font-mono text-cyan-300 bg-black/70 px-2 py-0.5 rounded border border-cyan-500/30 truncate max-w-[70%]">
                             {financeScreenshots[financeActiveIndex].title}
                           </span>
-                          <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 bg-black/60 px-2 py-1 rounded border border-white/10">
+                          <span className="text-[10px] font-mono text-slate-400 flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded border border-white/10 shrink-0">
                             <Maximize2 className="w-3 h-3 text-cyan-400" />
-                            Click to inspect full resolution
+                            Enlarge
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Thumbnail Row (3 cards) */}
-                  <div className="max-w-3xl mx-auto grid grid-cols-3 gap-2 pt-1">
+                  {/* Thumbnail Row (3 cards, aspect-ratio fitted) */}
+                  <div className="w-full max-w-[280px] sm:max-w-[320px] mx-auto grid grid-cols-3 gap-2 pt-1">
                     {financeScreenshots.map((item, idx) => (
                       <button
                         key={item.id}
@@ -489,7 +489,7 @@ export const ProjectsTab: React.FC = () => {
                           sound.playClick();
                           setFinanceActiveIndex(idx);
                         }}
-                        className={`rounded-xl overflow-hidden border transition-all text-left group relative aspect-[16/10] ${
+                        className={`rounded-xl overflow-hidden border transition-all text-left group relative aspect-[440/920] ${
                           financeActiveIndex === idx
                             ? 'border-cyan-500 ring-2 ring-cyan-500/40 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
                             : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
@@ -501,7 +501,7 @@ export const ProjectsTab: React.FC = () => {
                           className="w-full h-full object-cover object-top"
                         />
                         <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors" />
-                        <span className="absolute bottom-1 left-1.5 text-[10px] font-mono font-bold text-white bg-black/70 px-1.5 py-0.5 rounded truncate max-w-[90%]">
+                        <span className="absolute bottom-1 left-1 text-[9px] font-mono font-bold text-white bg-black/80 px-1 py-0.5 rounded truncate max-w-[90%]">
                           {idx + 1}. {item.badge}
                         </span>
                       </button>
@@ -637,7 +637,7 @@ export const ProjectsTab: React.FC = () => {
               <img
                 src={modalImage.src}
                 alt={modalImage.title}
-                className="w-full h-auto object-contain rounded-lg"
+                className="max-h-[72vh] w-auto h-auto object-contain rounded-lg mx-auto"
               />
             </div>
 

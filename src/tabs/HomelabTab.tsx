@@ -35,9 +35,9 @@ import { sound } from '../components/AudioEngine.ts';
 export const HomelabTab: React.FC = () => {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   
-  // alienlab Dashboard Carousel & Lightbox State
-  const [dashboardViewMode, setDashboardViewMode] = useState<'fan' | 'overview' | 'services' | 'media' | 'telebot'>('fan');
-  const [activeDashboardIndex, setActiveDashboardIndex] = useState<number | null>(null);
+  // alienlab Dashboard Gallery & Lightbox State
+  const [activeDashboardIndex, setActiveDashboardIndex] = useState<number>(0);
+  const [modalDashboardIndex, setModalDashboardIndex] = useState<number | null>(null);
   const [stackFilter, setStackFilter] = useState<string>('All');
   const [jellyfinModalOpen, setJellyfinModalOpen] = useState(false);
 
@@ -209,161 +209,128 @@ WantedBy=default.target`;
         </div>
       </div>
 
-      {/* SPLAYED CAROUSEL: alienlab Live Dashboard Views */}
+      {/* GALLERY SHOWCASE: alienlab Operating Dashboard */}
       <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-6">
-        {/* Header and Filter Pills */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>DASHBOARD CAROUSEL // MULTI-PAGE SPLAYED VIEW</span>
-            </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white">
-              alienlab Operating Dashboard (Ubuntu Server)
-            </h3>
+        {/* Section Header */}
+        <div className="space-y-1 border-b border-white/5 pb-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>alienlab // UBUNTU SERVER OPERATING DASHBOARD</span>
           </div>
+          <h3 className="text-lg sm:text-xl font-bold text-white">
+            alienlab Operating Dashboard (Ubuntu Server)
+          </h3>
+        </div>
 
-          {/* Mode switcher pills */}
-          <div className="flex flex-wrap gap-1.5">
-            <button
-              onClick={() => {
-                sound.playClick();
-                setDashboardViewMode('fan');
-              }}
-              className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
-                dashboardViewMode === 'fan'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                  : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
-              }`}
-            >
-              Fanned Cards Deck
-            </button>
-            {alienlabDashboardCards.map((card) => (
+        {/* Gallery Showcase */}
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-3">
+            <div>
+              <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                {React.createElement(getCardIcon(alienlabDashboardCards[activeDashboardIndex].id), { className: "w-4 h-4 text-cyan-400" })}
+                <span>{alienlabDashboardCards[activeDashboardIndex].title}</span>
+              </h4>
+              <p className="text-xs text-slate-400 font-mono mt-0.5">
+                {alienlabDashboardCards[activeDashboardIndex].subtitle}
+              </p>
+            </div>
+
+            {/* Screenshot Controls */}
+            <div className="flex items-center gap-2">
               <button
-                key={card.id}
                 onClick={() => {
                   sound.playClick();
-                  setDashboardViewMode(card.id as any);
+                  setActiveDashboardIndex((activeDashboardIndex + alienlabDashboardCards.length - 1) % alienlabDashboardCards.length);
                 }}
-                className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
-                  dashboardViewMode === card.id
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
-                    : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                title="Previous Screenshot"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-xs font-mono text-slate-400 px-1">
+                {activeDashboardIndex + 1} / {alienlabDashboardCards.length}
+              </span>
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setActiveDashboardIndex((activeDashboardIndex + 1) % alienlabDashboardCards.length);
+                }}
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
+                title="Next Screenshot"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => {
+                  sound.playChirp();
+                  setModalDashboardIndex(activeDashboardIndex);
+                }}
+                className="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-xs font-mono text-cyan-300 flex items-center gap-1.5 transition-all ml-1"
+                title="Enlarge Current Screenshot"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Enlarge</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Active Screenshot Display (Aspect-Ratio Fitted Container) */}
+          <div className="flex justify-center">
+            <div
+              onClick={() => {
+                sound.playClick();
+                setModalDashboardIndex(activeDashboardIndex);
+              }}
+              className="relative w-full max-w-[460px] sm:max-w-[520px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
+            >
+              <img
+                src={alienlabDashboardCards[activeDashboardIndex].image}
+                alt={alienlabDashboardCards[activeDashboardIndex].title}
+                className="w-full h-full object-contain group-hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-3.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-xs font-mono text-cyan-300 bg-black/70 px-2.5 py-1 rounded border border-cyan-500/30">
+                    {alienlabDashboardCards[activeDashboardIndex].title}
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 bg-black/70 px-2 py-1 rounded border border-white/10">
+                    <Maximize2 className="w-3 h-3 text-cyan-400" />
+                    Click to inspect full resolution
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Thumbnail Row (4 cards, aspect-ratio fitted) */}
+          <div className="w-full max-w-[460px] sm:max-w-[520px] mx-auto grid grid-cols-4 gap-2 pt-1">
+            {alienlabDashboardCards.map((item, idx) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  sound.playClick();
+                  setActiveDashboardIndex(idx);
+                }}
+                className={`rounded-xl overflow-hidden border transition-all text-left group relative aspect-[4/5] ${
+                  activeDashboardIndex === idx
+                    ? 'border-cyan-500 ring-2 ring-cyan-500/40 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
+                    : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
                 }`}
               >
-                {card.badge}
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors" />
+                <span className="absolute bottom-1 left-1 text-[9px] font-mono font-bold text-white bg-black/80 px-1 py-0.5 rounded truncate max-w-[92%]">
+                  {idx + 1}. {item.badge}
+                </span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Fanned / Splayed Cards Presentation */}
-        {dashboardViewMode === 'fan' ? (
-          <div className="py-6 sm:py-10 px-2 flex justify-center items-center overflow-hidden">
-            <div className="relative w-full max-w-4xl h-[440px] sm:h-[500px] flex justify-center items-center">
-              {alienlabDashboardCards.map((item, index) => {
-                const CardIcon = getCardIcon(item.id);
-                // 4 cards fanned out
-                const isFirst = index === 0;
-                const isSecond = index === 1;
-                const isThird = index === 2;
-                const isFourth = index === 3;
-
-                let transformClass = '';
-                if (isFirst) {
-                  // Overview: Front-most card commanding center foreground
-                  transformClass = 'rotate-0 z-30 scale-105 shadow-[0_20px_50px_rgba(0,0,0,0.85)] border-cyan-500/40 hover:-translate-y-4 hover:scale-110 hover:z-40';
-                } else if (isSecond) {
-                  // Services: Fanned to the left
-                  transformClass = '-rotate-6 -translate-x-24 sm:-translate-x-48 z-20 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
-                } else if (isThird) {
-                  // Media: Fanned to the right
-                  transformClass = 'rotate-3 translate-x-16 sm:translate-x-32 z-20 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
-                } else {
-                  // Telebot: Fanned far right
-                  transformClass = 'rotate-8 translate-x-32 sm:translate-x-64 z-10 hover:rotate-0 hover:-translate-y-4 hover:z-40 hover:scale-105';
-                }
-
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => {
-                      sound.playChirp();
-                      setActiveDashboardIndex(index);
-                    }}
-                    className={`absolute top-4 w-[220px] sm:w-[260px] rounded-2xl overflow-hidden border border-white/20 bg-slate-950 shadow-2xl transition-all duration-300 cursor-pointer group select-none ${transformClass}`}
-                  >
-                    {/* Card top banner */}
-                    <div className="p-2.5 bg-slate-900/95 border-b border-white/10 flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-bold text-cyan-400 flex items-center gap-1">
-                        <CardIcon className="w-3 h-3" />
-                        <span>{item.badge}</span>
-                      </span>
-                      <Maximize2 className="w-3 h-3 text-slate-400 group-hover:text-white transition-colors" />
-                    </div>
-
-                    {/* Image clipping */}
-                    <div className="h-[360px] sm:h-[400px] overflow-hidden bg-black">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-
-                    {/* Bottom tag */}
-                    <div className="p-2 bg-black/90 text-center text-[11px] font-mono text-slate-300 border-t border-white/5 truncate">
-                      {item.title}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          /* Focused Single Card View */
-          <div className="space-y-4">
-            {(() => {
-              const current = alienlabDashboardCards.find(s => s.id === dashboardViewMode);
-              if (!current) return null;
-              const CardIcon = getCardIcon(current.id);
-              return (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                        <CardIcon className="w-4 h-4 text-cyan-400" />
-                        <span>{current.title}</span>
-                      </h4>
-                      <p className="text-xs text-slate-400 font-mono mt-0.5">
-                        {current.subtitle}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        sound.playChirp();
-                        const idx = alienlabDashboardCards.findIndex(s => s.id === current.id);
-                        setActiveDashboardIndex(idx);
-                      }}
-                      className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono text-white flex items-center gap-1.5 transition-all"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      <span>Enlarge View</span>
-                    </button>
-                  </div>
-
-                  <div className="max-w-xl mx-auto rounded-2xl overflow-hidden border border-white/20 bg-black shadow-2xl">
-                    <img
-                      src={current.image}
-                      alt={current.title}
-                      className="w-full max-h-[560px] object-cover object-top"
-                    />
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        )}
         <p className="text-center text-xs font-mono text-slate-500">
           Click any card to inspect full-resolution alienlab telemetry
         </p>
@@ -646,38 +613,38 @@ WantedBy=default.target`;
         </div>
       </div>
 
-      {/* Lightbox Modal for alienlab Screenshots */}
-      {activeDashboardIndex !== null && (
+      {/* Universal Screenshot Modal for alienlab Dashboard */}
+      {modalDashboardIndex !== null && (
         <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setActiveDashboardIndex(null)}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setModalDashboardIndex(null)}
         >
           <div 
-            className="relative max-w-lg w-full bg-slate-950 border border-white/20 rounded-3xl p-5 overflow-hidden space-y-4"
+            className="relative max-w-4xl w-full bg-slate-950 border border-white/20 rounded-3xl p-6 overflow-hidden space-y-4 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-cyan-400 font-bold">
-                  {alienlabDashboardCards[activeDashboardIndex].badge}
+                  {alienlabDashboardCards[modalDashboardIndex].badge}
                 </span>
                 <span className="text-xs text-slate-400">
-                  — {alienlabDashboardCards[activeDashboardIndex].title}
+                  — {alienlabDashboardCards[modalDashboardIndex].title}
                 </span>
               </div>
               <button
-                onClick={() => setActiveDashboardIndex(null)}
-                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all"
+                onClick={() => setModalDashboardIndex(null)}
+                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all ml-4 shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="max-h-[70vh] overflow-y-auto rounded-xl border border-white/10 bg-black flex justify-center">
+            <div className="max-h-[72vh] overflow-y-auto rounded-xl border border-white/10 bg-black flex justify-center">
               <img
-                src={alienlabDashboardCards[activeDashboardIndex].image}
-                alt={alienlabDashboardCards[activeDashboardIndex].title}
-                className="w-full h-auto object-contain"
+                src={alienlabDashboardCards[modalDashboardIndex].image}
+                alt={alienlabDashboardCards[modalDashboardIndex].title}
+                className="max-h-[72vh] w-auto h-auto object-contain rounded-lg mx-auto"
               />
             </div>
 
@@ -686,7 +653,7 @@ WantedBy=default.target`;
               <button
                 onClick={() => {
                   sound.playClick();
-                  setActiveDashboardIndex((activeDashboardIndex + alienlabDashboardCards.length - 1) % alienlabDashboardCards.length);
+                  setModalDashboardIndex((modalDashboardIndex + alienlabDashboardCards.length - 1) % alienlabDashboardCards.length);
                 }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1"
               >
@@ -694,12 +661,12 @@ WantedBy=default.target`;
                 <span>Prev</span>
               </button>
               <span className="text-xs font-mono text-slate-500">
-                {activeDashboardIndex + 1} of {alienlabDashboardCards.length}
+                {modalDashboardIndex + 1} of {alienlabDashboardCards.length}
               </span>
               <button
                 onClick={() => {
                   sound.playClick();
-                  setActiveDashboardIndex((activeDashboardIndex + 1) % alienlabDashboardCards.length);
+                  setModalDashboardIndex((modalDashboardIndex + 1) % alienlabDashboardCards.length);
                 }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1"
               >

@@ -172,7 +172,7 @@ export const kineticEndeavors: KineticEndeavor[] = [
     ],
     accentColor: '#8b5cf6',
     image: './photos/acroyoga-1.png',
-    imagePosition: 'center 80%'
+    imagePosition: 'center 85%'
   },
   {
     id: 'snowboard-ski-wake',
