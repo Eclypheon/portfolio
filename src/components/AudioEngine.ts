@@ -55,12 +55,14 @@ class SoundSynthesizer {
         const cleanBase = basePath.endsWith('/') ? basePath : basePath + '/';
         const audio = new Audio(`${cleanBase}audio/synthwave.mp3`);
         audio.loop = true;
-        audio.volume = 0.25;
+        audio.volume = 0.07;
         audio.preload = 'auto';
         this.bgmAudio = audio;
       } catch {
         // Fallback or ignore
       }
+    } else {
+      this.bgmAudio.volume = 0.07;
     }
     return this.bgmAudio;
   }
@@ -121,7 +123,7 @@ class SoundSynthesizer {
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(freq * 0.5, ctx.currentTime + duration);
 
-      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
 
       osc.connect(gain);
@@ -149,7 +151,7 @@ class SoundSynthesizer {
       osc.frequency.setValueAtTime(320, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.06);
 
-      gain.gain.setValueAtTime(0.03, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
 
       osc.connect(gain);
@@ -177,7 +179,7 @@ class SoundSynthesizer {
       osc.frequency.setValueAtTime(800, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(1400, ctx.currentTime + 0.08);
 
-      gain.gain.setValueAtTime(0.025, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
 
       osc.connect(gain);
