@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigation, TabKey } from './components/Navigation.tsx';
+import { Navigation, TabKey, TAB_KEYS } from './components/Navigation.tsx';
 import { CanvasBackground } from './components/CanvasBackground.tsx';
 import { CommandPalette } from './components/CommandPalette.tsx';
 import { OverviewTab } from './tabs/OverviewTab.tsx';
@@ -14,6 +14,7 @@ import { Mail, ShieldAlert, Terminal, Compass, ArrowUp, Heart, X } from 'lucide-
 import { GithubIcon } from './components/GithubIcon.tsx';
 import { sound } from './components/AudioEngine.ts';
 import { JellyfinModal } from './components/JellyfinModal.tsx';
+import { useHorizontalSwipe } from './hooks/useHorizontalSwipe.ts';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('overview');
@@ -21,6 +22,18 @@ export const App: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [jellyfinModalOpen, setJellyfinModalOpen] = useState(false);
+
+  // Hook up horizontal swipe navigation across all 8 tabs on mobile/tablet
+  const { containerRef, dragOffset, isSwiping } = useHorizontalSwipe({
+    activeTab,
+    tabs: TAB_KEYS,
+    onNavigate: (newTab) => {
+      sound.playSwitch();
+      setActiveTab(newTab);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    },
+    disabled: commandPaletteOpen || jellyfinModalOpen || donateModalOpen,
+  });
 
   // Monitor custom event to open Jellyfin Access Request iframe modal
   useEffect(() => {
@@ -97,8 +110,16 @@ export const App: React.FC = () => {
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       />
 
-      {/* Main Container Viewport */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Main Container Viewport with Swipe Gesture Support */}
+      <main 
+        ref={containerRef}
+        className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 overflow-x-hidden touch-pan-y"
+        style={{
+          transform: dragOffset !== 0 ? `translateX(${dragOffset}px)` : undefined,
+          transition: isSwiping ? 'none' : 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+          willChange: isSwiping ? 'transform' : 'auto',
+        }}
+      >
         <div key={activeTab} className="animate-fadeIn">
           {renderActiveTab()}
         </div>

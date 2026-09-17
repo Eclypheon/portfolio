@@ -31,23 +31,33 @@ interface NavigationProps {
   onOpenCommandPalette: () => void;
 }
 
+export interface TabItem {
+  key: TabKey;
+  label: string;
+  icon: React.ReactNode;
+  badge?: string;
+}
+
+export const TABS: TabItem[] = [
+  { key: 'overview', label: 'Matrix', icon: <Layers className="w-4 h-4" /> },
+  { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '4' },
+  { key: 'writing', label: 'Writings', icon: <Feather className="w-4 h-4" /> },
+  { key: 'homelab', label: 'Homelab', icon: <Server className="w-4 h-4" /> },
+  { key: 'philosophy', label: 'Philosophy', icon: <BookOpen className="w-4 h-4" /> },
+  { key: 'kinetic', label: 'Kinetic', icon: <Activity className="w-4 h-4" /> },
+  { key: 'toolkit', label: 'Toolchain', icon: <Wrench className="w-4 h-4" /> },
+  { key: 'musings', label: 'Musings', icon: <Sparkles className="w-4 h-4" />, badge: 'AI' },
+];
+
+export const TAB_KEYS: TabKey[] = TABS.map(t => t.key);
+
 export const Navigation: React.FC<NavigationProps> = ({
   activeTab,
   onSelectTab,
   onOpenCommandPalette,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const tabs: { key: TabKey; label: string; icon: React.ReactNode; badge?: string }[] = [
-    { key: 'overview', label: 'Matrix', icon: <Layers className="w-4 h-4" /> },
-    { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '4' },
-    { key: 'writing', label: 'Writings', icon: <Feather className="w-4 h-4" /> },
-    { key: 'homelab', label: 'Homelab', icon: <Server className="w-4 h-4" /> },
-    { key: 'philosophy', label: 'Philosophy', icon: <BookOpen className="w-4 h-4" /> },
-    { key: 'kinetic', label: 'Kinetic', icon: <Activity className="w-4 h-4" /> },
-    { key: 'toolkit', label: 'Toolchain', icon: <Wrench className="w-4 h-4" /> },
-    { key: 'musings', label: 'Musings', icon: <Sparkles className="w-4 h-4" />, badge: 'AI' },
-  ];
+  const tabs = TABS;
 
   const handleTabClick = (key: TabKey) => {
     sound.playSwitch();
@@ -67,6 +77,36 @@ export const Navigation: React.FC<NavigationProps> = ({
             <span className="text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-emerald-300 transition-colors">
               Neo Kester
             </span>
+          </div>
+
+          {/* Mobile / Tablet Screen Page Dots Indicator (Displayed when full tabs collapse into burger menu) */}
+          <div 
+            className="flex xl:hidden items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 shadow-inner select-none"
+            role="tablist"
+            aria-label="Screen pagination"
+          >
+            {tabs.map((tab, idx) => {
+              const isActive = activeTab === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => handleTabClick(tab.key)}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`${tab.label} (Screen ${idx + 1} of ${tabs.length})`}
+                  title={`${tab.label} (${idx + 1}/${tabs.length})`}
+                  className="p-1 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-full"
+                >
+                  <span
+                    className={`transition-all duration-300 rounded-full block ${
+                      isActive
+                        ? 'w-3.5 sm:w-4 h-1.5 bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]'
+                        : 'w-1.5 h-1.5 bg-white/25 hover:bg-white/50'
+                    }`}
+                  />
+                </button>
+              );
+            })}
           </div>
 
           {/* Desktop Navigation Tabs: Full button set with icons and badges */}
