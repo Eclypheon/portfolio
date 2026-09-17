@@ -24,7 +24,7 @@ export const App: React.FC = () => {
   const [jellyfinModalOpen, setJellyfinModalOpen] = useState(false);
 
   // Hook up horizontal swipe navigation across all 8 tabs on mobile/tablet
-  const { containerRef, dragOffset, isSwiping } = useHorizontalSwipe({
+  const { containerRef, dragOffset, transitionStyle, opacity } = useHorizontalSwipe({
     activeTab,
     tabs: TAB_KEYS,
     onNavigate: (newTab) => {
@@ -110,14 +110,15 @@ export const App: React.FC = () => {
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       />
 
-      {/* Main Container Viewport with Swipe Gesture Support */}
+      {/* Main Container Viewport with Directional Swipe Support */}
       <main 
         ref={containerRef}
         className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 overflow-x-hidden touch-pan-y"
         style={{
           transform: dragOffset !== 0 ? `translateX(${dragOffset}px)` : undefined,
-          transition: isSwiping ? 'none' : 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-          willChange: isSwiping ? 'transform' : 'auto',
+          transition: transitionStyle !== 'none' ? transitionStyle : undefined,
+          opacity: opacity !== 1 ? opacity : undefined,
+          willChange: dragOffset !== 0 ? 'transform, opacity' : 'auto',
         }}
       >
         <div key={activeTab} className="animate-fadeIn">
