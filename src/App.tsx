@@ -42,6 +42,17 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('open-jellyfin-modal', handleOpenJellyfin);
   }, []);
 
+  // Track tab navigation in Google Analytics Realtime and Page reports
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof (window as unknown as { gtag?: Function }).gtag === 'function') {
+      (window as unknown as { gtag: Function }).gtag('event', 'page_view', {
+        page_title: `Neo Kester — ${activeTab.toUpperCase()}`,
+        page_location: window.location.href,
+        page_path: `/${activeTab}`,
+      });
+    }
+  }, [activeTab]);
+
   // Monitor scroll for scroll-to-top button
   useEffect(() => {
     const handleScroll = () => {
