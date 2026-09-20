@@ -40,7 +40,7 @@ export interface TabItem {
 
 export const TABS: TabItem[] = [
   { key: 'overview', label: 'Matrix', icon: <Layers className="w-4 h-4" /> },
-  { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '4' },
+  { key: 'projects', label: 'Projects', icon: <Terminal className="w-4 h-4" />, badge: '5' },
   { key: 'writing', label: 'Writings', icon: <Feather className="w-4 h-4" /> },
   { key: 'homelab', label: 'Homelab', icon: <Server className="w-4 h-4" /> },
   { key: 'philosophy', label: 'Philosophy', icon: <BookOpen className="w-4 h-4" /> },

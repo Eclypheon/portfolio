@@ -28,7 +28,7 @@ This repository contains the source code for the personal portfolio of **Kester 
 | Section | Description |
 | :--- | :--- |
 | **Matrix Overview** | High-level taxonomy of the *Deep Generalist*, Erving Goffman's dramaturgical manifesto, credentials, and domain map. |
-| **Projects & Systems** | Playable in-browser WebGL Bubble Tea Simulation game, precision multi-asset Finance Tracker, 3D Reality Cut Metroidvania engine, and CheerPlan Pro choreography suite. |
+| **Projects & Systems** | Private IBKR CME microfutures algorithmic scalper, playable in-browser WebGL Bubble Tea Simulation game, precision multi-asset Finance Tracker, and CheerPlan Pro choreography suite. |
 | **Homelab & Quadlet** | Architecture of the repurposed 2014 MacBook Pro headless server, Quadlet systemd `.container` definitions, rootless Podman vs. Docker, local LLM/Whisper/Kokoro pipelines, and Tailscale mesh. |
 | **Philosophy & Canon** | Deep dives into Camus' Absurdism, Sartre's *Mauvaise Foi*, Socratic Cave epistemology, Wittgenstein's Language-Games, Foucault's Panopticon, and an interactive curated reading list. |
 | **The Kinetic Realm** | Biomechanical records: sprint canoe hydrodynamics, dragonboat synchronization, competitive physique conditioning, 5 orthopedic surgeries recovery matrix, and aerials. |

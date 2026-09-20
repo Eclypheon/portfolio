@@ -371,11 +371,11 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
                 Interactive Projects
               </h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Play the WebGL Bubble Tea simulation, explore the Finance Tracker, test the @kestertest_bot AI mediator, and view CheerPlan Pro.
+                Explore the private IBKR microfutures scalper, play the WebGL Bubble Tea simulation, check the SGX Finance Tracker, test the @kestertest_bot AI mediator, and view CheerPlan Pro.
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-emerald-400">
-              <span>4 Active Systems</span>
+              <span>5 Active Systems</span>
               <span className="flex items-center gap-1 group-hover:underline">Open Tab <ChevronRight className="w-3.5 h-3.5" /></span>
             </div>
           </div>

@@ -10,11 +10,40 @@ export interface Project {
   githubUrl?: string;
   embedType?: 'webgl' | 'iframe';
   highlights: string[];
-  status: 'Live' | 'Live (Beta / WIP)' | 'In Production';
+  status: 'Live' | 'Live (Beta / WIP)' | 'In Production' | 'Private / Locally Hosted';
   metrics?: { label: string; value: string }[];
 }
 
 export const projects: Project[] = [
+  {
+    id: 'quant-scalper',
+    title: 'IBKR Quant Scalper (CME Microfutures)',
+    category: 'Systems',
+    tagline: 'Autonomous low-latency microfutures execution engine & HUD connected directly to Interactive Brokers TWS API',
+    description: 'A private, locally hosted quantitative trading system and algorithmic execution dashboard connected directly to Interactive Brokers (IBKR TWS / Gateway API). Engineered specifically for CME Globex Micro FX futures (M6E, M6B, M6A, MJY), the engine executes automated Micro-VWAP mean reversion and pullback momentum strategies with sub-second order routing, strict risk circuit breakers (daily profit target locking, max loss halt), real-time telemetry streaming, and an AI market intelligence layer assessing macro volatility regimes. Runs entirely on local silicon with zero cloud exposure.',
+    architecture: [
+      'Direct IBKR TWS / Gateway Socket Bridge: Native two-way async API integration handling real-time L1/L2 book streaming, bracket order management, and fills',
+      'Micro-VWAP Mean Reversion & Multi-Regime Algorithmic Engine: Real-time calculation of 30-period VWAP standard deviation bands (±1.8σ), 7-period RSI, and candlestick absorption/rejection wick detection',
+      'Hard Risk Circuit Breakers & Daily Goal Locking: Automated execution halt and order blocking upon reaching daily profit target (+$200) or hitting circuit breaker drawdowns (-$200 / -$1000)',
+      'Local Execution & Zero Cloud Telemetry: Runs 100% on local silicon directly alongside Trader Workstation for deterministic latency and strict private key / trading confidentiality',
+      'AI Market Intelligence & Macro Regime Classifier: Contextual regime detection (e.g., STABLE + VOLATILE), COT institutional positioning analysis, and dynamic stop-loss adjustments'
+    ],
+    techStack: ['Python', 'Interactive Brokers API', 'CME Globex Futures', 'React', 'TypeScript', 'Tailwind CSS', 'WebSockets', 'Quant Analysis'],
+    status: 'Private / Locally Hosted',
+    highlights: [
+      'Locally hosted on workstation with zero cloud exposure, interfacing directly with Interactive Brokers Trader Workstation',
+      'Autonomous execution across CME Micro FX futures: Micro EUR (M6E), Micro GBP (M6B), Micro AUD (M6A), and Micro JPY (MJY)',
+      'Real-time Micro-VWAP (±1.8σ) algorithmic scalping with automated bracket orders (TP/SL/Trailing Stop)',
+      'Deterministic risk circuit breakers with automatic daily profit target locks ($200/day goal locking)',
+      'Real-time execution telemetry console logging tick data, order scaling, and fill events'
+    ],
+    metrics: [
+      { label: 'Execution', value: 'IBKR TWS Direct' },
+      { label: 'Asset Class', value: 'CME Micro FX' },
+      { label: 'Deployment', value: 'Private Localhost' },
+      { label: 'Win Rate', value: '89.4% (Sandbox/Sim)' }
+    ]
+  },
   {
     id: 'bubbletea',
     title: 'Bubble Tea Sim & Economy Engine',

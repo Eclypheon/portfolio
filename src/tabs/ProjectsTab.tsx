@@ -14,7 +14,12 @@ import {
   CalendarSync,
   Quote,
   Gamepad2,
-  Eye
+  Eye,
+  Shield,
+  Activity,
+  Zap,
+  Cpu,
+  Lock
 } from 'lucide-react';
 import { GithubIcon } from '../components/GithubIcon.tsx';
 import { projects } from '../data/projectsData.ts';
@@ -136,7 +141,7 @@ export const ProjectsTab: React.FC = () => {
           Crafted Architectures & Game Engines
         </h1>
         <p className="text-sm sm:text-base text-slate-400 max-w-2xl">
-          From playable WebGL simulations with custom sound design in FL Studio, to high-density financial asset dashboards and real-time spatial choreography engines.
+          From private CME microfutures algorithmic trading systems and playable WebGL simulations, to high-density financial asset dashboards and real-time choreography engines.
         </p>
       </div>
 
@@ -178,6 +183,8 @@ export const ProjectsTab: React.FC = () => {
                     ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30'
                     : project.status.includes('Beta')
                     ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
+                    : project.status.includes('Private') || project.status.includes('Local')
+                    ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
                     : 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30'
                 }`}>
                   ● {project.status}
@@ -210,6 +217,15 @@ export const ProjectsTab: React.FC = () => {
                     <span>Source</span>
                   </a>
                 )}
+                {!project.liveUrl && !project.githubUrl && (
+                  <div 
+                    className="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono flex items-center gap-1.5 select-none"
+                    title="Proprietary quantitative system executed privately on local workstation directly via IBKR API."
+                  >
+                    <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Private Local Engine (IBKR)</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -225,6 +241,134 @@ export const ProjectsTab: React.FC = () => {
                 {project.description}
               </p>
             </div>
+
+            {/* INTERFACE SHOWCASE: IBKR Quant Scalper */}
+            {project.id === 'quant-scalper' && (
+              <div className="p-6 sm:p-8 rounded-3xl bg-black/40 border border-white/10 space-y-6">
+                {/* Local Environment & Security Banner */}
+                <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <div className="text-xs font-mono font-bold text-emerald-300 uppercase tracking-wider flex items-center gap-2">
+                        <span>Workstation Deployment</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                          Direct IBKR TWS Socket Bridge
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-mono text-emerald-200/90 leading-relaxed">
+                        Locally hosted quantitative execution suite connected directly to Interactive Brokers TWS socket API. Zero cloud telemetry, private order routing, and deterministic low-latency execution.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      sound.playChirp();
+                      setModalImage({
+                        src: './ibkr-quant-scalper.png',
+                        title: 'IBKR Quant Scalper — CME Microfutures Algorithmic Execution Dashboard',
+                        subtitle: '5s Globex Candlesticks, Micro-VWAP ±1.8σ Bands, Live Bot Telemetry, Daily Goal Lock & AI Regime Intelligence'
+                      });
+                    }}
+                    className="px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs font-mono text-emerald-300 flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
+                    title="Enlarge Trading Dashboard Screenshot"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>Enlarge UI</span>
+                  </button>
+                </div>
+
+                {/* Dashboard Showcase Header & Screenshot Display */}
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                        <Activity className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>ALGORITHMIC EXECUTION // REAL-TIME TRADING TELEMETRY</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-white">
+                        Real-Time Workstation Terminal & Algorithmic HUD
+                      </h3>
+                      <p className="text-xs text-slate-400 font-mono">
+                        CME Micro FX futures (M6E, M6B, M6A, MJY) • Micro-VWAP (±1.8σ) • Daily profit target circuit breakers • AI regime tracking
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>Local Engine Active</span>
+                    </div>
+                  </div>
+
+                  {/* Active Screenshot Display */}
+                  <div className="flex justify-center">
+                    <div
+                      onClick={() => {
+                        sound.playClick();
+                        setModalImage({
+                          src: './ibkr-quant-scalper.png',
+                          title: 'IBKR Quant Scalper — CME Microfutures Algorithmic Execution Dashboard',
+                          subtitle: '5s Globex Candlesticks, Micro-VWAP ±1.8σ Bands, Live Bot Telemetry, Daily Goal Lock & AI Regime Intelligence'
+                        });
+                      }}
+                      className="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/20 bg-black cursor-pointer group shadow-2xl"
+                    >
+                      <img
+                        src="./ibkr-quant-scalper.png"
+                        alt="IBKR Quant Scalper Desktop Interface"
+                        className="w-full h-auto max-h-[520px] object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex items-end p-4 opacity-90 group-hover:opacity-100 transition-opacity">
+                        <div className="flex flex-wrap items-center justify-between w-full gap-2">
+                          <div className="space-y-0.5">
+                            <span className="text-xs font-mono text-emerald-300 bg-black/70 px-2.5 py-1 rounded border border-emerald-500/30">
+                              IBKR Quant Scalper // CME Globex Micro FX Terminal
+                            </span>
+                            <p className="text-[11px] text-slate-300 font-mono mt-0.5">
+                              Micro-VWAP ±1.8σ Bands • RSI(7) Exhaustion • Automated Circuit Breakers • AI Macro Regime Intelligence
+                            </p>
+                          </div>
+                          <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 bg-black/70 px-2.5 py-1 rounded border border-white/10 shrink-0">
+                            <Maximize2 className="w-3 h-3 text-emerald-400" />
+                            Click to inspect full resolution
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature Breakdown Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                      <div className="text-xs font-mono font-bold text-emerald-400 flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5" />
+                        <span>Micro-VWAP Scalp Engine</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 font-mono leading-relaxed">
+                        Real-time 5s Globex tick calculations detecting price exhaustion outside ±1.8σ VWAP bands paired with RSI(7) turns and absorption/rejection wick detection.
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                      <div className="text-xs font-mono font-bold text-cyan-400 flex items-center gap-1.5">
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>Deterministic Circuit Breakers</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 font-mono leading-relaxed">
+                        Hard safety locks: automatically locks daily profit target (+$200) and immediately halts order entries on maximum daily drawdown (-$200 / -$1000).
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                      <div className="text-xs font-mono font-bold text-indigo-400 flex items-center gap-1.5">
+                        <Cpu className="w-3.5 h-3.5" />
+                        <span>AI Macro Regime Intelligence</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 font-mono leading-relaxed">
+                        Live AI regime classification (e.g. STABLE + VOLATILE), COT institutional position tracking (54% Bull / 46% Bear), and dynamic bracket adjustments.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* GAMEPLAY SCREENSHOT SHOWCASE & WEBGL LAUNCHER: Bubble Tea */}
             {project.id === 'bubbletea' && (
