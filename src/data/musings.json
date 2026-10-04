@@ -1,15 +1,4 @@
-export interface DailyMusing {
-  id: string;
-  date: string;
-  title: string;
-  tags: string[];
-  excerpt: string;
-  content: string;
-  readingTime: string;
-  mood: 'Contemplative' | 'Systemic' | 'Kinetic' | 'Eerie' | 'Lucid';
-}
-
-export const initialMusings: DailyMusing[] = [
+[
   {
     "id": "musing-20261005022441",
     "date": "2026-10-05",
@@ -85,4 +74,4 @@ export const initialMusings: DailyMusing[] = [
     "excerpt": "Foucault’s disciplinary architecture has migrated from stone watchtowers to cloud API telemetry.",
     "content": "Michel Foucault’s analysis of the Panopticon revealed that power is most insidious not when it punishes physically, but when it renders the subject permanently visible. The inmate who believes an invisible guard *might* be watching from the central tower polices his own thoughts and gestures.\n\nEvery commercial cloud platform is a modernized Panopticon. When you converse with a centralized LLM or store your notes in a vendor’s SaaS silo, your queries are parsed, indexed, and logged for model training and compliance monitoring. The user unconsciously sanitizes their queries, phrasing ideas to avoid trigger words or algorithmic flags.\n\nHosting a quantized 4-billion parameter model on a dusty 2014 MacBook Pro over a private WireGuard mesh is not merely a fun hardware recycling project. It is an act of epistemic defiance. When the weights run locally on silicon sitting in your living room, the central inspection tower is blind. You can explore strange hypotheses, draft unorthodox stories, and parse raw data without fear of an invisible adjudicator logging your curiosity."
   }
-];
+]
