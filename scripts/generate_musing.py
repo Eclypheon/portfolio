@@ -299,26 +299,36 @@ def synthesize_with_qwen(model_id: str, articles: list[dict]) -> dict:
     
     return sanitize_json_response(full_text)
 
-def synthesize_fallback_digest(articles: list[dict]) -> dict:
+def synthesize_fallback_digest(articles: list[dict], existing_musings: list[dict] = None) -> dict:
     """
     Algorithmic fallback synthesizer used if LM Studio is offline or in cloud CI.
-    Generates a structured, high-signal geospatial briefing directly from scraped intelligence.
+    Generates a structured, high-signal geospatial briefing directly from scraped intelligence,
+    ensuring dynamic titles derived from actual stories to prevent static duplicates.
     """
     print("[Fallback Engine] Synthesizing structured geospatial intelligence dispatch...")
     
-    sg_articles = [a for a in articles if any(k in a['title'].lower() for k in ['singapore', 'sla', 'onemap', 'geoworks', 'asean', 'southeast asia', 'boustead'])]
-    esri_articles = [a for a in articles if any(k in a['title'].lower() for k in ['arcgis', 'esri'])]
-    other_articles = [a for a in articles if a not in sg_articles and a not in esri_articles]
+    existing_titles_text = " ".join([m.get("title", "") for m in (existing_musings or [])]).lower()
     
-    # Determine title focus
-    if sg_articles and esri_articles:
-        title = f"Geospatial Dispatch: Southeast Asian Infrastructure Initiatives & Modern ArcGIS Workflows"
-    elif sg_articles:
-        title = f"Geospatial Dispatch: Singapore & ASEAN Spatial Intelligence Advances"
-    elif esri_articles:
-        title = f"Geospatial Dispatch: ESRI ArcGIS Ecosystem & Spatial Analytics Developments"
-    else:
-        title = f"Geospatial Dispatch: Earth Observation & Spatial AI Convergence"
+    # Filter articles whose primary keywords are already in active musings
+    fresh_articles = []
+    for a in articles:
+        clean_words = [w.lower() for w in re.sub(r"[^a-zA-Z0-9\s]", "", a["title"]).split() if len(w) > 4]
+        if clean_words and all(w in existing_titles_text for w in clean_words[:2]):
+            continue
+        fresh_articles.append(a)
+        
+    candidate_pool = fresh_articles if fresh_articles else articles
+    
+    sg_articles = [a for a in candidate_pool if any(k in a['title'].lower() for k in ['singapore', 'sla', 'onemap', 'geoworks', 'asean', 'southeast asia', 'boustead'])]
+    esri_articles = [a for a in candidate_pool if any(k in a['title'].lower() for k in ['arcgis', 'esri'])]
+    other_articles = [a for a in candidate_pool if a not in sg_articles and a not in esri_articles]
+    
+    # Pick lead article dynamically
+    lead_article = sg_articles[0] if sg_articles else (esri_articles[0] if esri_articles else candidate_pool[0])
+    raw_lead_title = re.sub(r"\s+-\s+.*$", "", lead_article["title"]).strip()
+    clean_lead_title = re.sub(r"[^\w\s\-,:]", "", raw_lead_title)[:65]
+    
+    title = f"Geospatial Brief: {clean_lead_title}"
         
     tags = ["#geospatial", "#gis", "#spatial-intelligence"]
     if sg_articles:
@@ -327,22 +337,21 @@ def synthesize_fallback_digest(articles: list[dict]) -> dict:
         tags.append("#arcgis")
     tags.append("#geoai")
     
-    p1 = "Today's geospatial landscape reflects accelerated convergence across regional spatial data infrastructures and spatial analytics platforms."
+    p1 = f"Today's geospatial intelligence landscape highlights significant regional momentum led by: '{lead_article['title']}'."
     if sg_articles:
-        top_sg = sg_articles[0]
-        p1 += f" Within Southeast Asia, spotlight developments include {top_sg['title']}, underscoring the region's commitment to high-precision digital twins, national spatial mapping frameworks, and cross-sector geospatial enablement spearheaded by entities like the Singapore Land Authority (SLA) and academic institutions."
+        p1 += f" Within Singapore and the broader Southeast Asian corridor, initiatives spearheaded by government agencies like the Singapore Land Authority (SLA), academic research institutes, and regional consortiums demonstrate expanding commitment to high-precision 3D cadastre modeling, autonomous positioning frameworks, and scalable geospatial infrastructure."
         
-    p2 = "On the platform and tooling frontier,"
+    p2 = "On the analytics and enterprise platform frontier,"
     if esri_articles:
         top_esri = esri_articles[0]
-        p2 += f" ESRI's recent focus on {top_esri['title']} demonstrates how enterprise GIS is metabolizing foundation models and automated GeoAI routines. Moving beyond static 2D vector layers, modern spatial pipelines require real-time feature extraction, automated imagery classification, and seamless cloud integration across ArcGIS Pro and Enterprise deployments."
+        p2 += f" ESRI's focus on '{top_esri['title']}' underscores the rapid operationalization of GeoAI and foundation models across ArcGIS Pro and Enterprise deployments. Spatial analysts are moving beyond traditional static cartography to automated feature extraction, continuous raster classification, and real-time cloud data pipelines."
     else:
-        p2 += " cloud-native geospatial architectures, STAC catalogs, and satellite constellation telemetry are redefining how spatial data is ingested. Engineers are increasingly expected to combine traditional cartographic rigor with machine learning workflows."
+        p2 += " cloud-native geospatial architectures, satellite constellation telemetry, and automated machine learning pipelines are converging to redefine spatial data ingestion and continuous feature extraction."
         
-    p3 = "For geospatial engineers and decision-makers, the critical imperative is interoperability. As national visual positioning systems, high-cadence satellite constellations, and GeoAI models intersect, maintaining clean spatial data governance and reproducible geoprocessing workflows remains the cornerstone of resilient spatial intelligence."
+    p3 = "For geospatial practitioners, the operational imperative remains strict data governance and cross-platform interoperability. Integrating high-cadence Earth Observation telemetry with enterprise GIS databases requires consistent coordinate reference transformations, robust metadata standards, and auditable geoprocessing pipelines."
     
     content = f"{p1}\n\n{p2}\n\n{p3}"
-    excerpt = "Today's geospatial intelligence briefing covers regional spatial infrastructure milestones across Singapore and Southeast Asia, alongside emerging ArcGIS enterprise spatial patterns."
+    excerpt = f"Executive briefing covering {clean_lead_title} alongside emerging spatial analytics and regional geospatial developments."
     
     return {
         "title": title,
@@ -352,6 +361,30 @@ def synthesize_fallback_digest(articles: list[dict]) -> dict:
         "excerpt": excerpt,
         "content": content
     }
+
+def is_duplicate_musing(new_entry: dict, existing_entries: list[dict]) -> tuple[bool, str]:
+    """
+    Checks whether new_entry duplicates any published musing by title or opening content.
+    Returns (is_duplicate, reason).
+    """
+    norm_new_title = re.sub(r"[^a-zA-Z0-9]", "", new_entry.get("title", "").lower())
+    norm_new_content = re.sub(r"[^a-zA-Z0-9]", "", new_entry.get("content", "")[:120].lower())
+
+    for ex in existing_entries:
+        norm_ex_title = re.sub(r"[^a-zA-Z0-9]", "", ex.get("title", "").lower())
+        norm_ex_content = re.sub(r"[^a-zA-Z0-9]", "", ex.get("content", "")[:120].lower())
+
+        if norm_new_title and norm_new_title == norm_ex_title:
+            return True, f"Identical title matching '{ex.get('title')}'"
+
+        if len(norm_new_title) > 20 and len(norm_ex_title) > 20:
+            if norm_new_title in norm_ex_title or norm_ex_title in norm_new_title:
+                return True, f"Substantially similar title matching '{ex.get('title')}'"
+
+        if norm_new_content and len(norm_new_content) > 40 and norm_new_content == norm_ex_content:
+            return True, f"Identical opening prose matching '{ex.get('title')}'"
+
+    return False, ""
 
 def load_existing_musings() -> list[dict]:
     """Loads existing musings from JSON or parses TypeScript fallback."""
@@ -420,6 +453,8 @@ def main():
     
     print(f"=== Autonomous Nightly Geospatial Briefing ({now_sgt.strftime('%Y-%m-%d %H:%M:%S SGT')}) ===")
     
+    existing = load_existing_musings()
+    
     # 1. Scrape and prioritize top geospatial stories
     articles = harvest_geospatial_intelligence()
     if not articles:
@@ -433,9 +468,9 @@ def main():
             entry_data = synthesize_with_qwen(model_id, articles)
         except Exception as e:
             print(f"[Warn] Qwen synthesis encountered an issue ({e}). Engaging fallback engine...")
-            entry_data = synthesize_fallback_digest(articles)
+            entry_data = synthesize_fallback_digest(articles, existing_musings=existing)
     else:
-        entry_data = synthesize_fallback_digest(articles)
+        entry_data = synthesize_fallback_digest(articles, existing_musings=existing)
         
     entry = {
         "id": entry_id,
@@ -448,11 +483,18 @@ def main():
         "content": entry_data["content"]
     }
     
+    # 3. Deduplication check against published archive
+    is_dup, reason = is_duplicate_musing(entry, existing)
+    if is_dup:
+        print(f"[Deduplication] Prevented duplicate publish: {reason}.")
+        print("[Deduplication] Current archive remains unchanged.")
+        print("=== Run Completed (No Duplicate Published) ===")
+        return
+    
     print(f"[Result] Generated: '{entry['title']}' ({entry['date']})")
     print(f"[Excerpt] {entry['excerpt']}")
     
-    # 3. Housekeeping and storage
-    existing = load_existing_musings()
+    # 4. Housekeeping and storage
     combined = [entry] + existing
     kept, pruned = prune_old_musings(combined, max_posts=MAX_POSTS)
     

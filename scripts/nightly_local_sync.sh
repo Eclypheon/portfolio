@@ -11,6 +11,9 @@ cd "$PROJECT_DIR"
 
 echo "=== [$(date '+%Y-%m-%d %H:%M:%S')] Starting Local Geospatial Intelligence Briefing Run ==="
 
+# 0. Sync local branch with remote before running
+git pull --rebase origin main || true
+
 # 1. Execute generation script
 python3 scripts/generate_musing.py
 
@@ -24,8 +27,12 @@ fi
 git add src/data/musingsData.ts src/data/musings.json
 git commit -m "chore(musings): nightly geospatial intelligence brief synthesized by Qwen (LM Studio)"
 
-# 4. Pull rebase and push
-git pull --rebase origin main || true
+# 4. Pull rebase safely and push
+if ! git pull --rebase origin main; then
+    echo "[Git] Rebase conflict encountered. Aborting rebase to preserve clean state."
+    git rebase --abort || true
+    exit 1
+fi
 git push origin main
 
 echo "=== [$(date '+%Y-%m-%d %H:%M:%S')] Local Geospatial Run & Push Completed Successfully ==="

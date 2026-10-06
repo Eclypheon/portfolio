@@ -1,9 +1,8 @@
 name: Autonomous Nightly Musing Generation
 
 on:
-  schedule:
-    # Runs nightly at 19:30 UTC (03:30 SGT)
-    - cron: '30 19 * * *'
+  # Nightly generation is handled autonomously by your Mac's launchd daemon with local Qwen (LM Studio).
+  # Workflow dispatch is preserved for manual testing.
   workflow_dispatch:
 
 permissions:
