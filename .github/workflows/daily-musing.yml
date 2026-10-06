@@ -1,8 +1,9 @@
 name: Autonomous Nightly Musing Generation
 
 on:
-  # Nightly generation is handled autonomously by your Mac's launchd daemon with local Qwen (LM Studio).
-  # Workflow dispatch is preserved for manual testing.
+  schedule:
+    # Runs nightly at 19:30 UTC (03:30 SGT)
+    - cron: '30 19 * * *'
   workflow_dispatch:
 
 permissions:
@@ -27,12 +28,20 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Connect to Tailscale Mesh
+        if: ${{ secrets.TAILSCALE_AUTHKEY != '' }}
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Run Musing Synthesis & Housekeeping Script
+        env:
+          LM_STUDIO_URL: http://100.82.24.65:1234/v1
         run: python3 scripts/generate_musing.py
 
       - name: Commit and Push Updated Musings
