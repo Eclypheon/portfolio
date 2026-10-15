@@ -197,21 +197,36 @@ def sanitize_json_response(raw_text: str) -> dict:
     cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"```\s*$", "", cleaned, flags=re.MULTILINE).strip()
     
+    parsed = None
     # Direct JSON parse attempt
     try:
-        return json.loads(cleaned)
+        parsed = json.loads(cleaned)
     except Exception:
         pass
         
-    # Attempt to locate outer { ... }
-    m = re.search(r"(\{.*\})", cleaned, re.DOTALL)
-    if m:
-        try:
-            return json.loads(m.group(1))
-        except Exception:
-            pass
+    if not parsed:
+        # Attempt to locate outer { ... }
+        m = re.search(r"(\{.*\})", cleaned, re.DOTALL)
+        if m:
+            try:
+                parsed = json.loads(m.group(1))
+            except Exception:
+                pass
 
-    # Regex heuristic extraction
+    if isinstance(parsed, dict) and "content" in parsed and "title" in parsed:
+        content_val = str(parsed.get("content", "")).strip()
+        # Verify content isn't raw JSON text or leaked fields
+        if not content_val.startswith("{") and '"tags"' not in content_val:
+            return {
+                "title": str(parsed.get("title", "")).strip(),
+                "tags": parsed.get("tags") if isinstance(parsed.get("tags"), list) else ["#geospatial", "#singapore", "#arcgis", "#geoai"],
+                "readingTime": str(parsed.get("readingTime", "3 min read")),
+                "mood": str(parsed.get("mood", "Systemic")),
+                "excerpt": str(parsed.get("excerpt", "")).strip(),
+                "content": content_val
+            }
+
+    # Regex heuristic extraction if full JSON parsing failed
     title_m = re.search(r'"title"\s*:\s*"(.*?)"', cleaned, re.DOTALL)
     excerpt_m = re.search(r'"excerpt"\s*:\s*"(.*?)"', cleaned, re.DOTALL)
     content_m = re.search(r'"content"\s*:\s*"(.*?)"', cleaned, re.DOTALL)
@@ -220,7 +235,22 @@ def sanitize_json_response(raw_text: str) -> dict:
 
     title = title_m.group(1).strip() if title_m else "Geospatial Intelligence Dispatch: Convergence of Spatial AI & Regional Infrastructure"
     excerpt = excerpt_m.group(1).strip() if excerpt_m else "Key shifts in Southeast Asian geospatial initiatives, ESRI ArcGIS workflows, and Earth Observation."
-    content = content_m.group(1).strip() if content_m else cleaned[:800]
+    
+    content = ""
+    if content_m:
+        content = content_m.group(1).strip()
+    else:
+        # Check if content was started but truncated before closing quote
+        trunc_m = re.search(r'"content"\s*:\s*"(.*)', cleaned, re.DOTALL)
+        if trunc_m:
+            partial = trunc_m.group(1).strip()
+            partial = re.sub(r'["\\]+$', '', partial).strip()
+            content = partial.replace(r'\"', '"').replace(r'\n', '\n')
+
+    # Guard: Never allow content to be raw JSON or contain leaked tags/title
+    if content.startswith("{") or '"tags"' in content or '"title"' in content:
+        content = ""
+
     mood = mood_m.group(1) if mood_m else "Systemic"
     tags = tags_m if tags_m else ["#geospatial", "#singapore", "#arcgis", "#geoai"]
 
@@ -268,7 +298,7 @@ def synthesize_with_qwen(model_id: str, articles: list[dict]) -> dict:
             {"role": "user", "content": user_prompt}
         ],
         "temperature": 0.6,
-        "max_tokens": 550,
+        "max_tokens": 1200,
         "stream": True
     }
     
@@ -297,7 +327,12 @@ def synthesize_with_qwen(model_id: str, articles: list[dict]) -> dict:
     full_text = "".join(chunks)
     print(f"\n[Qwen Engine] Generation completed in {elapsed:.1f}s.")
     
-    return sanitize_json_response(full_text)
+    entry_data = sanitize_json_response(full_text)
+    content_val = entry_data.get("content", "").strip()
+    if not content_val or len(content_val) < 150 or content_val.startswith("{") or '"tags"' in content_val:
+        raise ValueError(f"Qwen produced truncated or malformed content ({len(content_val)} chars).")
+        
+    return entry_data
 
 def synthesize_fallback_digest(articles: list[dict], existing_musings: list[dict] = None) -> dict:
     """
