@@ -89,9 +89,9 @@ export const fullStackServices: StackService[] = [
   },
   {
     name: 'Jellyfin',
-    purpose: 'Private high-fidelity media streaming (Public node shut down; access strictly via Tailscale upon personal request)',
+    purpose: 'Private high-fidelity media streaming (LAN & Tailscale mesh; public internet funnel shut down)',
     port: '8096',
-    state: 'Tailnet Only',
+    state: 'Running',
     category: 'Media & Streaming'
   },
   {
