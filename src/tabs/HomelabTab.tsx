@@ -388,6 +388,7 @@ WantedBy=default.target`;
                 {filteredStack.map((item, idx) => {
                   const isRunning = item.state === 'Running';
                   const isInstalled = item.state === 'Installed';
+                  const isTailnetOnly = item.state === 'Tailnet Only';
 
                   return (
                     <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
@@ -407,11 +408,13 @@ WantedBy=default.target`;
                         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] ${
                           isRunning
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                            : isTailnetOnly
+                            ? 'bg-purple-500/10 text-purple-300 border border-purple-500/30'
                             : isInstalled
                             ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
                             : 'bg-slate-800 text-slate-400 border border-slate-700'
                         }`}>
-                          <span>{isRunning || isInstalled ? '🟢' : '⚫'}</span>
+                          <span>{isRunning ? '🟢' : isTailnetOnly ? '🟣' : isInstalled ? '🟢' : '⚫'}</span>
                           <span>{item.state}</span>
                         </span>
                       </td>
@@ -432,14 +435,14 @@ WantedBy=default.target`;
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-400 text-xs font-mono">
               <Film className="w-3.5 h-3.5" />
-              <span>PRIVATE STREAMING NODE // JELLYFIN 4K HUB</span>
+              <span>PRIVATE STREAMING NODE // TAILSCALE ONLY</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              Jellyfin Streaming Server & Guest Access
+              Jellyfin Streaming Server (Public Node Shut Down)
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
               Decentralized, hardware-accelerated media streaming running rootless under systemd Quadlet. 
-              Indexes a personal library of 193 movies, 20 shows, and 47 anime series with Shoko metadata synthesis.
+              Public ingress and automated web requests are shut down; access is now strictly granted via Tailscale mesh upon personal request.
             </p>
           </div>
 
@@ -447,11 +450,13 @@ WantedBy=default.target`;
             <button
               onClick={openJellyfinAccessPortal}
               className="px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-200 text-xs font-mono font-semibold flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)] group cursor-pointer"
-              title="Request to Join Jellyfin Server"
+              title="Request Jellyfin Access via Tailscale"
             >
               <Film className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-              <span>Request to Join Jellyfin Server</span>
-              <ExternalLink className="w-3.5 h-3.5 text-purple-300/70 group-hover:translate-x-0.5 transition-transform" />
+              <span>Request Tailscale Access</span>
+              <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/30">
+                Tailnet Only
+              </span>
             </button>
           </div>
         </div>
@@ -476,7 +481,7 @@ WantedBy=default.target`;
           <div className="p-3.5 rounded-xl bg-black/50 border border-white/5 space-y-1">
             <div className="text-slate-500 text-[10px] tracking-wider uppercase font-semibold">Network Security</div>
             <div className="text-emerald-400 font-bold text-sm">Tailscale Encrypted</div>
-            <p className="text-[10px] text-slate-400">No Open WAN Ports</p>
+            <p className="text-[10px] text-slate-400">Zero Open WAN / Funnel Ports</p>
           </div>
         </div>
       </div>

@@ -118,12 +118,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigate }) => {
               <button
                 onClick={openJellyfinAccessPortal}
                 className="px-3.5 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:text-purple-200 text-xs font-mono flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(168,85,247,0.15)] group cursor-pointer"
-                title="Request to Join Jellyfin Server"
+                title="Jellyfin Server Access (Public Node Shut Down — Tailscale Only)"
               >
                 <Film className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span>Join Jellyfin</span>
+                <span>Jellyfin</span>
                 <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/30">
-                  Request
+                  Tailscale Only
                 </span>
               </button>
             </div>

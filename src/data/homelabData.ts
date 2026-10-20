@@ -2,7 +2,7 @@ export interface StackService {
   name: string;
   purpose: string;
   port: string;
-  state: 'Running' | 'Installed' | 'Stopped intentionally';
+  state: 'Running' | 'Installed' | 'Stopped intentionally' | 'Tailnet Only';
   category: 'Media & Streaming' | 'Photo Backup' | 'Network & Security' | 'AI & Automation' | 'Monitoring';
 }
 
@@ -89,9 +89,9 @@ export const fullStackServices: StackService[] = [
   },
   {
     name: 'Jellyfin',
-    purpose: 'Private high-fidelity media streaming to devices & friends',
+    purpose: 'Private high-fidelity media streaming (Public node shut down; access strictly via Tailscale upon personal request)',
     port: '8096',
-    state: 'Running',
+    state: 'Tailnet Only',
     category: 'Media & Streaming'
   },
   {
